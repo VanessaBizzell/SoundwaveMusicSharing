@@ -1,0 +1,24 @@
+<section class="" name="post card">
+  <!-- What is title going to be?  Date posted? Username?-->
+  <h1 class="text-rose-900">Card Title</h1>
+  <!-- Replace with info from user input box -->
+  <p class="text-rose-900">User text status blurb</p>
+  <div name="music image and play bg-img" class="w-7/8">
+    <img src="" alt="music image" class="w-full" />
+    <!-- make this floating over image and an icon - or controls under image? -->
+    <button class="bg-rose-900 text-white">Play</button>
+  </div>
+  <section name="music details" class="w-7/8">
+    <h2 class="text-rose-800">Music Title</h2>
+    <h3 class="text-rose-900">Artist</h3>
+    <a href="#" class="text-rose-700">Music link with description of source</a>
+  </section>
+  <section name="comments form" class="">
+    <form [formGroup]="comments" (submit)="submitComment()">
+      <label for="Write a Comment">Write a Comment</label>
+      <input id="comment" type="text" formControlName="comment" />
+
+      <button type="submit" class="primary">Send</button>
+    </form>
+  </section>
+</section>
