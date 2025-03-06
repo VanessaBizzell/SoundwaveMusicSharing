@@ -1,3 +1,9 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { FeedComponent } from './feed/feed.component';
+import { ProfileComponent } from './profile/profile.component';
+
+export const routes: Routes = [
+    { path: 'feed', component: FeedComponent },
+    { path: 'profile', component: ProfileComponent }
+];

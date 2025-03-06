@@ -1,0 +1,32 @@
+
+<!-- DESKTOP NAV -->
+<nav
+    class="flex max-sm:justify-start sm:justify-end items-center px-8 bg-[#9d0007] text-white font-semibold"
+    [ngStyle]="{'height': navbarHeight + 'px'}"
+>
+    <li 
+        *ngFor="let item of getItems()"
+        class="max-sm:hidden inline mx-4"
+    >
+        <a routerLink='/'>{{item}}</a>
+    </li>
+
+    <button
+        class="sm:hidden" (click)="isShowDropMenu=!isShowDropMenu"
+    >
+        #
+    </button>
+
+</nav>
+
+<!-- MOBILE NAV -->
+<nav class='sm:hidden inline-block bg-black/90 p-8 text-white w-[80vw] absolute'
+    [ngStyle]="{'height': 'calc(100vh - ' + this.navbarHeight + 'px)'}"
+        *ngIf="isShowDropMenu">
+    <li 
+    *ngFor="let item of getItems()"
+    class="block my-4"
+    >
+        {{item}}
+    </li>
+ </nav>
