@@ -1,1 +1,5 @@
 <p>feed works!</p>
+<section class="results">
+  <!-- iterates over the filteredLocationList array and passes each homeLocation object to the HomeLocationComponent -->
+  <app-home-location *ngFor="let homeLocation of filteredLocationList" [homeLocation]="homeLocation"></app-home-location>
+</section>
