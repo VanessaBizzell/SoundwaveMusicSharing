@@ -20,7 +20,7 @@ export class NavbarComponent {
 
   getItems(): String[] {
     return this.isLoggedIn ? 
-      ['Feed', 'Library', 'Profile'] :
+      ['Feed', 'Library', 'Profile', 'Logout'] :
       ['Login', 'Signup']
   }
 
