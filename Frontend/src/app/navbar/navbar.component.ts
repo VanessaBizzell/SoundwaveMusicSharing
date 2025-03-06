@@ -6,7 +6,7 @@ import '../app.routes'
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -20,8 +20,8 @@ export class NavbarComponent {
 
   getItems(): String[] {
     return this.isLoggedIn ? 
-      ["Feed", "Library", "Profile"] :
-      ["Login", "Signup"]
+      ['Feed', 'Library', 'Profile'] :
+      ['Login', 'Signup']
   }
 
 }
