@@ -3,21 +3,28 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PostcardComponent } from '../postcard/postcard.component';
 import { MusicService } from '../musicServiceandData/music.service';
+import { Music } from '../musicServiceandData/music';
 
 @Component({
   selector: 'app-feed',
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, PostcardComponent],
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.css'
 })
 export class FeedComponent {
-  musicList: Music[] = [];
+  
+  //music array from music interface which is where the music data properties are defined
+  musicFeed: Music[]= [];
+  
+  //injects music service (this is where the API call is made to retrieve the music data from the DB)
   musicService: MusicService = inject(MusicService);
 
-  constructor(private musicService: MusicService) { 
-  this.musicService.getAllMusic().then((musicList) => {
-    this.homeLocationList = homeLocationList;
-    this.filteredLocationList = homeLocationList; // Initialize filteredLocationList
-  });
-
+  //constructor to call the getMusic method from the music service
+  constructor(){
+    this.musicService.getAllMusic().then((musicFeed) => {
+      this.musicFeed = musicFeed;
+      console.log(JSON.stringify(musicFeed));
+    });
+  }
+ 
 }
