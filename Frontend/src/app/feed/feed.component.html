@@ -1,5 +1,6 @@
 <p>feed works!</p>
-<section class="results">
-  <!-- iterates over the filteredLocationList array and passes each homeLocation object to the HomeLocationComponent -->
-  <app-home-location *ngFor="let homeLocation of filteredLocationList" [homeLocation]="homeLocation"></app-home-location>
+<section name="music feed grid display" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+     <!-- iterates over the musicFeed array and assigns each item to the music variable.
+      Then binds each music variable to the music input property of PostcardComponent -->
+<app-postcard *ngFor="let music of musicFeed" [music]="music" ></app-postcard>
 </section>

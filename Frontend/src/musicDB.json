@@ -27,6 +27,62 @@
         "availableForSale": true,
         "price": "9.99",
         "comment": "This is a comment"
-      }
+      },
+      {
+        "id": 2,
+        "trackName": "Mississippi Boweavil Blues",
+        "trackLink": "/assets/music/MississippiBoweavilBluesbyTheMaskedMarvel.mp3",
+        "artist": "The Masked Marvel",
+        "album": "Noise",
+        "recordedDate": "14/6/1929",
+        "coverArt": "/assets/images/cover-art/TheMaskedmarvel.jpg",
+        "sourcedFrom": "soundcloud",
+        "genre": "Blues",
+        "availableForSale": false,
+        "price": "0.00",
+        "comment": "This is a comment"
+      },
+      {
+          "id": 3,
+          "trackName": "Bob's Song",
+          "trackLink": "/assets/music/MississippiBoweavilBluesbyTheMaskedMarvel.mp3",
+          "artist": "Bob Bobbington",
+          "album": "Noise",
+          "recordedDate": "21/10/2009",
+          "coverArt": "/assets/images/cover-art/BobBobbington.jpg",
+          "sourcedFrom": "soundcloud",
+          "genre": "rock",
+          "availableForSale": true,
+          "price": "9.99",
+          "comment": "This is a comment"
+        },
+        {
+          "id": 4,
+          "trackName": "Mississippi Boweavil Blues",
+          "trackLink": "/assets/music/MississippiBoweavilBluesbyTheMaskedMarvel.mp3",
+          "artist": "The Masked Marvel",
+          "album": "Noise",
+          "recordedDate": "14/6/1929",
+          "coverArt": "/assets/images/cover-art/TheMaskedmarvel.jpg",
+          "sourcedFrom": "soundcloud",
+          "genre": "Blues",
+          "availableForSale": false,
+          "price": "0.00",
+          "comment": "This is a comment"
+        },
+        {
+            "id": 5,
+            "trackName": "Bob's Song",
+            "trackLink": "/assets/music/MississippiBoweavilBluesbyTheMaskedMarvel.mp3",
+            "artist": "Bob Bobbington",
+            "album": "Noise",
+            "recordedDate": "21/10/2009",
+            "coverArt": "/assets/images/cover-art/BobBobbington.jpg",
+            "sourcedFrom": "soundcloud",
+            "genre": "rock",
+            "availableForSale": true,
+            "price": "9.99",
+            "comment": "This is a comment"
+          }
   ]
 }
