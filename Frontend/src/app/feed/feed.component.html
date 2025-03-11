@@ -3,4 +3,7 @@
      <!-- iterates over the musicFeed array and assigns each item to the music variable.
       Then binds each music variable to the music input property of PostcardComponent -->
 <app-postcard *ngFor="let music of musicFeed" [music]="music" ></app-postcard>
+<!-- masonry grid layout - get card to automaticallybe placed in the next available column and fill the space.
+Fill rest of grid spaces with a selction of colours picked randomly from a predefined array.
+Shorten cards with ellipses and/or see more link - either expand in place over grid (float over grid with shadowed background) or click through to detailed view -->
 </section>

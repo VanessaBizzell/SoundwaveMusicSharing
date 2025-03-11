@@ -6,7 +6,10 @@ import { Music } from './music';
   providedIn: 'root'
 })
 export class MusicService {
-  url = 'http://localhost:3000/music';
+    // to use musicDB.json API (remember to start json server first: json-server --watch musicDB.json)
+  // url = 'http://localhost:3000/music';
+  // to use musicAPI (remember to start backend server first: npm run dev)
+  url = 'http://localhost:3001/api/music';
 
   constructor() { }
 
@@ -17,9 +20,15 @@ export class MusicService {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      return await response.json();
+      const data = await response.json();
+      // console.log('Raw data retrieved from API:', data);
+      //extract the musicPosts array from the data object
+      if (!Array.isArray(data.musicPosts)) {
+        throw new Error('Data retrieved is not an array!');
+      }
+      return data.musicPosts;
     } catch (error) {
-      console.error('An error occurred while fetching all music:', error);
+      console.error('An error occurred while fetching all music posts:', error);
       return [];
     }
   }
@@ -32,7 +41,7 @@ export class MusicService {
       }
       return await response.json();
     } catch (error) {
-      console.error(`An error occurred while fetching music with id ${id}:`, error);
+      console.error(`An error occurred while fetching music post with id ${id}:`, error);
       return undefined;
     }
   }
