@@ -1,12 +1,22 @@
 import express, { Express, Request, Response, NextFunction} from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cors from "cors"; //imports cors middleware
 import router from "../router";
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
+
+// //Enables CORS for a specific origin
+// const corsOPtions = {
+//   origin: "http://localhost:4200",
+//   optionSuccessStatus: 200 //to avoid issues with legacy browsers
+// }
+
+//Enable All CORS Requests
+app.use(cors());
 
 // Middleware to parse JSON bodies
 app.use(express.json());

@@ -1,6 +1,6 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
-//Mongoose w infer types from the schema so we don't need to define types in an interface
+//Mongoose will infer types from the schema so we don't need to define types in an interface
 //The schema is a blueprint for the data model
 const musicSchema = new Schema(
   {
@@ -61,6 +61,6 @@ const musicSchema = new Schema(
 // Create a model from the schema and exports it
 // The model is used to perform CRUD operations on the database
 // The model is a class with which we construct documents
-const Music = model("Music", musicSchema);
+const MusicPost =model("MusicPost", musicSchema);
 
-export default Music;
+export default MusicPost;
