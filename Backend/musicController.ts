@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import createError from 'http-errors';
 import MusicPost from './src/schemas/Music'
-import User from './src/schemas/user';
+import User from './src/schemas/User';
 
 // Create a new music post
 const createMusicPost = async (req: Request, res: Response, next: NextFunction) => {

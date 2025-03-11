@@ -20,11 +20,16 @@ export class FeedComponent {
   musicService: MusicService = inject(MusicService);
 
   //constructor to call the getMusic method from the music service
-  constructor(){
+  constructor() {
     this.musicService.getAllMusic().then((musicFeed) => {
+      if (Array.isArray(musicFeed)) {
       this.musicFeed = musicFeed;
-      console.log(JSON.stringify(musicFeed));
-    });
+      } else {
+        console.error('Data retrieved is not an array!', musicFeed);
+      }
+    }).catch(error => {
+      console.error('An error occurred while fetching music feed:', error);
+  });
   }
  
 }
