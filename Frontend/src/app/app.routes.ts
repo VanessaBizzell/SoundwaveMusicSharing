@@ -8,10 +8,10 @@ export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'feed', component: FeedComponent },
     { path: 'profile', component: ProfileComponent },
-    {
-        path: 'music/:id',
-        loadComponent: () => import('./postcard/postcard.component').then(m => m.PostcardComponent),
-        title: 'Music Details'
-     }
+    // {
+    //     path: 'music/:id',
+    //     loadComponent: () => import('./postcard/postcard.component').then(m => m.PostcardComponent),
+    //     title: 'Music Details'
+    //  }
 ]
 

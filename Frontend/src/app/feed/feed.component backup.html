@@ -6,7 +6,7 @@
     <div class="grid auto-cols-[200px] grid-flow-col  gap-6 ">
       <div
         *ngFor="let music of musicFeed"
-        class="rounded-full bg-gradient-to-b from-white to-[#ffe001] py-{{getPaddingValue()}}"
+        class="rounded-full bg-gradient-to-b from-white to-[#ffe001] py-20"
       >
         <div class="">
           <app-postcard [music]="music" class=" "></app-postcard>

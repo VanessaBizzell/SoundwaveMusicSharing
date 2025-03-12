@@ -1,14 +1,14 @@
-<section class="bg-white shadow-md rounded-lg p-6 mb-4 h-full w-full">
+<section class="p-4 w-full ">
   <!-- Card Title, Date posted, Username -->
-  <h1 class="text-2xl font-bold text-rose-900 mb-2">Card Title</h1>
+  <h1 class="text-md font-bold text-rose-900 mb-2">Username</h1>
   <!-- User thoughts or other blurb -->
-  <p class="text-gray-700 mb-4">User thoughts other blurb</p>
+  <!-- <p class="text-gray-700 mb-4 text-xs">User thoughts other blurb</p> -->
 
-  <div class="relative w-full mb-4">
+  <div class="relative w-full mb-2 ">
     <img
       src="{{ music.coverArt }}"
       alt="music image"
-      class="w-full object-cover rounded-lg"
+      class="w-full  sm:object-contain md:object-cover rounded-lg"
     />
     <!-- Floating play button over the image -->
     <button
@@ -18,32 +18,32 @@
     </button>
   </div>
 
-  <section name="music details" class="mb-4">
+  <section name="music details" class="mb-2">
     <!-- Interpolating the music data from the API -->
-    <h2 name="track name" class="text-xl font-semibold text-rose-800">
+    <h2 name="track name" class="text-sm font-semibold text-rose-800">
       {{ music.trackName }}
     </h2>
-    <h3 class="text-lg text-rose-900">{{ music.artist }}</h3>
+    <h3 class="text-xs text-rose-900">{{ music.artist }}</h3>
     <a
       href="{{ music.trackLink }}"
-      class="text-rose-700 underline hover:text-rose-500"
+      class="text-rose-700 underline hover:text-rose-500 text-xs"
       >Listen to the track</a
     >
-    <a
+    <!-- <a
       href="https://drive.google.com/file/d/1pHgI4S5exG4vkcR8qnLnSLdkAtQ82R_m/view?usp=drive_link"
       class="text-rose-700 underline hover:text-rose-500"
       >Listen to the track Drive test</a
-    >
+    > -->
 
-    <section name="comments display" class="mt-4">
-      <p class="text-rose-900 font-normal">{{ music.comment }}</p>
-
+    <section name="comments display" class=" line-clamp-2 overflow-ellipsis">
+      <p class="text-rose-900 text-xs">{{ music.comment }}</p>
+<!-- 
       <button
         type="submit"
         class="bg-rose-900 text-white py-2 px-4 rounded-md shadow hover:bg-rose-700"
       >
         See More...
-      </button>
+      </button> -->
     </section>
   </section>
 </section>
