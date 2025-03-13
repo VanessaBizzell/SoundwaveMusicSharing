@@ -1,14 +1,19 @@
 <div
   name="feed background"
-  class="bg-gradient-to-b from-[#ffe001] to-white pt-20 pb-10 overflow-x-scroll"
+  class="bg-gradient-to-b from-[#ffe001] to-white pt-15 pb-5 overflow-x-scroll"
 >
-  <section name="music feed grid display" class="">
-    <div class="grid auto-cols-[200px] grid-flow-col  gap-6 ">
+  <section name="music feed grid display" class=" ">
+    <div class="grid auto-cols-[160px] grid-flow-col  gap-6  ">
       <div
         *ngFor="let music of musicFeed"
-        class="rounded-full bg-gradient-to-b from-white to-[#ffe001] py-{{getPaddingValue()}}"
+        class="rounded-full bg-gradient-to-b from-white to-[#ffe001] flex  m-auto 
+        [&:nth-child(4n)]:h-150
+        [&:nth-child(3n)]:h-130
+         [&:nth-child(2n)]:h-115
+         [&:nth-child(1n)]:h-105"
+
       >
-        <div class="">
+        <div class="flex items-center justify-center m-auto">
           <app-postcard [music]="music" class=" "></app-postcard>
         </div>
       </div>

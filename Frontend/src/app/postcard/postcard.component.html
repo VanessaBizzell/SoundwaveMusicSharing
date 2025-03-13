@@ -1,6 +1,6 @@
-<section class="p-4 w-full ">
+<section class=" w-full ">
   <!-- Card Title, Date posted, Username -->
-  <h1 class="text-md font-bold text-rose-900 mb-2">Username</h1>
+  <h1 class="px-4 text-md font-bold text-rose-900 mb-2">Username</h1>
   <!-- User thoughts or other blurb -->
   <!-- <p class="text-gray-700 mb-4 text-xs">User thoughts other blurb</p> -->
 
@@ -8,7 +8,7 @@
     <img
       src="{{ music.coverArt }}"
       alt="music image"
-      class="w-full  sm:object-contain md:object-cover rounded-lg"
+      class="w-full aspect-square sm:object-contain md:object-cover"
     />
     <!-- Floating play button over the image -->
     <button
@@ -18,7 +18,7 @@
     </button>
   </div>
 
-  <section name="music details" class="mb-2">
+  <section name="music details" class="px-4 mb-2">
     <!-- Interpolating the music data from the API -->
     <h2 name="track name" class="text-sm font-semibold text-rose-800">
       {{ music.trackName }}
