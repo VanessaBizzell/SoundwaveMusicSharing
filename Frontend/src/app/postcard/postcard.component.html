@@ -1,49 +1,58 @@
-<section class=" w-full ">
+<section class="w-full">
   <!-- Card Title, Date posted, Username -->
-  <h1 class="px-4 text-md font-bold text-rose-900 mb-2">Username</h1>
-  <!-- User thoughts or other blurb -->
-  <!-- <p class="text-gray-700 mb-4 text-xs">User thoughts other blurb</p> -->
+  <section name="userdetails" class="flex justify-start pb-2 px-3 ">
+    <img src="../../assets/images/Avatar.svg" alt="user avatar" class="w-6" />
+    <h1 class="text-md font-semibold text-[#9d0007] pl-2 text-left">
+      Username
+    </h1>
+  </section>
+  <!-- <div class ="text-xs text-[#232330] text-center px-3 pb-2"> -->
+    <!-- <p>{{ user.status }}</p> -->
+    <!-- <p>{{music.createdAt}}</p> -->
+     <!-- <p>Date posted</p>
+    </div> -->
 
-  <div class="relative w-full mb-2 ">
-    <img
-      src="{{ music.coverArt }}"
-      alt="music image"
-      class="w-full aspect-square sm:object-contain md:object-cover"
-    />
-    <!-- Floating play button over the image -->
-    <button
-      class="absolute bottom-4 right-4 bg-rose-900 text-white py-2 px-4 rounded-full shadow-lg hover:bg-rose-700"
-    >
-      Play
-    </button>
-  </div>
+  <section name="music image and play button">
+    <div class="relative w-full mb-2">
+      <img
+        src="{{ music.coverArt }}"
+        alt="music image"
+        class="w-full aspect-square sm:object-contain md:object-cover mix-blend-multiply"
+      />
+      <!-- Floating play button over the image -->
+      <audio controls class="absolute inset-0 m-auto w-32 h-12">
+        <source src="{{ music.trackLink }}" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </section>
 
   <section name="music details" class="px-4 mb-2">
     <!-- Interpolating the music data from the API -->
-    <h2 name="track name" class="text-sm font-semibold text-rose-800">
+    <h2
+      name="track name"
+      class="text-sm font-semibold text-[#232330] line-clamp-1 "
+    >
       {{ music.trackName }}
     </h2>
-    <h3 class="text-xs text-rose-900">{{ music.artist }}</h3>
-    <a
-      href="{{ music.trackLink }}"
-      class="text-rose-700 underline hover:text-rose-500 text-xs"
-      >Listen to the track</a
-    >
+    <h3 class="text-xs text-[#9d0007] uppercase ">{{ music.artist }}</h3>
+
     <!-- <a
       href="https://drive.google.com/file/d/1pHgI4S5exG4vkcR8qnLnSLdkAtQ82R_m/view?usp=drive_link"
       class="text-rose-700 underline hover:text-rose-500"
       >Listen to the track Drive test</a
     > -->
 
-    <section name="comments display" class=" line-clamp-2 overflow-ellipsis">
-      <p class="text-rose-900 text-xs">{{ music.comment }}</p>
-<!-- 
+    <section name="comments display" class="">
+      <label for="comment" class="text-xs font-semibold text-[#232330]">Comments</label>
+      <p class="text-[#232330] text-xs line-clamp-2 pt-2 pb-4">{{ music.comment }}</p>
+
       <button
         type="submit"
-        class="bg-rose-900 text-white py-2 px-4 rounded-md shadow hover:bg-rose-700"
+        class="bg-rose-900 text-white text-xs  py-2 px-4 rounded-full shadow hover:bg-rose-700 flex mx-auto"
       >
         See More...
-      </button> -->
+      </button>
     </section>
   </section>
 </section>
