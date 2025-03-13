@@ -56,18 +56,31 @@ export class PostcardDetailsComponent implements OnInit {
   //This method ensures that the initialization logic runs at the appropriate time in the component's lifecycle
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      const musicId = Number(params.get('_id'));
-      if (isNaN(musicId)) {
-        console.error('Invalid music ID:', musicId);
+      // Use 'id' parameter name to match your route
+      const musicId = params.get('id');
+      console.log(params);
+      console.log('Music ID:', musicId);
+      
+      if (!musicId) {
+        console.error('Missing music ID');
         return;
       }
+      
       this.musicService.getMusicById(musicId).then((music) => {
-        this.music = music;
+        if (music) {
+          this.music = music
+            
+           const recordedDate = new Date(music.recordedDate);
+            const createdAt = new Date(music.createdAt);
+            const updatedAt = new Date(music.updatedAt);
+          };
+        
       }).catch((error) => {
         console.error('An error occurred while fetching music:', error);
       });
     });
   }
+   
 
   //Method to submit comment. This method is called when the user submits a comment.
   //?? = nullish coalescing operator. It returns the right-hand operand when the left-hand operand is null or undefined.

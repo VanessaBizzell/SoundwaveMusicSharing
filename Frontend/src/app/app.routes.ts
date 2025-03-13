@@ -9,7 +9,7 @@ export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'feed', component: FeedComponent },
     { path: 'profile', component: ProfileComponent },
-    { path: 'music/:_id', component: PostcardDetailsComponent },
+    { path: 'music/:id', component: PostcardDetailsComponent },
     // {
     //     path: 'music/:id',
     //     loadComponent: () => import('./postcard/postcard.component').then(m => m.PostcardComponent),

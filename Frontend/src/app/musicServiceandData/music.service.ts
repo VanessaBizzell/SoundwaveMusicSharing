@@ -33,13 +33,21 @@ export class MusicService {
     }
   }
 
-  async getMusicById(id: Number): Promise<Music | undefined> {
+
+  async getMusicById(id: string): Promise<Music | undefined> {
     try {
       const response = await fetch(`${this.url}/${id}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      return await response.json();
+      console.log(`Response status: ${response.status}`);
+      const data = await response.json();
+      
+      // Extract the musicPost object from the data
+      if (!data.musicPost) {
+        throw new Error('Music post not found in the response!');
+      }
+      return data.musicPost;
     } catch (error) {
       console.error(`An error occurred while fetching music post with id ${id}:`, error);
       return undefined;
