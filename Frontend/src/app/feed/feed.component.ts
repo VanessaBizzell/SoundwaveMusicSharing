@@ -43,13 +43,13 @@ export class FeedComponent {
   //   return columnNumbers;
   // }
 
-  getPaddingValue(): number {
-    const paddingValues = [150, 50, 200, 20,];
-    const height= paddingValues[Math.floor(Math.random() * paddingValues.length)];
-    console.log(height);
-    return height;
+  // getPaddingValue(): number {
+  //   const paddingValues = [150, 50, 200, 20,];
+  //   const height= paddingValues[Math.floor(Math.random() * paddingValues.length)];
+  //   console.log(height);
+  //   return height;
 
-  }
+  // }
 
  
 }
