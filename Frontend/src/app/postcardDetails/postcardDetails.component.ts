@@ -26,7 +26,7 @@ import {
 // }
 
 // do we want to add username or are comments anonymous?
-export class PostcardComponent implements OnInit {
+export class PostcardDetailsComponent implements OnInit {
   route: ActivatedRoute = inject(ActivatedRoute);
   musicService = inject(MusicService);
   music: Music | undefined;
@@ -56,9 +56,9 @@ export class PostcardComponent implements OnInit {
   //This method ensures that the initialization logic runs at the appropriate time in the component's lifecycle
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      const musicId = Number(params.get('id'));
+      const musicId = Number(params.get('_id'));
       if (isNaN(musicId)) {
-        console.error('Invalid music ID:', params.get('id'));
+        console.error('Invalid music ID:', musicId);
         return;
       }
       this.musicService.getMusicById(musicId).then((music) => {

@@ -51,11 +51,13 @@
       <p class="text-[#232330] text-xs line-clamp-2 pt-2 pb-4">{{ music.comment }}</p>
     </section>
       <button
-        type="submit"
+        [routerLink]="['/music', music._id]"
         class="bg-rose-900 text-white text-xs  py-2 px-4 rounded-full shadow hover:bg-rose-700 flex mx-auto"
       >
         See More...
       </button>
     
+     
+
   </section>
 </section>
