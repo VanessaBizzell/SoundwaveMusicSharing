@@ -1,13 +1,13 @@
 <div
   name="feed background"
-  class="bg-gradient-to-b from-[#ffe001] to-white pt-15 pb-5 overflow-x-scroll"
+  class="bg-gradient-to-b from-[#ffe001] to-white pt-15 pb-5 overflow-x-scroll scroll-smooth"
 >
   <section name="music feed grid display" class=" ">
     <div class="grid auto-cols-[160px] grid-flow-col  gap-6  ">
       <div
         *ngFor="let music of musicFeed"
-        class="rounded-full bg-gradient-to-b from-white to-[#ffe001] flex  m-auto 
-        [&:nth-child(4n)]:h-150
+        class="rounded-full bg-gradient-to-b from-white to-[#ffe001] shadow-1xl flex  m-auto 
+        [&:nth-child(4n)]:h-160
         [&:nth-child(3n)]:h-130
          [&:nth-child(2n)]:h-115
          [&:nth-child(1n)]:h-105"
