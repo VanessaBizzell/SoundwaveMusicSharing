@@ -20,6 +20,7 @@ export class LoginPageComponent {
     )
     .then(response => response.json())
     .then(data => {
+      console.log(data)
       this.token = data.token
       return data
   })
@@ -27,13 +28,18 @@ export class LoginPageComponent {
 
   }
 
-  async getResource(): Promise<Response> {
+  async getResource(): Promise<Response>  {
+    
     return await fetch('http://localhost:3001/api/page', {
       headers: {
         "authorization": `Bearer ${this.token}`
       }
     })
-    .then(response => response.json())
+    .then(response => {
+      console.log(response)
+      console.log(response.status, " ", response.statusText)
+      return response.json()
+  })
     .then(data => {
       console.log(data)
       return data
