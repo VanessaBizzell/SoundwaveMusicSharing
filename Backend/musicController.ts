@@ -70,4 +70,22 @@ const getMusicPosts = async (req: Request, res: Response, next: NextFunction) =>
     }
 };
 
-export { createMusicPost, getMusicPosts };
+
+const getMusicPostByID = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const musicPost = await MusicPost.findById(req.params.id).populate({
+            path: "postedBy",
+            select: "username", 
+            model: "User",
+        });
+        if (!musicPost) {
+            res.status(404).json({ message: "Music post not found" });
+            return;
+        }
+        res.status(200).json({ musicPost });
+    } catch (error) {
+        next(createError(400, "Music post could not be retrieved"));
+    }   
+};
+
+export { createMusicPost, getMusicPosts, getMusicPostByID };

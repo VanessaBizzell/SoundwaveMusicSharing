@@ -1,15 +1,18 @@
 export interface Music {
-    id: number,
+    _id: string,               
     trackName: string,
     trackLink: string,
     artist: string,
     album: string,
-    recordedDate: Date,
+    recordedDate: string,     
     coverArt: string,
     sourcedFrom: string,   
     genre: string,
     availableForSale: boolean,  
     price: number,
-    comment: string
-     
+    comment: string,
+    postedBy: any | null,      
+    createdAt: string,         
+    updatedAt: string,         
+    __v: number                
 }

@@ -1,0 +1,17 @@
+<div
+  name="feed background"
+  class="bg-gradient-to-b from-[#ffe001] to-white pt-20 pb-10 overflow-x-scroll"
+>
+  <section name="music feed grid display" class="">
+    <div class="grid auto-cols-[200px] grid-flow-col  gap-6 ">
+      <div
+        *ngFor="let music of musicFeed"
+        class="rounded-full bg-gradient-to-b from-white to-[#ffe001] py-20"
+      >
+        <div class="">
+          <app-postcard [music]="music" class=" "></app-postcard>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

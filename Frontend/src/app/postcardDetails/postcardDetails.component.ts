@@ -26,7 +26,7 @@ import {
 // }
 
 // do we want to add username or are comments anonymous?
-export class PostcardComponent implements OnInit {
+export class PostcardDetailsComponent implements OnInit {
   route: ActivatedRoute = inject(ActivatedRoute);
   musicService = inject(MusicService);
   music: Music | undefined;
@@ -56,18 +56,31 @@ export class PostcardComponent implements OnInit {
   //This method ensures that the initialization logic runs at the appropriate time in the component's lifecycle
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      const musicId = Number(params.get('id'));
-      if (isNaN(musicId)) {
-        console.error('Invalid music ID:', params.get('id'));
+      // Use 'id' parameter name to match your route
+      const musicId = params.get('id');
+      console.log(params);
+      console.log('Music ID:', musicId);
+      
+      if (!musicId) {
+        console.error('Missing music ID');
         return;
       }
+      
       this.musicService.getMusicById(musicId).then((music) => {
-        this.music = music;
+        if (music) {
+          this.music = music
+            
+           const recordedDate = new Date(music.recordedDate);
+            const createdAt = new Date(music.createdAt);
+            const updatedAt = new Date(music.updatedAt);
+          };
+        
       }).catch((error) => {
         console.error('An error occurred while fetching music:', error);
       });
     });
   }
+   
 
   //Method to submit comment. This method is called when the user submits a comment.
   //?? = nullish coalescing operator. It returns the right-hand operand when the left-hand operand is null or undefined.

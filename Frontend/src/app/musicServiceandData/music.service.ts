@@ -8,6 +8,7 @@ import { Music } from './music';
 export class MusicService {
     // to use musicDB.json API (remember to start json server first: json-server --watch musicDB.json)
   // url = 'http://localhost:3000/music';
+  
   // to use musicAPI (remember to start backend server first: npm run dev)
   url = 'http://localhost:3001/api/music';
 
@@ -21,7 +22,6 @@ export class MusicService {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      // console.log('Raw data retrieved from API:', data);
       //extract the musicPosts array from the data object
       if (!Array.isArray(data.musicPosts)) {
         throw new Error('Data retrieved is not an array!');
@@ -33,13 +33,21 @@ export class MusicService {
     }
   }
 
-  async getMusicById(id: Number): Promise<Music | undefined> {
+
+  async getMusicById(id: string): Promise<Music | undefined> {
     try {
       const response = await fetch(`${this.url}/${id}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      return await response.json();
+      console.log(`Response status: ${response.status}`);
+      const data = await response.json();
+      
+      // Extract the musicPost object from the data
+      if (!data.musicPost) {
+        throw new Error('Music post not found in the response!');
+      }
+      return data.musicPost;
     } catch (error) {
       console.error(`An error occurred while fetching music post with id ${id}:`, error);
       return undefined;

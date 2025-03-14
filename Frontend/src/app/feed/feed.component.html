@@ -1,9 +1,21 @@
-<p>feed works!</p>
-<section name="music feed grid display" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-     <!-- iterates over the musicFeed array and assigns each item to the music variable.
-      Then binds each music variable to the music input property of PostcardComponent -->
-<app-postcard *ngFor="let music of musicFeed" [music]="music" ></app-postcard>
-<!-- masonry grid layout - get card to automaticallybe placed in the next available column and fill the space.
-Fill rest of grid spaces with a selction of colours picked randomly from a predefined array.
-Shorten cards with ellipses and/or see more link - either expand in place over grid (float over grid with shadowed background) or click through to detailed view -->
-</section>
+<div
+  name="feed background"
+  class="bg-gradient-to-b from-[#ffe001] to-white  pb-4 overflow-x-scroll scroll-smooth"
+>
+  <section name="music feed grid display" class=" ">
+    <div class="grid auto-cols-[160px] grid-flow-col  gap-6  ">
+      <div
+        *ngFor="let music of musicFeed"
+        class="rounded-full bg-gradient-to-b from-white to-[#ffe001] shadow-1xl flex  m-auto 
+        [&:nth-child(4n)]:h-150
+        [&:nth-child(3n)]:h-130
+         [&:nth-child(2n)]:h-115
+         [&:nth-child(1n)]:h-105"
+      >
+        <div class="flex items-center justify-center m-auto">
+          <app-postcard [music]="music" class=" "></app-postcard>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
