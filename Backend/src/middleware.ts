@@ -10,8 +10,8 @@ export var session = {
 }
 
 export const authenticateRequest = auth({
-    audience: 'musicapp',
-    issuerBaseURL: 'https://dev-ib3bna8dxfvytg5v.us.auth0.com/',
+    audience: 'soundwave',
+    issuerBaseURL: 'https://dev-ib3bna8dxfvytg5v.us.auth0.com',
     tokenSigningAlg: 'RS256'
 })
 
@@ -19,7 +19,7 @@ export const authenticate = async (request: Request, response: Response, next: N
 
     auth({
         audience: 'musicapp',
-        issuerBaseURL: 'https://dev-ib3bna8dxfvytg5v.us.auth0.com/',
+        issuerBaseURL: 'https://dev-ib3bna8dxfvytg5v.us.auth0.com',
         tokenSigningAlg: 'RS256'
     });
 

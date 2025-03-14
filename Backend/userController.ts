@@ -6,9 +6,9 @@ import * as Middleware from './src/middleware'
 export const requestToken = async (request: Request, response: Response) => {
 
     const body: object = {
-        "client_id": "1I62hHAfRZrlrIq7wLCliaOsTdchHvyA",
-        "client_secret": "FHSXTfDD17y6Px5wRZSWivEh4MTzsCqk6M7lzhPaiysqYtO5lVb7IIJ937gdZ52V",
-        "audience": "https://dev-ib3bna8dxfvytg5v.us.auth0.com/api/v2/",
+        "client_id": "DPFEYYl4wqk8TFMsH3k9xGm8LNhN8Pk8",
+        "client_secret": "w2Nz3GtFQaE5Ox1YAhnwAND-t_qNL1fM7XUh5CCPUlp_Gd_v56e6HLnuwIzECz90",
+        "audience": "soundwave",
         "grant_type": "client_credentials"
     }
 

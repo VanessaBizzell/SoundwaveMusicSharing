@@ -48,10 +48,9 @@ router.use(Middleware.authenticateRequest)
 // Use the imported router
 app.use("/api", router);
 
-app.get('/page', (req: Request, res: Response) => {
-  res.send('Secure page')
+app.get('/api/page', (req: Request, res: Response) => {
+  res.status(200).json({ "qq": "Q_q" })
 }) 
-
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
