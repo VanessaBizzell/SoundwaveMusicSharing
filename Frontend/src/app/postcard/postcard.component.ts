@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, Input } from '@angular/core';
+import { Component, OnInit, inject, Input, Output, EventEmitter } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MusicService } from '../musicServiceandData/music.service';
@@ -23,6 +23,11 @@ import {
 
 export class PostcardComponent{
   @Input() music!: Music;
+  @Output() showDetails = new EventEmitter<string>();
+
+  onShowDetails() {
+    this.showDetails.emit(this.music._id);
+  }
 }
 
 
