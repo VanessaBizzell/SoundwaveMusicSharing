@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { LoginFormInputComponent } from '../components/form-input/login-form-input.component';
+import { LoginFormButtonComponent } from '../components/form-button/login-form-button.component';
 
-import Client from './../../client'
+import Client from '../../../client'
 
 @Component({
   selector: 'app-login-page',
-  imports: [],
+  imports: [LoginFormInputComponent, LoginFormButtonComponent],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })

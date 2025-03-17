@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { LoginPageComponent } from './login-page/login-page.component'
+import { LoginPageComponent } from './login/login-page/login-page.component'
+import { SignupPageComponent } from './login/signup-page/signup-page.component';
 import { PostcardComponent } from './postcard/postcard.component';
 import { HomeComponent } from './home/home.component';
 import { FeedComponent } from './feed/feed.component';
@@ -12,5 +13,6 @@ export const routes: Routes = [
     { path: 'profile', component: ProfileComponent },
     { path: 'music/:id', component: PostcardDetailsComponent },
     { path: 'login', component: LoginPageComponent },
+    { path: 'signup', component: SignupPageComponent }
 ]
 
