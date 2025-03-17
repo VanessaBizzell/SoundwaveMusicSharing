@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, } from '@angular/core';
+import { Component, OnInit, Input, inject, } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MusicService } from '../musicServiceandData/music.service';
@@ -21,13 +21,11 @@ import {
   styleUrl: './postcardDetails.component.css',
 })
 
-// export class PostcardComponent{
-//   @Input() homeLocation!: HomeLocation;
-// }
 
 // do we want to add username or are comments anonymous?
 export class PostcardDetailsComponent implements OnInit {
-  route: ActivatedRoute = inject(ActivatedRoute);
+  @Input() musicId!: string;
+  // route: ActivatedRoute = inject(ActivatedRoute);
   musicService = inject(MusicService);
   music: Music | undefined;
   comments: FormGroup;
@@ -46,6 +44,14 @@ export class PostcardDetailsComponent implements OnInit {
 
   }
 
+  ngOnInit(): void {
+    this.musicService.getMusicById(this.musicId).then((music) => {
+      this.music = music;
+    }).catch((error) => {
+      console.error('An error occurred while fetching music:', error);
+    });
+  }
+
   //Method to get music by ID. Uses the musicService to get the music by ID.
   //
   
@@ -54,32 +60,32 @@ export class PostcardDetailsComponent implements OnInit {
   //The route parameter is used to get the music ID from the URL.
   // This NgOnInit method is used to get the music by ID using the musicService.
   //This method ensures that the initialization logic runs at the appropriate time in the component's lifecycle
-  ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      // Use 'id' parameter name to match your route
-      const musicId = params.get('id');
-      console.log(params);
-      console.log('Music ID:', musicId);
+  // ngOnInit(): void {
+  //   this.route.paramMap.subscribe(params => {
+  //     // Use 'id' parameter name to match your route
+  //     const musicId = params.get('id');
+  //     console.log(params);
+  //     console.log('Music ID:', musicId);
       
-      if (!musicId) {
-        console.error('Missing music ID');
-        return;
-      }
+  //     if (!musicId) {
+  //       console.error('Missing music ID');
+  //       return;
+  //     }
       
-      this.musicService.getMusicById(musicId).then((music) => {
-        if (music) {
-          this.music = music
+  //     this.musicService.getMusicById(musicId).then((music) => {
+  //       if (music) {
+  //         this.music = music
             
-           const recordedDate = new Date(music.recordedDate);
-            const createdAt = new Date(music.createdAt);
-            const updatedAt = new Date(music.updatedAt);
-          };
+  //          const recordedDate = new Date(music.recordedDate);
+  //           const createdAt = new Date(music.createdAt);
+  //           const updatedAt = new Date(music.updatedAt);
+  //         };
         
-      }).catch((error) => {
-        console.error('An error occurred while fetching music:', error);
-      });
-    });
-  }
+  //     }).catch((error) => {
+  //       console.error('An error occurred while fetching music:', error);
+  //     });
+  //   });
+  // }
    
 
   //Method to submit comment. This method is called when the user submits a comment.

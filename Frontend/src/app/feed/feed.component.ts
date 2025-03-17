@@ -4,16 +4,18 @@ import { RouterModule } from '@angular/router';
 import { PostcardComponent } from '../postcard/postcard.component';
 import { MusicService } from '../musicServiceandData/music.service';
 import { Music } from '../musicServiceandData/music';
+import { PostcardDetailsComponent } from '../postcardDetails/postcardDetails.component';
 
 @Component({
   selector: 'app-feed',
-  imports: [RouterModule, CommonModule, PostcardComponent],
+  imports: [RouterModule, CommonModule, PostcardComponent, PostcardDetailsComponent],
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.css',
 })
 export class FeedComponent {
   //music array from music interface which is where the music data properties are defined
   musicFeed: Music[] = [];
+  selectedMusicId: string | null = null;
  
 
   //injects music service (this is where the API call is made to retrieve the music data from the DB)
@@ -37,19 +39,10 @@ export class FeedComponent {
       
   }
 
-  // getcolumnNumber(): number {
-  //   const columnNumbers = this.musicFeed.length;
-  //   console.log("col no =", columnNumbers);
-  //   return columnNumbers;
-  // }
-
-  // getPaddingValue(): number {
-  //   const paddingValues = [150, 50, 200, 20,];
-  //   const height= paddingValues[Math.floor(Math.random() * paddingValues.length)];
-  //   console.log(height);
-  //   return height;
-
-  // }
+  onShowDetails(musicId: string) {
+    this.selectedMusicId = musicId;
+    console.log('selectedMusicId is now:', this.selectedMusicId);
+  }
 
  
 }
