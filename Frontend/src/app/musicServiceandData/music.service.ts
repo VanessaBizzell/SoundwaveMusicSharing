@@ -21,7 +21,7 @@ export class MusicService {
     try {
       const response = await fetch(this.url, {
         headers: {
-          "authorization": `Bearer ${localStorage.getItem('token')}`
+          "authorization": `Bearer ${localStorage?.getItem('token')}`
         }
       });
       if (!response.ok) {
