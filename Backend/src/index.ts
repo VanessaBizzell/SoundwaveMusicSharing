@@ -52,7 +52,6 @@ const config = {
   issuerBaseURL: 'https://dev-ib3bna8dxfvytg5v.us.auth0.com'
 };
 
-
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
 
@@ -85,6 +84,10 @@ app.get("/", (req: Request, res: Response) => {
     //req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out'
   //)
 });
+
+app.get("/abc", (request: Request, response: Response, next: NextFunction) => {
+  console.log(request.session)
+})
 
 // Error-handling middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
