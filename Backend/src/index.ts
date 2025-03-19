@@ -8,7 +8,6 @@ import * as Middleware from "./middleware";
 
 const { auth, requiresAuth } = require('express-openid-connect');
 
-
 dotenv.config();
 
 const app: Express = express();

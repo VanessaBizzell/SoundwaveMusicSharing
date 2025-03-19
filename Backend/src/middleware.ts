@@ -17,6 +17,7 @@ export const authenticateRequest = auth({
 
 export const authenticate = async (request: Request, response: Response, next: NextFunction) => {
 
+    /*
     auth({
         audience: 'musicapp',
         issuerBaseURL: 'https://dev-ib3bna8dxfvytg5v.us.auth0.com',

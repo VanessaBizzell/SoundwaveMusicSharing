@@ -1,7 +1,7 @@
-
 import { Request, Response, NextFunction } from 'express'
 
 import * as Middleware from './middleware'
+import userModel from './schemas/User'
 
 export const requestToken = async (request: Request, response: Response) => {
 
@@ -37,4 +37,18 @@ export const requestToken = async (request: Request, response: Response) => {
     */
 
     response.status(200).json( { "token": token } )
+}
+
+export const signup = async (request: Request, response: Response, next: NextFunction) => {
+
+    const newUser = new userModel({
+        username: 'qq',
+        password: 'qq',
+        email: 'qq'
+    })
+
+    await newUser.save()
+
+    const user = await userModel.findOne({});
+    response.status(200).json(user)
 }

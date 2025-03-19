@@ -15,9 +15,10 @@ import * as UserController from './userController'
 
 // Define the routes
 router.post('/login', UserController.requestToken)
+router.post('/signup', UserController.signup)
 
 router.post('/music', createMusicPost); // Create a new music post
-router.get('/music', getMusicPosts); // Get all music posts
+router.get('/music', Middleware.authenticateRequest, getMusicPosts); // Get all music posts
 router.get('/music/:id', getMusicPostByID); // Get a single music post
 router.get('/qq', Middleware.authenticateRequest, qq)
 
