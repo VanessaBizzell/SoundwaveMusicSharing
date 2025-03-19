@@ -30,7 +30,7 @@ export class PostcardDetailsComponent implements OnInit {
   music: Music | undefined;
   comments: FormGroup;
   formattedDate: string | undefined;
-  formattedGenre: string | undefined;
+ 
 
   
 
@@ -58,11 +58,7 @@ export class PostcardDetailsComponent implements OnInit {
       } else {
         this.formattedDate = '';
       }
-      if (this.music?.genre) {
-        this.formattedGenre = this.music.genre.toUpperCase();
-      } else {
-        this.formattedGenre = '';
-      }
+   
     }).catch((error) => {
       console.error('An error occurred while fetching music:', error);
     });
