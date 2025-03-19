@@ -1,0 +1,5 @@
+audio::-webkit-media-controls-enclosure {
+    border-radius:60;
+    background-color: #ffe001;
+    box-shadow: 0 0 5px #000;
+}

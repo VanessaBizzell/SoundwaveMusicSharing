@@ -2,7 +2,7 @@ import express, { Express, Request, Response, NextFunction} from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors"; //imports cors middleware
-import router from "../router";
+import router from "./router";
 
 import * as Middleware from "./middleware";
 
