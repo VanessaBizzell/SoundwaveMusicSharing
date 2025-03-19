@@ -19,7 +19,7 @@ export class NavbarComponent {
   isShowDropMenu: boolean = false
 
   getItems(): String[] {
-    return this.isLoggedIn ? 
+    return localStorage?.getItem('token') ? 
       ['Feed', 'Library', 'Profile', 'Logout'] :
       ['Login', 'Signup']
   }

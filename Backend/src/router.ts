@@ -12,7 +12,7 @@ const qq = async (request: Request, response: Response, next: NextFunction) => {
 // Import the controllers
 import { createMusicPost, getMusicPosts, getMusicPostByID } from './musicController';
 import * as UserController from './userController'
-
+ 
 // Define the routes
 router.post('/login', UserController.requestToken)
 router.post('/signup', UserController.signup)

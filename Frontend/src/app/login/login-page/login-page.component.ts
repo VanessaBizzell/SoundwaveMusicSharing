@@ -22,7 +22,8 @@ export class LoginPageComponent {
     .then(response => response.json())
     .then(data => {
       console.log(data)
-      Client.token = data.token
+      //Client.token = data.token
+      localStorage.setItem('token', data.token)
       return data
   })
     .catch(error => console.error(error))

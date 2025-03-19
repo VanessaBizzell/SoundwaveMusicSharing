@@ -36,6 +36,26 @@ export const requestToken = async (request: Request, response: Response) => {
     response.set("Set-Cookie" `token=${token}`)
     */
 
+    //old code, use it for local testing
+    response.cookie("token", token, {
+      httpOnly: true,
+      secure: false,  // Set to true in production with HTTPS
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60 * 1000 * 7, // 7 days
+      path: '/',
+    });
+
+    // Set the token as a cookie. New code, use when deploying to production (live)
+    /*
+    response.cookie(
+        "token", 
+        token, 
+        { httpOnly: true, secure: process.env.NODE_ENV === "production", // Secure in production
+                sameSite: 'none', // Required for cross-origin cookies
+                maxAge: 24 * 60 * 60 * 1000 * 7, // 7 days
+                path: '/'
+        });
+    */
     response.status(200).json( { "token": token } )
 }
 
