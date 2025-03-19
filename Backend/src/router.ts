@@ -19,9 +19,9 @@ router.post('/login', UserController.requestToken)
 router.post('/signup', UserController.signup)
 
 router.post('/music', createMusicPost); // Create a new music post
-router.get('/music', getMusicPosts); // Get all music posts
+router.get('/music', Middleware.authenticateRequest, getMusicPosts); // Get all music posts
 router.get('/music/:id', getMusicPostByID); // Get a single music post
 // router.put('/music/:id', submitComment); // Update a music post with a comment
-router.put('/music/:id', submitComment as express.RequestHandler);
+router.patch('/music/:id', submitComment as express.RequestHandler);
 
 export default router;

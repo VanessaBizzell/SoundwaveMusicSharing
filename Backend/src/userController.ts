@@ -36,7 +36,6 @@ export const requestToken = async (request: Request, response: Response) => {
     response.set("Set-Cookie" `token=${token}`)
     */
 
-<<<<<<< HEAD
     //old code, use it for local testing
     response.cookie("token", token, {
       httpOnly: true,
@@ -72,7 +71,4 @@ export const signup = async (request: Request, response: Response, next: NextFun
 
     const user = await userModel.findOne({});
     response.status(200).json(user)
-=======
-    response.status(200).json( { "token": token } )
->>>>>>> 941b480f7c843f768f612b47755147f02b35b1e3
 }

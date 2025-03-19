@@ -41,24 +41,24 @@ async function main() {
 
 main().catch(error => console.error(error));
 
-/****** AUTH0 LOGIN SCREEN STUFF ******/
+// /****** AUTH0 LOGIN SCREEN STUFF ******/
 
-const config = {
-  authRequired: false,
-  auth0Logout: true,
-  secret: 'a long, randomly-generated string stored in env',
-  baseURL: 'http://localhost:3001',
-  clientID: 'qe6Xm5OLCUY5IxPbG1riKmOECkJHtQDI',
-  issuerBaseURL: 'https://dev-ib3bna8dxfvytg5v.us.auth0.com'
-};
+// const config = {
+//   authRequired: false,
+//   auth0Logout: true,
+//   secret: 'a long, randomly-generated string stored in env',
+//   baseURL: 'http://localhost:3001',
+//   clientID: 'qe6Xm5OLCUY5IxPbG1riKmOECkJHtQDI',
+//   issuerBaseURL: 'https://dev-ib3bna8dxfvytg5v.us.auth0.com'
+// };
 
-// auth router attaches /login, /logout, and /callback routes to the baseURL
-app.use(auth(config));
+// // auth router attaches /login, /logout, and /callback routes to the baseURL
+// app.use(auth(config));
 
 // req.isAuthenticated is provided from the auth router
-app.get('/', (req: any, res) => {
-  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-});
+// app.get('/', (req: any, res) => {
+//   res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+// });
 
 /****************************************/
 
