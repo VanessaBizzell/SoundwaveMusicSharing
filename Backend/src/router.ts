@@ -1,12 +1,22 @@
-import express from "express";
+
+import express, { NextFunction } from "express";
+import { Request, Response } from 'express';
+
+import * as Middleware from './middleware'
+
 const router = express.Router();
+
+const qq = async (request: Request, response: Response, next: NextFunction) => {
+    response.status(200).json({"qq": "qq2"});
+}
 
 // Import the controllers
 import { createMusicPost, getMusicPosts, getMusicPostByID, submitComment } from './musicController';
 import * as UserController from './userController'
-
+ 
 // Define the routes
 router.post('/login', UserController.requestToken)
+router.post('/signup', UserController.signup)
 
 router.post('/music', createMusicPost); // Create a new music post
 router.get('/music', getMusicPosts); // Get all music posts

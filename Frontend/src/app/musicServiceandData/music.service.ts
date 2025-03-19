@@ -6,18 +6,24 @@ import { Music } from './music';
   providedIn: 'root'
 })
 export class MusicService {
-    // to use musicDB.json API (remember to start json server first: json-server --watch musicDB.json)
+  // to use musicDB.json API (remember to start json server first: json-server --watch musicDB.json)
   // url = 'http://localhost:3000/music';
   
   // to use musicAPI (remember to start backend server first: npm run dev)
   url = 'http://localhost:3001/api/music';
 
-  constructor() { }
+  constructor() { 
+  }
 
   //fetch API call wrapped in a service to allow reuseability
   async getAllMusic(): Promise<Music[]> {
+
     try {
-      const response = await fetch(this.url);
+      const response = await fetch(this.url, {
+        headers: {
+          "authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -32,7 +38,6 @@ export class MusicService {
       return [];
     }
   }
-
 
   async getMusicById(id: string): Promise<Music | undefined> {
     try {

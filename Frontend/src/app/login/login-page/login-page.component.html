@@ -1,0 +1,11 @@
+<form method="POST" class="flex flex-col items-center mx-[auto] mt-14">
+    
+    <app-login-form-input [name]="'Username'"></app-login-form-input>
+    <app-login-form-input [name]="'Password'"></app-login-form-input>
+    <app-login-form-button [name]="'Login!'"></app-login-form-button>
+    <hr class="my-2 border-0"/>
+    <p class="text-xs">Forgot your password? Click <a href='#'>HERE</a></p>
+    <p class="text-xs">Don't have an account? Click <a href='#'>HERE</a> to register</p>
+    <button type="button" (click)="onSubmit()">LOGIN</button>
+
+</form>

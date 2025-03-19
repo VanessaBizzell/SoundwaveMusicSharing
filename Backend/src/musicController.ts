@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import createError from 'http-errors';
+
 import MusicPost from './schemas/music'
+
 import User from './schemas/User';
 
 // Create a new music post

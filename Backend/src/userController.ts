@@ -1,7 +1,7 @@
-
 import { Request, Response, NextFunction } from 'express'
 
 import * as Middleware from './middleware'
+import userModel from './schemas/User'
 
 export const requestToken = async (request: Request, response: Response) => {
 
@@ -36,5 +36,43 @@ export const requestToken = async (request: Request, response: Response) => {
     response.set("Set-Cookie" `token=${token}`)
     */
 
+<<<<<<< HEAD
+    //old code, use it for local testing
+    response.cookie("token", token, {
+      httpOnly: true,
+      secure: false,  // Set to true in production with HTTPS
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60 * 1000 * 7, // 7 days
+      path: '/',
+    });
+
+    // Set the token as a cookie. New code, use when deploying to production (live)
+    /*
+    response.cookie(
+        "token", 
+        token, 
+        { httpOnly: true, secure: process.env.NODE_ENV === "production", // Secure in production
+                sameSite: 'none', // Required for cross-origin cookies
+                maxAge: 24 * 60 * 60 * 1000 * 7, // 7 days
+                path: '/'
+        });
+    */
     response.status(200).json( { "token": token } )
+}
+
+export const signup = async (request: Request, response: Response, next: NextFunction) => {
+
+    const newUser = new userModel({
+        username: 'qq',
+        password: 'qq',
+        email: 'qq'
+    })
+
+    await newUser.save()
+
+    const user = await userModel.findOne({});
+    response.status(200).json(user)
+=======
+    response.status(200).json( { "token": token } )
+>>>>>>> 941b480f7c843f768f612b47755147f02b35b1e3
 }
