@@ -13,9 +13,26 @@
          [&:nth-child(1n)]:h-105"
       >
         <div class="flex items-center justify-center m-auto">
-          <app-postcard [music]="music" class=" "></app-postcard>
+          <app-postcard [music]="music" (showDetails)="onShowDetails($event)" class=" "></app-postcard>
         </div>
       </div>
     </div>
   </section>
-</div>
+
+    <!-- Overlay for details component -->
+    <div *ngIf="selectedMusicId !== null" class="fixed inset-0 z-50 flex items-center justify-center">
+      <!-- Background overlay with opacity -->
+      <div class="absolute inset-0 bg-black opacity-50" ></div>
+      <!-- Modal content -->
+      <div class="relative flex items-center justify-center ">
+        <button
+          name="close music details button"
+          (click)="selectedMusicId = null"
+          class="absolute top-2 right-4 font-extrabold text-md text-gray-700  hover:text-rose-700"
+        >
+          ×
+        </button>
+        <app-details-postcard [musicId]="selectedMusicId"></app-details-postcard>
+      </div>
+    </div>
+  </div>

@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import createError from 'http-errors';
-import MusicPost from './schemas/Music'
+
+import MusicPost from './schemas/music'
+
 import User from './schemas/User';
 
 // Create a new music post
@@ -88,4 +90,29 @@ const getMusicPostByID = async (req: Request, res: Response, next: NextFunction)
     }   
 };
 
-export { createMusicPost, getMusicPosts, getMusicPostByID };
+
+const submitComment = async (req: Request, res: Response, next: NextFunction) => {
+    try { 
+        const { comment } = req.body;
+
+        const musicPost = await MusicPost.findByIdAndUpdate(
+            req.params.id,
+            { $push: { comment: comment } },
+            { new: true }
+            
+        );
+       
+        if (!musicPost) {
+            return res.status(404).json({ message: "Music post not found" });
+        }
+    
+        res.status(200).json({ message: "Comment submitted", musicPost });
+    } catch (error) {
+        console.error("Error submitting comment", error);
+        next(createError(500, "Comment could not be submitted"));
+    }
+};
+
+
+     
+export { createMusicPost, getMusicPosts, getMusicPostByID, submitComment };

@@ -59,9 +59,29 @@ export class MusicService {
     }
   }
 
+//function to submit comment to the API (via a PATCH request so appends comment to array of comments)
+  async submitComment(id: string, comment: string): Promise<void> {
+    try {
+      const response = await fetch(`${this.url}/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ comment }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(`Comment submitted: ${comment}`);
+    } catch (error) {
+      console.error('An error occurred while submitting the comment:', error);
+    }
+  }
 
-submitComment(comment: string) {
-  console.log(`Comment submitted: ${comment}`);
-}
+// submitComment(comment: string) {
+//   console.log(`Comment submitted: ${comment}`);
+// }
 
 }

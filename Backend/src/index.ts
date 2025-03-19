@@ -86,7 +86,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/abc", (request: Request, response: Response, next: NextFunction) => {
-  console.log(request.session)
+  //console.log(request.session)
 })
 
 // Error-handling middleware

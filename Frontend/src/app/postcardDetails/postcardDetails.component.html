@@ -1,14 +1,17 @@
 <section
-  class="bg-white shadow-md border-2 border-black rounded-lg p-6 mb-4 w-1/4 m-5"
+  class="bg-white shadow-md border-2 border-black rounded-lg p-6 max-w-xs"
 >
-  <section name="userdetails" class="flex justify-between pb-2 px-4">
+  <section name="userdetails" class="flex gap-4">
     <img src="../../assets/images/Avatar.svg" alt="user avatar" class="w-6" />
-    <h1 class="text-xl font-light text-[#9d0007] text-left line-clamp-1">
+    <h1 class="text-lg font-light text-[#9d0007] text-left line-clamp-1">
       Username
     </h1>
   </section>
-  <div class="text-xs text-[#232330] text-center px-3 pb-2">
-    <h3 class="text-lg text-[#232330]">{{ music?.createdAt }}</h3>
+  <div name="user status and date" class="flex justify-between pb-2">
+    <h3 class="text-xs text-[#232330] line-clamp-1 overflow-ellipsis">
+      music status - why did user post this?
+    </h3>
+    <!-- <h3 class="text-xs text-[#232330]">{{ formattedDate}}</h3> -->
   </div>
 
   <section name="music image and play button">
@@ -20,34 +23,70 @@
       />
       <!-- Floating play button over the image -->
       <audio controls class="absolute inset-0 m-auto w-32 h-12">
-        <source *ngIf="music?.trackLink" [src]="music?.trackLink" type="audio/mpeg" />
+        <source
+          *ngIf="music?.trackLink"
+          [src]="music?.trackLink"
+          type="audio/mpeg"
+        />
         Your browser does not support the audio element.
       </audio>
     </div>
   </section>
+  <section name="music details" class="">
+    <h3 class="text-xs font-normal text-[#9d0007]">{{ music?.genre | uppercase }}</h3>
+    <div name="likes counter" class="absolute right-8">
+      <p class="text-xs font-semibold text-[#9d0007] text-center">21</p>
+      <img
+        src="../../assets/images/favorite.svg"
+        alt="heart icon"
+        class="w-4"
+      />
+    </div>
+    <h2 class="text-md font-semibold text-[#232330]">{{ music?.trackName }}</h2>
+    <p class="text-xs font-normal">by{{ music?.artist }}</p>
+  </section>
+  <section name="comments display" class="mt-4 overflow-y-scroll ">
+    <!-- iterates over comments array and displays the last 3 comments -->
+    <div *ngFor="let comment of music?.comment | slice:-3" class="mb-2">
+    <p class="text-rose-900 text-xs line line-clamp-2">
+      "{{ comment }}"
+    </p>
+  </div>
+  </section>
 
   <section name="comments form" class="mt-4">
-    <form [formGroup]="comments" (submit)="submitComment()" class="space-y-4">
-      <div>
-        <label for="comment" class="block text-sm font-medium text-gray-700"
-          >Write a Comment</label
-        >
-        <input
-          id="comment"
-          type="text"
-          formControlName="comment"
-          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-rose-500 focus:border-rose-500 sm:text-sm"
-        />
-      </div>
-      <button
-        type="submit"
-        class="bg-rose-900 text-white py-2 px-4 rounded-md shadow hover:bg-rose-700"
+    <form [formGroup]="comments" (submit)="submitComment()" class="">
+      <label for="comment input" class="block text-xs font-normal text-gray-700"
+        >Leave a Comment...</label
       >
-        Send
-      </button>
-      <section name="comments" class="mt-4">
-        <p class="text-rose-900 font-normal">{{ music?.comment }}</p>
-      </section>
+      <div class="flex justify-between gap-2">
+        <div>
+          <input
+            id="comment"
+            type="text"
+            formControlName="comment"
+            class="border border-gray-300 rounded-md py-2 flex-grow"
+          />
+        </div>
+        <button
+          type="submit"
+          class="bg-rose-900 text-white text-sm py-2 rounded-md shadow hover:bg-rose-700 flex px-3"
+        >
+          Send
+        </button>
+      </div>
     </form>
+  </section>
+  <section name="price and share icons" class="flex justify-between mt-4">
+    <div class="flex gap-2">
+      <p class="text-xs font-semibold text-[#232330]">£9.99</p>
+      <p class="text-xs font-semibold text-[#FF000C] uppercase">
+        Original track
+      </p>
+    </div>
+    <div class="flex gap-2">
+      <img src="../../assets/images/share.svg" alt="share icon" class="w-4" />
+      <p class="text-xs font-semibold text-[#232330]">Share</p>
+    </div>
   </section>
 </section>

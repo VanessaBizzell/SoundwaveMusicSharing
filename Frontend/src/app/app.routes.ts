@@ -11,7 +11,6 @@ export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'feed', component: FeedComponent },
     { path: 'profile', component: ProfileComponent },
-    { path: 'music/:id', component: PostcardDetailsComponent },
     { path: 'login', component: LoginPageComponent },
     { path: 'signup', component: SignupPageComponent }
 ]
