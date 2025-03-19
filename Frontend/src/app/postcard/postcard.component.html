@@ -46,7 +46,7 @@
     <section name="comments display" class="">
       <div class="flex justify-between pt-2">
         <label for="comment" class="text-xs font-semibold text-[#232330]"
-          >Comments</label
+          >Latest comment:</label
         >
         <img
           src="../../assets/images/favorite.svg"
@@ -54,9 +54,11 @@
           class="w-4"
         />
       </div>
+      <div *ngFor="let comment of music.comment | slice: -1" class="mb-2">
       <p class="text-[#232330] text-xs line-clamp-2 pt-2 pb-4">
-        {{ music.comment }}
+        {{ comment }}
       </p>
+      </div>
     </section>
     <button
       (click)="onShowDetails()"
