@@ -1,7 +1,7 @@
 
 import { Request, Response, NextFunction } from 'express'
 
-import * as Middleware from './src/middleware'
+import * as Middleware from './middleware'
 
 export const requestToken = async (request: Request, response: Response) => {
 

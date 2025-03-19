@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import createError from 'http-errors';
-import MusicPost from './src/schemas/music'
-import User from './src/schemas/User';
+import MusicPost from './schemas/music'
+import User from './schemas/User';
 
 // Create a new music post
 const createMusicPost = async (req: Request, res: Response, next: NextFunction) => {
@@ -97,14 +97,16 @@ const submitComment = async (req: Request, res: Response, next: NextFunction) =>
             req.params.id,
             { $push: { comment: comment } },
             { new: true }
+            
         );
-        
+       
         if (!musicPost) {
             return res.status(404).json({ message: "Music post not found" });
         }
     
         res.status(200).json({ message: "Comment submitted", musicPost });
     } catch (error) {
+        console.error("Error submitting comment", error);
         next(createError(500, "Comment could not be submitted"));
     }
 };
