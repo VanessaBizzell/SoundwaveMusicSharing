@@ -1,1 +1,67 @@
-<p>profile works!</p>
+<div
+  name="profile background"
+  class="bg-gradient-to-b from-[#ffe001] to-white pb-4 overflow-x-scroll scroll-smooth"
+>
+  <section name="user profile feed grid display" class=" ">
+    <div class="grid auto-cols-[160px] grid-flow-col gap-6">
+      <div
+        *ngFor="let music of userMusic"
+        class="rounded-full bg-gradient-to-b from-white to-[#ffe001] shadow-1xl flex m-auto [&:nth-child(4n)]:h-150 [&:nth-child(3n)]:h-130 [&:nth-child(2n)]:h-115 [&:nth-child(1n)]:h-105"
+      >
+        <div class="flex items-center justify-center m-auto">
+          <app-postcard
+            [music]="music"
+            (showDetails)="onShowDetails($event)"
+            class=" "
+          ></app-postcard>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Add Music Post button -->
+  <section name="add music post button" class="absolute right-4 bottom-4">
+    <button
+      (click)="onShowAddMusicForm()"
+      class="bg-rose-900 text-white text-xs py-2 px-4 rounded-full shadow hover:bg-rose-700 flex mx-auto"
+    >
+      Add Music Post
+    </button>
+
+    <!-- Overlay for add music form component -->
+    <div
+      *ngIf="onShowAddMusicForm"
+      class="fixed inset-0 z-50 flex items-center justify-center"
+    >
+      <!-- Background overlay with opacity -->
+      <div class="absolute inset-0 bg-black opacity-50"></div>
+      <!-- Modal content -->
+      <div class="relative flex items-center justify-center">
+        <app-add-music-form></app-add-music-form>
+      </div>
+    </div>
+
+    <!-- PROBABLY NEEDS TO LOOK DIFFERENT - HAVE A DELETE AND AN UPDATE BUTTON -->
+    <!-- Overlay for details component -->
+    <div
+      *ngIf="selectedMusicId !== null"
+      class="fixed inset-0 z-50 flex items-center justify-center"
+    >
+      <!-- Background overlay with opacity -->
+      <div class="absolute inset-0 bg-black opacity-50"></div>
+      <!-- Modal content -->
+      <div class="relative flex items-center justify-center">
+        <button
+          name="close music details button"
+          (click)="selectedMusicId = null"
+          class="absolute top-2 right-4 font-extrabold text-md text-gray-700 hover:text-rose-700"
+        >
+          ×
+        </button>
+        <app-details-postcard
+          [musicId]="selectedMusicId"
+        ></app-details-postcard>
+      </div>
+    </div>
+  </section>
+</div>
