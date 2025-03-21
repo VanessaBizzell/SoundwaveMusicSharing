@@ -72,3 +72,9 @@ export const signup = async (request: Request, response: Response, next: NextFun
     const user = await userModel.findOne({});
     response.status(200).json(user)
 }
+
+export const validate = async (request: Request, response: Response, next: NextFunction) => {
+    console.log(request.originalUrl)
+    console.log(request)
+    response.send('qq')
+}

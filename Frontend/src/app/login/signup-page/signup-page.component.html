@@ -1,10 +1,8 @@
-<form method="POST" class="mt-16 mx-[auto] w-[max-content]">
-
-    <app-login-form-input [name]="'Username'"></app-login-form-input>
-    <app-login-form-input [name]="'Email'"></app-login-form-input>
-    <app-login-form-input [name]="'Password'"></app-login-form-input>
-    <app-login-form-input [name]="'Confirm Password'"></app-login-form-input>
-    <app-login-form-button [name]="'Sign up!'" [btnClick]="signup"></app-login-form-button>
+<form class="mt-16 mx-[auto] w-[max-content]">
+    <app-login-form-input [name]="'Username'" (outValue)="setUsername($event)"></app-login-form-input>
+    <app-login-form-input [name]="'Email'" (outValue)="setEmail($event)"></app-login-form-input>
+    <app-login-form-input [name]="'Password'" (outValue)="setPassword($event)"></app-login-form-input>
+    <app-login-form-input [name]="'Confirm Password'" (outValue)="setConfirmPassword($event)"></app-login-form-input>
+    <app-login-form-button [name]="'Sign up!'" [type]="'submit'"></app-login-form-button>
     <p class="text-xs mx-[auto] w-[max-content] pt-4">Already have an account? Click <a href='#'>HERE</a> to sign in!</p>
-
 </form>

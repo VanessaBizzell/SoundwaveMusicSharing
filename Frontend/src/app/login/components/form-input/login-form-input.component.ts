@@ -1,6 +1,5 @@
-import { Component, Input, model, ModelSignal, output, Output } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EventEmitter } from 'node:stream';
 
 @Component({
   selector: 'app-login-form-input',
@@ -9,17 +8,21 @@ import { EventEmitter } from 'node:stream';
   styleUrl: './login-form-input.component.css'
 })
 
-export class LoginFormInputComponent {
+export class LoginFormInputComponent implements OnInit {
 
   @Input() name: string = '';
-
-  onValueChanged = output<string>();
+  @Output() outValue = new EventEmitter<string>()
 
   type: string = 'text'
+  value: string = ''
 
   ngOnInit() {
     if(this.name.toLowerCase().includes('password')) this.type = 'password'
     else if(this.name.toLowerCase().includes('email')) this.type = 'email'
+  }
+
+  onValueChanged(): void {
+    this.outValue.emit(this.value)
   }
 
 }

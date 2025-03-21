@@ -9,6 +9,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class LoginFormButtonComponent {
 
   @Input() name = ''
+  @Input() type = 'button'
   @Input() btnClick = () => { console.log('button') }
 
 }
