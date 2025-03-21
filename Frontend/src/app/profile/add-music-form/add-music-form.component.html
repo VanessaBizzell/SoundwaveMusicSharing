@@ -1,15 +1,28 @@
-
-<section name="add musicform"  class="bg-white shadow-md border-2 border-gray-700 rounded-lg p-6 max-w-md">
-    <h2 class="section-heading">Post Music:</h2>
-    <form [formGroup]="MusicPostForm" (submit)="submitMusic()">
-      <label for="trackName">Track Name</label>
-      <input id="trackName" type="text" formControlName="trackName" />
-      <label for="artist">Artist</label>
-      <input id="artist" type="text" formControlName="artist" />
-      <label for="trackLink">Track Link</label>
-      <input id="trackLink" type="text" formControlName="trackLink" />
-
-
-      <button type="submit" class="bg-rose-700, text-white font-semibold text-sm uppercase">Post Now</button>
-    </form>
-  </section>
+<section name="add musicform" class="bg-yellow-300 shadow-md border-2 border-gray-700 rounded-lg p-6 max-w-md ">
+  <h2 class="section-heading">Post Music:</h2>
+  <form class="grid grid-cols-1 py-2" [formGroup]="MusicPostForm" (ngSubmit)="submitMusic()">
+    <mat-form-field>
+      <mat-label>Track Name</mat-label>
+      <input matInput formControlName="trackName">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Track Link</mat-label>
+      <input matInput formControlName="trackLink">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Artist</mat-label>
+      <input matInput formControlName="artist">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Select Genre</mat-label>
+      <mat-select formControlName="genre">
+        <mat-option value="blues">Blues</mat-option>
+        <mat-option value="hiphop">HipHop</mat-option>
+        <mat-option value="jazz">Jazz</mat-option>
+        <mat-option value="pop">Pop</mat-option>
+        <mat-option value="rock">Rock</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button type="submit" color="accent">Post Now</button>
+  </form>
+</section>

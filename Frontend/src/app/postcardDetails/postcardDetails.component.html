@@ -45,10 +45,15 @@
     <h2 class="text-md font-semibold text-[#232330]">{{ music?.trackName }}</h2>
     <p class="text-xs font-normal">by{{ music?.artist }}</p>
   </section>
-  <section name="comments display" class="mt-4 overflow-y-scroll ">
+  <section name="comments display" class="mt-4 max-h-18 overflow-y-auto ">
     <!-- iterates over comments array and displays the last 3 comments -->
-    <div *ngFor="let comment of music?.comment | slice:-3" class="mb-2">
+    <div *ngFor="let comment of music?.comment | slice:0:-3 " class="mb-2">
     <p class="text-rose-900 text-xs line line-clamp-2">
+      "{{ comment }}"
+    </p>
+  </div>
+  <div *ngFor="let comment of music?.comment | slice:-3" class="mb-2">
+    <p class="text-rose-900 text-xs line-clamp-2">
       "{{ comment }}"
     </p>
   </div>
