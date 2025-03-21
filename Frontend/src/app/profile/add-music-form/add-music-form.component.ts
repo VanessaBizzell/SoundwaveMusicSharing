@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {
   FormBuilder,
   FormControl,
@@ -18,7 +19,13 @@ import {
 @Component({
   selector: 'app-add-music-form',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, MatInputModule, MatButtonModule, MatFormFieldModule, MatSelectModule],
+  imports: [CommonModule,
+     RouterModule, 
+     ReactiveFormsModule, 
+     MatInputModule, MatButtonModule,
+      MatFormFieldModule, 
+      MatSelectModule,
+      MatCheckboxModule],
   templateUrl: './add-music-form.component.html',
   styleUrls: ['../../../styles.scss'],
 })
@@ -36,7 +43,7 @@ export class AddMusicFormComponent {
       coverArt: ['', Validators.required],
       sourcedFrom: ['', Validators.required],
       genre: ['', Validators.required],
-      availableForSale: [false, Validators.required], // Changed to boolean
+      availableForSale: [false, Validators.required], 
       price: ['']
     });
   }
