@@ -1,59 +1,64 @@
 import { Request, Response, NextFunction } from 'express';
 import createError from 'http-errors';
+// import upload from './gridFsStorage'; // Import your multer/GridFS setup
 
-import MusicPost from './schemas/music'
-
+import MusicPost from './schemas/music';
 import User from './schemas/User';
 
-// Create a new music post
-const createMusicPost = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const {
-            trackName,
-            trackLink,
-            artist,
-            album,
-            recordedDate,
-            coverArt,
-            sourcedFrom,
-            genre,
-            availableForSale,
-            price,
-            comment,
-            userID
-        } = req.body;
+// // Middleware for handling file upload
+// export const uploadTrack = upload.single('trackFile');
 
-        const newMusicPost = await MusicPost.create({
-            trackName,
-            trackLink,
-            artist,
-            album,
-            recordedDate,
-            coverArt,
-            sourcedFrom,
-            genre,
-            availableForSale,
-            price,
-            comment: comment || [], // Initialize empty array for comments if not provided
-            postedBy: userID
-        });
+// // Create a new music post with file upload
+// export const createMusicPost = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+//     try {
+//         // req.file contains the uploaded file info after the uploadTrack middleware runs
+//         if (!req.file) {
+//             res.status(400).json({ message: 'No track file uploaded' });
+//             return;
+//         }
 
-        const user = await User.findById(userID);
-        if (user) {
-            user.musicPosts = user.musicPosts || [];
-            user.musicPosts.push(newMusicPost._id);
-            await user.save();
-        }
+//         const {
+//             trackName,
+//             artist,
+//             album,
+//             recordedDate,
+//             coverArt,
+//             sourcedFrom,
+//             genre,
+//             availableForSale,
+//             price,
+//             comment,
+//             userId
+//         } = req.body;
 
-        res.status(201).json({ message: "Music Posted!", post: newMusicPost });
-    } catch (error) {
-        if (error instanceof Error) {
-            next(createError(400, error.message));
-        } else {
-            next(createError(400, 'Music post could not be saved'));
-        }
-    }
-};
+//         // Use the file ID as the trackLink
+//         const trackLink = req.file.filename ? req.file.filename.toString() : null;
+
+//         const newMusicPost = await MusicPost.create({
+//             trackName,
+//             trackLink, // This will now be the GridFS file ID
+//             artist,
+//             album,
+//             recordedDate,
+//             coverArt,
+//             sourcedFrom,
+//             genre,
+//             availableForSale: availableForSale === 'true', // Convert string to boolean if needed
+//             price,
+//             comment: comment || [], // Initialize empty array for comments if not provided
+//             postedBy: userId
+//         });
+
+//         res.status(201).json({
+//             success: true,
+//             message: 'Music post created successfully',
+//             data: newMusicPost
+//         });
+//     } catch (error) {
+//         console.error('Error creating music post:', error);
+//         next(error);
+//     }
+// };
 
 const getMusicPosts = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -63,8 +68,8 @@ const getMusicPosts = async (req: Request, res: Response, next: NextFunction) =>
             model: "User",
         });
         if (musicPosts.length === 0) {
-             res.status(404).json({ message: "No music posts yet" });
-             return;
+            res.status(404).json({ message: "No music posts yet" });
+            return;
         }
         res.status(200).json({ musicPosts });
     } catch (error) {
@@ -72,12 +77,11 @@ const getMusicPosts = async (req: Request, res: Response, next: NextFunction) =>
     }
 };
 
-
 const getMusicPostByID = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const musicPost = await MusicPost.findById(req.params.id).populate({
             path: "postedBy",
-            select: "username", 
+            select: "username",
             model: "User",
         });
         if (!musicPost) {
@@ -87,9 +91,8 @@ const getMusicPostByID = async (req: Request, res: Response, next: NextFunction)
         res.status(200).json({ musicPost });
     } catch (error) {
         next(createError(400, "Music post could not be retrieved"));
-    }   
+    }
 };
-
 
 const submitComment = async (req: Request, res: Response, next: NextFunction) => {
     try { 
@@ -99,11 +102,11 @@ const submitComment = async (req: Request, res: Response, next: NextFunction) =>
             req.params.id,
             { $push: { comment: comment } },
             { new: true }
-            
         );
        
         if (!musicPost) {
-            return res.status(404).json({ message: "Music post not found" });
+            res.status(404).json({ message: "Music post not found" });
+            return;
         }
     
         res.status(200).json({ message: "Comment submitted", musicPost });
@@ -113,6 +116,4 @@ const submitComment = async (req: Request, res: Response, next: NextFunction) =>
     }
 };
 
-
-     
-export { createMusicPost, getMusicPosts, getMusicPostByID, submitComment };
+export { getMusicPosts, getMusicPostByID, submitComment, };

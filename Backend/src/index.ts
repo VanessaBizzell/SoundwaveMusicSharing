@@ -3,12 +3,13 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors"; //imports cors middleware
 import router from "./router";
+import multer from "multer";
 
+const upload = multer({ dest: "uploads/" });
 import * as Middleware from "./middleware";
-import * as UserController from "./userController"
+import cookieParser from "cookie-parser";
 
-const { auth, requiresAuth } = require('express-openid-connect');
-const cookieParser = require("cookie-parser");
+// const { auth, requiresAuth } = require('express-openid-connect');
 
 dotenv.config();
 
@@ -35,12 +36,55 @@ var session = require('express-session')
 app.use(cookieParser())
 app.use(session(Middleware.session))
 
+// // Connect to MongoDB GridFS bucket using mongoose
+// let bucket;
+// (() => {
+//   mongoose.connection.on("connected", () => {
+//     if (mongoose.connection.db) {
+//       bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+//         bucketName: "filesBucket",
+//       });
+//       console.log("GridFSBucket initialized successfully");
+//     } else {
+//       console.error("Failed to initialize GridFSBucket: mongoose.connection.db is undefined");
+//     }
+//   });
+// })();
+
+
+// async function main() {
+//   const connection = await mongoose.connect(process.env.MONGODB_URL as string);
+//   console.log(`Successfully connected to MongoDB!\n${connection.connection.host}`);
+// }   
+
+// Connect to MongoDB and initialize GridFS bucket
+let bucket: mongoose.mongo.GridFSBucket | undefined;
+mongoose.connection.on("connected", () => {
+  if (mongoose.connection.db) {
+    bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+      bucketName: "filesBucket",
+    });
+    console.log("GridFSBucket initialized successfully");
+  } else {
+    console.error("Failed to initialize GridFSBucket: mongoose.connection.db is undefined");
+  }
+});
+
 async function main() {
-  const connection = await mongoose.connect(process.env.MONGODB_URL as string);
-  console.log(`Successfully connected to MongoDB!\n${connection.connection.host}`);
-}                       
+  await mongoose.connect(process.env.MONGODB_URL as string);
+  console.log(`Successfully connected to MongoDB!`);
+  // Start the server after the connection is established
+  app.listen(port, () => {
+    console.log(`[server]: Server is running at http://localhost:${port}`);
+  });
+}
+
 
 main().catch(error => console.error(error));
+
+
+
+
 
 // /****** AUTH0 LOGIN SCREEN STUFF ******/
 
@@ -70,17 +114,39 @@ router.use((req, res, next) => {
 })
 */
 
-router.use(Middleware.authenticateRequest)
-
+// router.use(Middleware.authenticateRequest)
 
 // Use the imported router
 app.use("/api", router);
 
+
+
+// Endpoint to check if bucket is ready
+app.get('/api/bucket-status', (req: Request, res: Response) => {
+  if (bucket) {
+    res.status(200).json({ message: "GridFSBucket is ready" });
+  } else {
+    res.status(500).json({ message: "GridFSBucket is not initialized" });
+  }
+});
+
+
+// Routes for API endpoints
+// Upload a single file
+app.post("/upload/file", upload.single("file"), async (req: Request, res: Response) => {
+  try {
+    res.status(201).json({ text: "File uploaded successfully !" });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      error: { text: "Unable to upload the file", error },
+    });
+  }
+});
+
 app.get('/api/page', (req: Request, res: Response) => {
   res.status(200).json({ "qq": "Q_q" })
 }) 
-
-app.post('/validate', UserController.validate)
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
@@ -102,6 +168,3 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
-});
