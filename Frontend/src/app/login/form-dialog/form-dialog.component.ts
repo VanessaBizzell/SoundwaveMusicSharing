@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-form-dialog',
@@ -7,11 +7,16 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './form-dialog.component.html',
   styleUrl: './form-dialog.component.css'
 })
-export class FormDialogComponent implements OnInit {
+export class FormDialogComponent {
 
+  @Input() title: string = ''
   @Input() errors: Array<string> = ['qq', 'Q_q']
+  @Input() isVisible: boolean = false
 
-  ngOnInit(): void {
+  @Output() hide = new EventEmitter<boolean>();
+
+  onHide(): void {
+    this.hide.emit(false);
   }
 
 }

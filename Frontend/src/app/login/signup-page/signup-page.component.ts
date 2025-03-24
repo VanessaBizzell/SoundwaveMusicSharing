@@ -17,6 +17,13 @@ export class SignupPageComponent {
   password: string = ''
   confirmPassword: string = ''
 
+  errors: Array<string> = []
+  isDialogVisible: boolean = true
+
+  setDialogVisibility($event: boolean) {
+    this.isDialogVisible = $event;
+  }
+
   setUsername($event: string): void {
     this.username = $event
   }
@@ -49,6 +56,8 @@ export class SignupPageComponent {
     .then(response => response.json())
     .then(data => {
       console.log(data)
+      this.errors = data.errors
+      this.isDialogVisible = true
       return data
     })
     .catch(error => console.error(error))
