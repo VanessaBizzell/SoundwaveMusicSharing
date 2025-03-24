@@ -15,7 +15,7 @@ export class NavbarComponent {
 
   navbarHeight: number = 80
 
-  isLoggedIn: boolean = false
+  isLoggedIn: boolean = true
   isShowDropMenu: boolean = false
 
   getItems(): String[] {

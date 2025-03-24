@@ -5,6 +5,7 @@ import cors from "cors"; //imports cors middleware
 import router from "./router";
 
 import * as Middleware from "./middleware";
+import * as UserController from "./userController"
 
 const { auth, requiresAuth } = require('express-openid-connect');
 const cookieParser = require("cookie-parser");
@@ -71,12 +72,15 @@ router.use((req, res, next) => {
 
 router.use(Middleware.authenticateRequest)
 
+
 // Use the imported router
 app.use("/api", router);
 
 app.get('/api/page', (req: Request, res: Response) => {
   res.status(200).json({ "qq": "Q_q" })
 }) 
+
+app.post('/validate', UserController.validate)
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");

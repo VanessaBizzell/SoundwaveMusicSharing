@@ -6,10 +6,6 @@ import * as Middleware from './middleware'
 
 const router = express.Router();
 
-const qq = async (request: Request, response: Response, next: NextFunction) => {
-    response.status(200).json({"qq": "qq2"});
-}
-
 // Import the controllers
 import { createMusicPost, getMusicPosts, getMusicPostByID, submitComment } from './musicController';
 import * as UserController from './userController'

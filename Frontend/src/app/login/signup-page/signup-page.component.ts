@@ -10,12 +10,30 @@ import { LoginFormButtonComponent } from '../components/form-button/login-form-b
 })
 export class SignupPageComponent {
 
-  username: string = 'qq'
+  username: string = ''
+  email: string = ''
+  password: string = ''
+  confirmPassword: string = ''
 
-  @Output() onValueChanged = new EventEmitter<string>();
+  setUsername($event: string): void {
+    this.username = $event
+  }
+
+  setEmail($event: string): void {
+    this.email = $event
+  }
+
+  setPassword($event: string): void {
+    this.password = $event
+  }
+
+  setConfirmPassword($event: string): void {
+    this.confirmPassword = $event
+  }
 
   signup = async (): Promise<Response> => {
     console.log(this.username)
+    console.log(this.password)
     return await fetch('')
   }
 

@@ -1,4 +1,4 @@
 <div class="w-[80vw] flex flex-col gap-2 font-semibold border-solid border-0 border-white bg-linear-to-b from-[#ffe001] to-[#fffe8f] mb-8 pt-4 pb-6 px-12 rounded-full shadow-md text-[#2b2330]">
     <label for={{name}} class="text-[#9d0007]">{{name}}</label>
-    <input name={{name}} type={{type}} required (change)="onValueChanged" class="border-white shadow-md border-solid border-2 rounded-xl px-4"/>
+    <input name={{name}} id={{name}} type={{type}} (input)="onValueChanged()" [(ngModel)]="value" required class="border-white shadow-md border-solid border-2 rounded-xl px-4"/>
 </div>
