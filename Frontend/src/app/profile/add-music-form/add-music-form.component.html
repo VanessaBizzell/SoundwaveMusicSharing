@@ -10,8 +10,21 @@
       <input matInput formControlName="trackLink">
     </mat-form-field>
     <mat-form-field>
+      <mat-label>Cover Art Link</mat-label>
+      <input matInput formControlName="coverArt">
+    </mat-form-field>
+    <mat-form-field>
       <mat-label>Artist</mat-label>
       <input matInput formControlName="artist">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Select Source</mat-label>
+      <mat-select formControlName="sourcedFrom">
+        <mat-option value="original">Original track</mat-option>
+        <mat-option value="Soundcloud">Soundcloud</mat-option>
+        <mat-option value="YT Music">YT Music</mat-option>
+        <mat-option value="Artist's Website">Artist's Website</mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Select Genre</mat-label>
@@ -23,8 +36,19 @@
         <mat-option value="rock">Rock</mat-option>
       </mat-select>
     </mat-form-field>
-    <p>is this your original track? You cannot sell music if you do not own the rights</p>
+    <p>Is this your original track? You cannot sell music if you do not own the rights</p>
       <mat-checkbox formControlName="availableForSale" class="mb-2">Available for Sale</mat-checkbox>
+      <mat-form-field *ngIf="MusicPostForm.get('availableForSale')?.value">
+        <mat-label>Price</mat-label>
+        <mat-select formControlName="price">
+          <mat-option value="0">Free</mat-option>
+          <mat-option value="1.99">£1.99</mat-option>
+          <mat-option value="3.99">£3.99</mat-option>
+          <mat-option value="5.99">£5.99</mat-option>
+          <mat-option value="7.99">£7.99</mat-option>
+          <mat-option value="9.99">£9.99</mat-option>
+        </mat-select>
+      </mat-form-field>
     
     <button mat-raised-button type="submit" color="accent" class="mt-4">Post Now</button>
   </form>
