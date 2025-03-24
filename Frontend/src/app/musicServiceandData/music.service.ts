@@ -39,6 +39,28 @@ export class MusicService {
     }
   }
 
+  async getUserMusic(userId: string): Promise<Music[]> {
+    try {
+      const response = await fetch(`${this.url}/${userId}`, {
+        headers: {
+          "authorization": `Bearer ${localStorage?.getItem('token')}`
+        }
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      //extract the userMusicPosts array from the data object
+      if (!Array.isArray(data.userMusicPosts)) {
+        throw new Error('Data retrieved is not an array!');
+      }
+      return data.userMusicPosts as Music[];
+    } catch (error) {
+      console.error(`An error occurred while fetching this user's music posts  ${userId}:`, error);
+      return [];
+    }
+  }
+
   async getMusicById(id: string): Promise<Music | undefined> {
     try {
       const response = await fetch(`${this.url}/${id}`);
@@ -58,6 +80,8 @@ export class MusicService {
       return undefined;
     }
   }
+
+
 
 //function to submit comment to the API (via a PATCH request so appends comment to array of comments)
   async submitComment(id: string, comment: string): Promise<void> {

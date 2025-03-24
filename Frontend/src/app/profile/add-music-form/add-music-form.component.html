@@ -1,0 +1,31 @@
+<section name="add musicform" class="bg-white shadow-md border-2 border-gray-700 rounded-lg p-6 max-w-md ">
+  <h2 class="text-2xl text-[#9d0007]">Music Details:</h2>
+  <form class="grid grid-cols-1 py-2" [formGroup]="MusicPostForm" (ngSubmit)="submitMusic()">
+    <mat-form-field>
+      <mat-label>Track Name</mat-label>
+      <input matInput formControlName="trackName">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Track Link</mat-label>
+      <input matInput formControlName="trackLink">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Artist</mat-label>
+      <input matInput formControlName="artist">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Select Genre</mat-label>
+      <mat-select formControlName="genre">
+        <mat-option value="blues">Blues</mat-option>
+        <mat-option value="hiphop">Hip-Hop</mat-option>
+        <mat-option value="jazz">Jazz</mat-option>
+        <mat-option value="pop">Pop</mat-option>
+        <mat-option value="rock">Rock</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <p>is this your original track? You cannot sell music if you do not own the rights</p>
+      <mat-checkbox formControlName="availableForSale" class="mb-2">Available for Sale</mat-checkbox>
+    
+    <button mat-raised-button type="submit" color="accent" class="mt-4">Post Now</button>
+  </form>
+</section>
