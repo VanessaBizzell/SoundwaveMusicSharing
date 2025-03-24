@@ -104,8 +104,51 @@ export class MusicService {
     }
   }
 
-// submitComment(comment: string) {
-//   console.log(`Comment submitted: ${comment}`);
-// }
+
+  // //function to add music to the API (via a POST request) WITH USER ID
+  // async addMusic(userId: string, musicData:any): Promise<void> {
+  //   try {
+  //     const response = await fetch(`${this.url}/${userId}`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         // "authorization": `Bearer ${localStorage?.getItem('token')}`
+  //       },
+  //       body: JSON.stringify(musicData)
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     } 
+  //     const data = await response.json();
+  //     console.log('Music added:', data);
+  //   }
+  //   catch (error) {
+  //     console.error('An error occurred while adding music:', error);
+  //   } 
+  // }
+
+    //function to add music to the API (via a POST request) NO USER ID
+    async addMusic(musicData:any): Promise<void> {
+      try {
+        const response = await fetch(`${this.url}/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // "authorization": `Bearer ${localStorage?.getItem('token')}`
+          },
+          body: JSON.stringify(musicData)
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        } 
+        const data = await response.json();
+        console.log('Music added:', data);
+      }
+      catch (error) {
+        console.error('An error occurred while adding music:', error);
+      } 
+    }
+
 
 }
+
