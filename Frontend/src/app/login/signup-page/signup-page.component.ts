@@ -18,7 +18,7 @@ export class SignupPageComponent {
   confirmPassword: string = ''
 
   errors: Array<string> = []
-  isDialogVisible: boolean = true
+  isDialogVisible: boolean = false
 
   setDialogVisibility($event: boolean) {
     this.isDialogVisible = $event;

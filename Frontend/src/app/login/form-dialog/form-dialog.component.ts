@@ -11,6 +11,7 @@ export class FormDialogComponent {
 
   @Input() title: string = ''
   @Input() errors: Array<string> = ['qq', 'Q_q']
+  @Input() successText: string = ''
   @Input() isVisible: boolean = false
 
   @Output() hide = new EventEmitter<boolean>();

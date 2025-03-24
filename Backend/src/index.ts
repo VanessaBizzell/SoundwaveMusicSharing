@@ -82,6 +82,8 @@ app.get("/", (req: Request, res: Response) => {
   //)
 });
 
+app.post('/login', UserController.validateLogin)
+
 app.post('/signup', UserController.signup)
 
 // Error-handling middleware

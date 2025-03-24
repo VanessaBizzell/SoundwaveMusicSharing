@@ -2,10 +2,10 @@
     <div class="bg-white w-[480px] py-6 rounded-lg border-solid border-1 border-black">
         <h3 class="text-2xl uppercase font-bold text-[#9d0007]">{{title}}</h3>
         <hr class="mt-6 mb-4 border-1 w-[100%] border-[#9d0007]"/>
-        <div *ngIf="errors.length > 0; else successText" class="text-left px-16">
+        <div *ngIf="errors.length > 0; else successTextBlock" class="text-left px-16">{{errors.length}}
             <p *ngFor="let error of errors">&#10256; {{error}}</p>
         </div>
-        <ng-template #successText>Successfully signed up</ng-template>
+        <ng-template #successTextBlock>{{successText.toString()}}</ng-template>
         <button (click)="onHide()" class="bg-[#9d0007] w-[80%] mx-auto hover:bg-[#9d0007]/80 rounded-lg px-4 py-2 mt-6 text-white">Continue</button>
     </div>
 </div>

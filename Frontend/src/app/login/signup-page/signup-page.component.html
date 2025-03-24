@@ -7,4 +7,4 @@
     <p class="text-xs mx-[auto] w-[max-content] pt-4">Already have an account? Click <a href='#'>HERE</a> to sign in!</p>
 </form>
 
-<app-form-dialog [title]="'Sign Up'" [errors]="errors" [isVisible]="isDialogVisible" (hide)="setDialogVisibility(false)"></app-form-dialog>
+<app-form-dialog [title]="'Sign Up'" [errors]="errors" [successText]="'Successfully signed up!'" [isVisible]="isDialogVisible" (hide)="setDialogVisibility($event)"></app-form-dialog>

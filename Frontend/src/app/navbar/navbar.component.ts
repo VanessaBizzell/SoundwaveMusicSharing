@@ -15,11 +15,15 @@ export class NavbarComponent {
 
   navbarHeight: number = 80
 
-  isLoggedIn: boolean = true
+  isLoggedIn: boolean = false
   isShowDropMenu: boolean = false
 
+  ngOnInit() {
+    this.isLoggedIn = localStorage.getItem('token') != null
+  }
+
   getItems(): String[] {
-    return this.isLoggedIn? 
+    return this.isLoggedIn ?  
       ['Feed', 'Library', 'Profile', 'Logout'] :
       ['Login', 'Signup']
   }
