@@ -9,4 +9,12 @@
 
 </form>
 
-<app-form-dialog [title]="'Login'" [errors]="errors" [successText]="'Logged in successfully'" [isVisible]="isDialogVisible" (hide)="setDialogVisibility($event)"></app-form-dialog>
+<app-form-dialog 
+    title]="'Login'" 
+    [errors]="errors" 
+    [successText]="'Logged in successfully'" 
+    [isVisible]="isDialogVisible" 
+    (hide)="setDialogVisibility($event)"
+    [redirect]="redirect"
+>
+</app-form-dialog>

@@ -15,6 +15,7 @@ export class LoginPageComponent {
   password: string = '';
 
   errors: Array<string> = []
+  redirect: string = '';
 
   isDialogVisible: boolean = false
 
@@ -53,6 +54,7 @@ export class LoginPageComponent {
 
       console.log(data)
       this.errors = data.errors
+      if(this.errors.length == 0) this.redirect = '/'
       this.isDialogVisible = true
 
       //Client.token = data.token

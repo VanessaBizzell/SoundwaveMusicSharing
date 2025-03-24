@@ -15,6 +15,7 @@ export class SignupPageComponent {
   username: string = ''
   email: string = ''
   password: string = ''
+  redirect: string = ''
   confirmPassword: string = ''
 
   errors: Array<string> = []
@@ -57,6 +58,8 @@ export class SignupPageComponent {
     .then(data => {
       console.log(data)
       this.errors = data.errors
+      if(this.errors.length == 0) this.redirect = '/login'
+      console.log(this.errors.length, this.redirect)
       this.isDialogVisible = true
       return data
     })

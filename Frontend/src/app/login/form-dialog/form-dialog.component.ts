@@ -12,11 +12,13 @@ export class FormDialogComponent {
   @Input() title: string = ''
   @Input() errors: Array<string> = ['qq', 'Q_q']
   @Input() successText: string = ''
+  @Input() redirect: string = ''
   @Input() isVisible: boolean = false
 
   @Output() hide = new EventEmitter<boolean>();
 
   onHide(): void {
+    console.log("redirect to:", this.redirect)
     this.hide.emit(false);
   }
 
