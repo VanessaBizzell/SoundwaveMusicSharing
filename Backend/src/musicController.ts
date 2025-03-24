@@ -1,24 +1,73 @@
 import { Request, Response, NextFunction } from 'express';
 import createError from 'http-errors';
-// import upload from './gridFsStorage'; // Import your multer/GridFS setup
-
 import MusicPost from './schemas/music';
 import User from './schemas/User';
 
-// // Middleware for handling file upload
-// export const uploadTrack = upload.single('trackFile');
+// Create a new music post with file upload
+const createMusicPost = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        // req.file contains the uploaded file info after the upload.single("file") middleware runs
+        if (!req.file) {
+            res.status(400).json({ message: 'No track file uploaded' });
+            return;
+        }
 
-// // Create a new music post with file upload
-// export const createMusicPost = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        const {
+            trackName,
+            artist,
+            album,
+            recordedDate,
+            coverArt,
+            sourcedFrom,
+            genre,
+            availableForSale,
+            price,
+            comment,
+            userID
+        } = req.body;
+
+        // Use the file ID as the trackLink
+        const trackLink = req.file.filename ? req.file.filename.toString() : null;
+
+        const newMusicPost = await MusicPost.create({
+            trackName,
+            trackLink, // This will now be the GridFS file ID
+            artist,
+            album,
+            recordedDate,
+            coverArt,
+            sourcedFrom,
+            genre,
+            availableForSale,
+            price,
+            comment: comment || [], // Initialize empty array for comments if not provided
+            postedBy: userID
+        });
+
+        const user = await User.findById(userID);
+        if (user) {
+            user.musicPosts = user.musicPosts || [];
+            user.musicPosts.push(newMusicPost._id);
+            await user.save();
+        }
+
+        res.status(201).json({ message: "Music Posted!", post: newMusicPost });
+    } catch (error) {
+        if (error instanceof Error) {
+            next(createError(400, error.message));
+        } else {
+            next(createError(400, 'Music post could not be saved'));
+        }
+    }
+};
+
+
+// // Create a new music post
+// const createMusicPost = async (req: Request, res: Response, next: NextFunction) => {
 //     try {
-//         // req.file contains the uploaded file info after the uploadTrack middleware runs
-//         if (!req.file) {
-//             res.status(400).json({ message: 'No track file uploaded' });
-//             return;
-//         }
-
 //         const {
 //             trackName,
+//             trackLink,
 //             artist,
 //             album,
 //             recordedDate,
@@ -28,37 +77,42 @@ import User from './schemas/User';
 //             availableForSale,
 //             price,
 //             comment,
-//             userId
+//             userID
 //         } = req.body;
-
-//         // Use the file ID as the trackLink
-//         const trackLink = req.file.filename ? req.file.filename.toString() : null;
 
 //         const newMusicPost = await MusicPost.create({
 //             trackName,
-//             trackLink, // This will now be the GridFS file ID
+//             trackLink,
 //             artist,
 //             album,
 //             recordedDate,
 //             coverArt,
 //             sourcedFrom,
 //             genre,
-//             availableForSale: availableForSale === 'true', // Convert string to boolean if needed
+//             availableForSale,
 //             price,
 //             comment: comment || [], // Initialize empty array for comments if not provided
-//             postedBy: userId
+//             postedBy: userID
 //         });
 
-//         res.status(201).json({
-//             success: true,
-//             message: 'Music post created successfully',
-//             data: newMusicPost
-//         });
+//         const user = await User.findById(userID);
+//         if (user) {
+//             user.musicPosts = user.musicPosts || [];
+//             user.musicPosts.push(newMusicPost._id);
+//             await user.save();
+//         }
+
+//         res.status(201).json({ message: "Music Posted!", post: newMusicPost });
 //     } catch (error) {
-//         console.error('Error creating music post:', error);
-//         next(error);
+//         if (error instanceof Error) {
+//             next(createError(400, error.message));
+//         } else {
+//             next(createError(400, 'Music post could not be saved'));
+//         }
 //     }
 // };
+
+
 
 const getMusicPosts = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -116,4 +170,4 @@ const submitComment = async (req: Request, res: Response, next: NextFunction) =>
     }
 };
 
-export { getMusicPosts, getMusicPostByID, submitComment, };
+export { getMusicPosts, getMusicPostByID, submitComment, createMusicPost };

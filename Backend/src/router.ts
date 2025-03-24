@@ -4,14 +4,16 @@ import { Request, Response } from 'express';
 
 
 import * as Middleware from './middleware'
+// import upload from './utils/upload';
 
 const router = express.Router();
 
 // Import the controllers
 import { 
     // createMusicPost,
-     getMusicPosts, getMusicPostByID, submitComment, 
-    //  uploadTrack 
+     getMusicPosts,
+      getMusicPostByID, 
+      submitComment, 
      } from './musicController';
 import * as UserController from './userController'
  
@@ -19,7 +21,7 @@ import * as UserController from './userController'
 router.post('/login', UserController.requestToken)
 router.post('/signup', UserController.signup)
 
-// router.post('/music', uploadTrack, createMusicPost);
+// router.post('/music', upload.single("file"), createMusicPost);
 // router.post('/music', createMusicPost); // Create a new music post
 router.get('/music', Middleware.authenticateRequest, getMusicPosts); // Get all music posts
 router.get('/music/:id', getMusicPostByID); // Get a single music post
