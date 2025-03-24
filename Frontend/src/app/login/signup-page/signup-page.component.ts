@@ -1,13 +1,15 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LoginFormInputComponent } from '../components/form-input/login-form-input.component';
 import { LoginFormButtonComponent } from '../components/form-button/login-form-button.component';
+import { FormDialogComponent } from "../form-dialog/form-dialog.component";
 
 @Component({
   selector: 'app-signup-page',
-  imports: [ LoginFormInputComponent, LoginFormButtonComponent ],
+  imports: [LoginFormInputComponent, LoginFormButtonComponent, FormDialogComponent],
   templateUrl: './signup-page.component.html',
   styleUrl: './signup-page.component.css'
 })
+
 export class SignupPageComponent {
 
   username: string = ''
@@ -31,10 +33,25 @@ export class SignupPageComponent {
     this.confirmPassword = $event
   }
 
-  signup = async (): Promise<Response> => {
-    console.log(this.username)
-    console.log(this.password)
-    return await fetch('')
+  signup = async (event: Event): Promise<Response> => {
+    event.preventDefault()
+    return await fetch('http://localhost:3001/signup', {
+      method: 'POST',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        "username": this.username,
+        "password": this.password,
+        "email": this.email
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      return data
+    })
+    .catch(error => console.error(error))
   }
 
 }

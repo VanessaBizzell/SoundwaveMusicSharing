@@ -1,0 +1,11 @@
+<div class="absolute text-center text-lg flex justify-center items-center top-0 left-0 bg-black/60 w-[100vw] h-[100vh]">
+    <div class="bg-white w-[480px] py-6 rounded-lg border-solid border-1 border-black">
+        <h3 class="text-2xl uppercase font-bold text-[#9d0007]">Sign up</h3>
+        <hr class="mt-6 mb-4 border-1 w-[100%] border-[#9d0007]"/>
+        <div *ngIf="errors.length > 0; else successText">
+            <p *ngFor="let error of errors">&#2022; {{error}}</p>
+        </div>
+        <ng-template #successText>Successfully signed up</ng-template>
+        <a href="#"><div class="bg-[#9d0007] w-[80%] mx-auto hover:bg-[#9d0007]/80 rounded-lg px-4 py-2 mt-4 text-white">Continue</div></a>
+    </div>
+</div>

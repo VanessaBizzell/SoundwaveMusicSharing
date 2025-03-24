@@ -61,20 +61,32 @@ export const requestToken = async (request: Request, response: Response) => {
 
 export const signup = async (request: Request, response: Response, next: NextFunction) => {
 
-    const newUser = new userModel({
-        username: 'qq',
-        password: 'qq',
-        email: 'qq'
+    let errors: Array<string> = []
+
+    console.log(request.body)
+
+    if(await userModel.findOne({
+        username: request.body.username
+    }) !== null) {
+        errors.push('Username already exists')
+    }
+
+    if(await userModel.findOne({
+        email: request.body.email
+    }) !== null) {
+        errors.push('Email is already registered')
+    }
+
+    if(errors.length === 0) {
+        const newUser = await new userModel({
+            username: request.body.username,
+            email: request.body.email,
+            password: request.body.password
+        })
+        await newUser.save()
+    }
+
+    response.status(200).json({
+        "errors": errors
     })
-
-    await newUser.save()
-
-    const user = await userModel.findOne({});
-    response.status(200).json(user)
-}
-
-export const validate = async (request: Request, response: Response, next: NextFunction) => {
-    console.log(request.originalUrl)
-    console.log(request)
-    response.send('qq')
 }

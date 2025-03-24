@@ -72,15 +72,8 @@ router.use((req, res, next) => {
 
 router.use(Middleware.authenticateRequest)
 
-
 // Use the imported router
 app.use("/api", router);
-
-app.get('/api/page', (req: Request, res: Response) => {
-  res.status(200).json({ "qq": "Q_q" })
-}) 
-
-app.post('/validate', UserController.validate)
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
@@ -89,9 +82,7 @@ app.get("/", (req: Request, res: Response) => {
   //)
 });
 
-app.get("/abc", (request: Request, response: Response, next: NextFunction) => {
-  //console.log(request.session)
-})
+app.post('/signup', UserController.signup)
 
 // Error-handling middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

@@ -17,8 +17,10 @@ export class LoginFormInputComponent implements OnInit {
   value: string = ''
 
   ngOnInit() {
+
     if(this.name.toLowerCase().includes('password')) this.type = 'password'
     else if(this.name.toLowerCase().includes('email')) this.type = 'email'
+
   }
 
   onValueChanged(): void {
