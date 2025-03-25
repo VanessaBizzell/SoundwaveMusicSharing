@@ -1,23 +1,24 @@
-<section name="add musicform" class="bg-white shadow-md border-2 border-gray-700 rounded-lg p-6 max-w-md ">
-  <h2 class="text-2xl text-[#9d0007]">Music Details:</h2>
-  <form class="grid grid-cols-1 py-2" [formGroup]="MusicPostForm" (ngSubmit)="submitMusic()">
-    <mat-form-field>
+<section name="add musicform" class="bg-white shadow-md border-2 border-gray-700 rounded-lg p-6 max-w-xs md:max-w-lg max-h-lg">
+  <h2 class="text-2xl text-[#9d0007] pb-4">Music Details:</h2>
+  <form class="h-full flex flex-wrap items-start justify-center gap-3 py-2 px-2" [formGroup]="MusicPostForm" (ngSubmit)="submitMusic()">
+    <div class="w-full flex flex-wrap gap-3">
+    <mat-form-field class="grow"> 
       <mat-label>Track Name</mat-label>
       <input matInput formControlName="trackName">
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="grow">
       <mat-label>Track Link</mat-label>
       <input matInput formControlName="trackLink">
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="grow">
       <mat-label>Cover Art Link</mat-label>
       <input matInput formControlName="coverArt">
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="grow">
       <mat-label>Artist</mat-label>
       <input matInput formControlName="artist">
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="grow">
       <mat-label>Select Source</mat-label>
       <mat-select formControlName="sourcedFrom">
         <mat-option value="original">Original track</mat-option>
@@ -26,7 +27,7 @@
         <mat-option value="Artist's Website">Artist's Website</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="grow">
       <mat-label>Select Genre</mat-label>
       <mat-select formControlName="genre">
         <mat-option value="blues">Blues</mat-option>
@@ -36,20 +37,15 @@
         <mat-option value="rock">Rock</mat-option>
       </mat-select>
     </mat-form-field>
-    <p>Is this your original track? You cannot sell music if you do not own the rights</p>
+    <p class="py-2">Is this your original track? You cannot sell music if you do not own the rights</p>
       <mat-checkbox formControlName="availableForSale" class="mb-2">Available for Sale</mat-checkbox>
-      <mat-form-field *ngIf="MusicPostForm.get('availableForSale')?.value">
-        <mat-label>Price</mat-label>
-        <mat-select formControlName="price">
-          <mat-option value="0">Free</mat-option>
-          <mat-option value="1.99">£1.99</mat-option>
-          <mat-option value="3.99">£3.99</mat-option>
-          <mat-option value="5.99">£5.99</mat-option>
-          <mat-option value="7.99">£7.99</mat-option>
-          <mat-option value="9.99">£9.99</mat-option>
-        </mat-select>
-      </mat-form-field>
-    
-    <button mat-raised-button type="submit" color="accent" class="mt-4">Post Now</button>
+      <mat-form-field class="grow" *ngIf="MusicPostForm.get('availableForSale')?.value">
+          <mat-label>Price £</mat-label>
+          <input matInput formControlName="price">
+        </mat-form-field>
+    </div>
+    <div class="flex justify-center py-2">   
+    <button mat-raised-button type="submit" color="accent" class="">Post Now</button>
+    </div>
   </form>
 </section>

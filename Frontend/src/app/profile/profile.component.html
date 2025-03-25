@@ -29,25 +29,27 @@
     </button>
 
     <div
-    *ngIf="MusicFormVisible"
-    class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto"
-  >
-    <!-- Background overlay with opacity -->
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-    <!-- Modal content -->
-    <div class="relative pt-5 flex items-center justify-center max-h-screen">
-      <div class="overflow-y-auto max-h-[90vh]">
-        <button
-        name="close music details button"
-        (click)="MusicFormVisible = false"
-        class="absolute top-8 right-8 font-extrabold text-md text-gray-700 hover:text-rose-700"
-      >
-        ×
-      </button>
-        <app-add-music-form (formSubmitted)="MusicFormVisible = false"></app-add-music-form>
+      *ngIf="MusicFormVisible"
+      class="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto md:"
+    >
+      <!-- Background overlay with opacity -->
+      <div class="absolute inset-0 bg-black opacity-50"></div>
+      <!-- Modal content -->
+      <div class="relative py-5 flex items-center justify-center max-h-screen">
+        <div class="max-h-[90vh]">
+          <button
+            name="close music details button"
+            (click)="MusicFormVisible = false"
+            class="absolute top-8 right-8 font-extrabold text-md text-gray-700 hover:text-rose-700"
+          >
+            ×
+          </button>
+          <app-add-music-form
+            (formSubmitted)="MusicFormVisible = false"
+          ></app-add-music-form>
+        </div>
       </div>
     </div>
-  </div>
 
     <!-- PROBABLY NEEDS TO LOOK DIFFERENT - HAVE A DELETE AND AN UPDATE BUTTON -->
     <!-- Overlay for details component -->
