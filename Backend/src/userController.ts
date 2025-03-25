@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
 
 import * as Middleware from './middleware'
+
 import userModel from './schemas/User'
 
-export const requestToken = async (request: Request, response: Response) => {
+const requestToken = async (): Promise<Response> => {
 
     const body: object = {
         "client_id": "DPFEYYl4wqk8TFMsH3k9xGm8LNhN8Pk8",
@@ -14,7 +15,7 @@ export const requestToken = async (request: Request, response: Response) => {
 
     let token: string = 'NULL'
 
-    await fetch('https://dev-ib3bna8dxfvytg5v.us.auth0.com/oauth/token',
+    return await fetch('https://dev-ib3bna8dxfvytg5v.us.auth0.com/oauth/token',
     {
         method: 'POST',
         headers: {
@@ -28,53 +29,63 @@ export const requestToken = async (request: Request, response: Response) => {
         return data
     })
     .catch(error => console.error(error))
+}
 
-    /* STORE TOKEN FROM SERVER AUTHENTICATION */
-    Middleware.session.token = token
-    
-    /* 
-    response.set("Set-Cookie" `token=${token}`)
-    */
+export const validateLogin = async (request: Middleware.CustomRequest, response: Response, next: NextFunction) => {
 
-    //old code, use it for local testing
-    response.cookie("token", token, {
-      httpOnly: true,
-      secure: false,  // Set to true in production with HTTPS
-      sameSite: 'lax',
-      maxAge: 24 * 60 * 60 * 1000 * 7, // 7 days
-      path: '/',
-    });
+    let errors: Array<string> = []
+    let token = ''
+    let user = await userModel.findOne({username: request.body.username})
+    if(!user) user = await userModel.findOne({email: request.body.username})
+    if(user) {
+        if(user.password == request.body.password) {
+            const tokenRequest = await requestToken()
+            token = tokenRequest['access_token']
+            await user.updateOne({token: token})
+            console.log(request.cookies)
+            response.cookie('token', token)
+        } else {
+            errors.push("Unable to validate those credentials")
+        }
+    } else {
+        errors.push("Username/Email doesn't exist")
+    }
 
-    // Set the token as a cookie. New code, use when deploying to production (live)
-    /*
-    response.cookie(
-        "token", 
-        token, 
-        { httpOnly: true, secure: process.env.NODE_ENV === "production", // Secure in production
-                sameSite: 'none', // Required for cross-origin cookies
-                maxAge: 24 * 60 * 60 * 1000 * 7, // 7 days
-                path: '/'
-        });
-    */
-    response.status(200).json( { "token": token } )
+    response.status(200).json({
+        "errors": errors,
+        "token": token
+    })
+
 }
 
 export const signup = async (request: Request, response: Response, next: NextFunction) => {
 
-    const newUser = new userModel({
-        username: 'qq',
-        password: 'qq',
-        email: 'qq'
+    let errors: Array<string> = []
+
+    console.log(request.body)
+
+    if(await userModel.findOne({
+        username: request.body.username
+    }) !== null) {
+        errors.push('Username already exists')
+    }
+
+    if(await userModel.findOne({
+        email: request.body.email
+    }) !== null) {
+        errors.push('Email is already registered')
+    }
+
+    if(errors.length === 0) {
+        const newUser = await new userModel({
+            username: request.body.username,
+            email: request.body.email,
+            password: request.body.password
+        })
+        await newUser.save()
+    }
+
+    response.status(200).json({
+        "errors": errors
     })
-
-    await newUser.save()
-
-    const user = await userModel.findOne({});
-    response.status(200).json(user)
-}
-
-export const validate = async (request: Request, response: Response, next: NextFunction) => {
-    console.log(request.originalUrl)
-    console.log(request)
-    response.send('qq')
 }

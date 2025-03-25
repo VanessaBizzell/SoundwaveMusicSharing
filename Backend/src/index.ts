@@ -72,26 +72,19 @@ router.use((req, res, next) => {
 
 router.use(Middleware.authenticateRequest)
 
-
 // Use the imported router
 app.use("/api", router);
 
-app.get('/api/page', (req: Request, res: Response) => {
-  res.status(200).json({ "qq": "Q_q" })
-}) 
-
-app.post('/validate', UserController.validate)
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
- // res.send(
-    //req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out'
-  //)
+app.get("/", (request: Middleware.CustomRequest, response: Response) => {
+  response.send("Express + TypeScript Server");
+  console.log(request.cookies.token )
+  console.log(request.session)
+  console.log(request.session)
 });
 
-app.get("/abc", (request: Request, response: Response, next: NextFunction) => {
-  //console.log(request.session)
-})
+app.post('/login', UserController.validateLogin)
+
+app.post('/signup', UserController.signup)
 
 // Error-handling middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

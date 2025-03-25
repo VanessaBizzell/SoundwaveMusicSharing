@@ -11,7 +11,6 @@ import { createMusicPost, getMusicPosts, getMusicPostByID, submitComment } from 
 import * as UserController from './userController'
  
 // Define the routes
-router.post('/login', UserController.requestToken)
 router.post('/signup', UserController.signup)
 
 router.post('/music', createMusicPost); // Create a new music post
