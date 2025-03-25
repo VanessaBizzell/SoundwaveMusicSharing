@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import createError from 'http-errors';
 import MusicPost from './schemas/music';
 import User from './schemas/User';
+import { bucket } from './index';
+import mongoose from 'mongoose';
 
 // Create a new music post with file upload
 const createMusicPost = async (req: Request, res: Response, next: NextFunction) => {
@@ -61,6 +63,35 @@ const createMusicPost = async (req: Request, res: Response, next: NextFunction) 
     }
 };
 
+// Stream an audio file from GridFS
+const streamAudioFile = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { fileId } = req.params;
+
+        if (!bucket) {
+            return res.status(500).json({ error: { text: "GridFSBucket is not initialized" } });
+        }
+
+        // Check if file exists
+        const file = await bucket.find({ _id: new mongoose.Types.ObjectId(fileId) }).toArray();
+        if (file.length === 0) {
+            return res.status(404).json({ error: { text: "File not found" } });
+        }
+
+        // Set the headers
+        res.set("Content-Type", file[0].contentType);
+        res.set("Content-Disposition", `inline; filename=${file[0].filename}`);
+
+        // Create a stream to read from the bucket
+        const downloadStream = bucket.openDownloadStream(new mongoose.Types.ObjectId(fileId));
+
+        // Pipe the stream to the response
+        downloadStream.pipe(res);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ error: { text: `Unable to stream file`, error } });
+    }
+};
 
 // // Create a new music post
 // const createMusicPost = async (req: Request, res: Response, next: NextFunction) => {
@@ -170,4 +201,4 @@ const submitComment = async (req: Request, res: Response, next: NextFunction) =>
     }
 };
 
-export { getMusicPosts, getMusicPostByID, submitComment, createMusicPost };
+export { getMusicPosts, getMusicPostByID, submitComment, createMusicPost, streamAudioFile };

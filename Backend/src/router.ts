@@ -14,6 +14,7 @@ import {
      getMusicPosts,
       getMusicPostByID, 
       submitComment, 
+      streamAudioFile
      } from './musicController';
 import * as UserController from './userController'
  
@@ -27,5 +28,7 @@ router.get('/music', Middleware.authenticateRequest, getMusicPosts); // Get all 
 router.get('/music/:id', getMusicPostByID); // Get a single music post
 // router.put('/music/:id', submitComment); // Update a music post with a comment
 router.patch('/music/:id', submitComment as express.RequestHandler);
+// Stream an audio file from GridFS
+router.get('/stream/:fileId', streamAudioFile);
 
 export default router;

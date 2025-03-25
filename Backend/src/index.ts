@@ -54,6 +54,8 @@ mongoose.connection.on("connected", () => {
   }
 });
 
+export { bucket };
+
 async function main() {
   await mongoose.connect(process.env.MONGODB_URL as string);
   console.log(`Successfully connected to MongoDB!`);
