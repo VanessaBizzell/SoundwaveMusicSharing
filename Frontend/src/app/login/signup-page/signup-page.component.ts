@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LoginFormInputComponent } from '../components/form-input/login-form-input.component';
 import { LoginFormButtonComponent } from '../components/form-button/login-form-button.component';
-import { FormDialogComponent } from "../form-dialog/form-dialog.component";
+import { FormDialogComponent } from "../../form-dialog/form-dialog.component";
 
 @Component({
   selector: 'app-signup-page',

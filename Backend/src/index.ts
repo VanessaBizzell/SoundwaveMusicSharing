@@ -92,6 +92,7 @@ app.post("/current-user", UserController.getCurrentUser)
 
 app.post('/login', UserController.validateLogin)
 app.post('/signup', UserController.signup)
+app.post('/logout', UserController.logout)
 
 // Error-handling middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

@@ -36,12 +36,16 @@ export const validateLogin = async (request: Middleware.CustomRequest, response:
 
     let errors: Array<string> = []
     let token = ''
+    let maxAge = 1000 * 60 * 60 * 24
     let user = await userModel.findOne({username: request.body.username})
+
     if(!user) user = await userModel.findOne({email: request.body.username})
     if(user) {
         if(user.password == request.body.password) {
             const tokenRequest = await requestToken()
+            console.log(tokenRequest)
             token = tokenRequest['access_token']
+            maxAge = tokenRequest['expires_in'] * 1000
             await user.updateOne({token: token})
         } else {
             errors.push("Unable to validate those credentials")
@@ -49,11 +53,9 @@ export const validateLogin = async (request: Middleware.CustomRequest, response:
     } else {
         errors.push("Username/Email doesn't exist")
     }
-    console.log(request.cookies)
-    console.log("headers cookies:", request.headers.cookie)
     response.cookie("token", token, {
         httpOnly: true,
-        maxAge: 1000 * 60 * 60
+        maxAge: maxAge
     })   
     response.status(200).json({
         "errors": errors,
@@ -110,3 +112,8 @@ export const getCurrentUser = async (request: Request, response: Response, next:
         id
     })
 } 
+
+export const logout = (request: Request, response: Response, next: NextFunction) => {
+    response.clearCookie('token')
+    response.status(200).json({})
+}
