@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
+import { client } from './../client/client'
+
 import '../app.routes'
 
 @Component({
@@ -18,8 +20,9 @@ export class NavbarComponent {
   isLoggedIn: boolean = false
   isShowDropMenu: boolean = false
 
-  ngOnInit() {
-    this.isLoggedIn = localStorage.getItem('token') != null
+  async ngOnInit() {
+    const request = await client.fetchCurrentUser()
+    this.isLoggedIn = request.id.length > 0
   }
 
   getItems(): String[] {

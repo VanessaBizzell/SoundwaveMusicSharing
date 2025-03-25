@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 //imported from music.ts interface
 import { Music } from './music';
+import { client } from './../client/client'
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,7 @@ export class MusicService {
   async getAllMusic(): Promise<Music[]> {
 
     try {
-      const response = await fetch(this.url, {
-        headers: {
-          "authorization": `Bearer ${localStorage?.getItem('token')}`
-        }
-      });
+      const response = await client.fetchAuthenticated(this.url);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -41,11 +38,7 @@ export class MusicService {
 
   async getUserMusic(userId: string): Promise<Music[]> {
     try {
-      const response = await fetch(`${this.url}/${userId}`, {
-        headers: {
-          "authorization": `Bearer ${localStorage?.getItem('token')}`
-        }
-      });
+      const response = await fetch(`${this.url}/${userId}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express'
 import * as Middleware from './middleware'
 
 import userModel from './schemas/User'
+import { ObjectId } from 'mongoose'
 
 const requestToken = async (): Promise<Response> => {
 
@@ -42,15 +43,18 @@ export const validateLogin = async (request: Middleware.CustomRequest, response:
             const tokenRequest = await requestToken()
             token = tokenRequest['access_token']
             await user.updateOne({token: token})
-            console.log(request.cookies)
-            response.cookie('token', token)
         } else {
             errors.push("Unable to validate those credentials")
         }
     } else {
         errors.push("Username/Email doesn't exist")
     }
-
+    console.log(request.cookies)
+    console.log("headers cookies:", request.headers.cookie)
+    response.cookie("token", token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60
+    })   
     response.status(200).json({
         "errors": errors,
         "token": token
@@ -89,3 +93,20 @@ export const signup = async (request: Request, response: Response, next: NextFun
         "errors": errors
     })
 }
+
+export const getCurrentUser = async (request: Request, response: Response, next: NextFunction) => {
+
+    let token: string = ''
+    let id: string = ''
+
+    if(request.cookies.token) {
+        token = request.cookies.token
+        const user = await userModel.findOne({token: request.cookies.token})
+        if(user) id = user.id
+    }
+
+    response.status(200).json({
+        token,
+        id
+    })
+} 

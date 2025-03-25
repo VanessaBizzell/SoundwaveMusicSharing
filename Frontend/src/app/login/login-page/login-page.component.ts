@@ -40,6 +40,7 @@ export class LoginPageComponent {
     return await fetch('http://localhost:3001/login',
       {
         method: 'POST',
+        credentials: 'include',
         headers: {
           "Content-Type": "application/JSON"
         },
