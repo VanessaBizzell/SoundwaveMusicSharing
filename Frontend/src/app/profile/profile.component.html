@@ -29,7 +29,7 @@
     </button>
 
     <div
-    *ngIf="onShowAddMusicForm"
+    *ngIf="MusicFormVisible"
     class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto"
   >
     <!-- Background overlay with opacity -->
@@ -37,6 +37,13 @@
     <!-- Modal content -->
     <div class="relative pt-5 flex items-center justify-center max-h-screen">
       <div class="overflow-y-auto max-h-[90vh]">
+        <button
+        name="close music details button"
+        (click)="MusicFormVisible = false"
+        class="absolute top-8 right-8 font-extrabold text-md text-gray-700 hover:text-rose-700"
+      >
+        ×
+      </button>
         <app-add-music-form></app-add-music-form>
       </div>
     </div>
