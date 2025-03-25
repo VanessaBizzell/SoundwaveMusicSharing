@@ -41,8 +41,21 @@ export class SignupPageComponent {
     this.confirmPassword = $event
   }
 
-  signup = async (event: Event): Promise<Response> => {
+  doSignup = (event: Event): void => {
     event.preventDefault()
+    if(this.username.length < 8) this.errors.push('Username must be at least 8 characters long')
+    if(this.password != this.confirmPassword) this.errors.push('Passwords don\'t match')
+    else {
+      if(this.password.length < 8) this.errors.push('Password must be at least 8 characters long')
+    }
+    if(this.errors.length == 0) {
+      this.signup()
+    } else {
+      this.isDialogVisible = true
+    }
+  }
+
+  signup = async (): Promise<Response> => {
     return await fetch('http://localhost:3001/signup', {
       method: 'POST',
       headers: {

@@ -52,18 +52,6 @@ export class LoginPageComponent {
     )
     .then(response => response.json())
     .then(data => {
-
-      console.log(data)
-      
-      if(data.token?.length > 0) localStorage.setItem('token', data.token)
-      //if(data.token?.length > 0) client.token = data.token
-
-      this.errors = data.errors
-      if(this.errors.length == 0) this.redirect = '/'
-      this.isDialogVisible = true
-
-      //Client.token = data.token
-      
       return data
   })
     .catch(error => console.error(error))

@@ -1,4 +1,4 @@
-<form class="mt-16 mx-[auto] w-[max-content]" (submit)="signup($event)">
+<form class="mt-16 mx-[auto] w-[max-content]" (submit)="doSignup($event)">
     <app-login-form-input [name]="'Username'" (outValue)="setUsername($event)"></app-login-form-input>
     <app-login-form-input [name]="'Email'" (outValue)="setEmail($event)"></app-login-form-input>
     <app-login-form-input [name]="'Password'" (outValue)="setPassword($event)"></app-login-form-input>
