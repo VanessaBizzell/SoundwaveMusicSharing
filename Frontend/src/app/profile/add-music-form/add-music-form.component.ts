@@ -48,9 +48,21 @@ export class AddMusicFormComponent {
     });
   }
 
-  async submitMusic(): Promise<void> {
-    const musicData = this.MusicPostForm.value;
-    console.log('Music data:', musicData);
-    // await this.musicService.addMusic(musicData);
-  }
+  // //submit music post form with userId
+  // async submitMusic(): Promise<void> {
+  //   const musicData = this.MusicPostForm.value;
+  //   console.log('Music data:', musicData);
+  //   const userId = 'someUserId'; // Replace with actual user ID
+  //   await this.musicService.addMusic(userId, musicData);
+  // }
+
+ //submit music post form with no userId
+ async submitMusic(): Promise<void> {
+  const musicData = this.MusicPostForm.value;
+  console.log('Music data:', musicData);
+  const userId = 'someUserId'; // Replace with actual user ID
+  await this.musicService.addMusic(musicData);
+}
+
+
 };

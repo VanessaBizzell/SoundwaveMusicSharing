@@ -28,18 +28,19 @@
       Add Music Post
     </button>
 
-    <!-- Overlay for add music form component -->
     <div
-      *ngIf="onShowAddMusicForm"
-      class="fixed inset-0 z-50 flex items-center justify-center"
-    >
-      <!-- Background overlay with opacity -->
-      <div class="absolute inset-0 bg-black opacity-50"></div>
-      <!-- Modal content -->
-      <div class="relative flex items-center justify-center">
+    *ngIf="onShowAddMusicForm"
+    class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto"
+  >
+    <!-- Background overlay with opacity -->
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <!-- Modal content -->
+    <div class="relative pt-5 flex items-center justify-center max-h-screen">
+      <div class="overflow-y-auto max-h-[90vh]">
         <app-add-music-form></app-add-music-form>
       </div>
     </div>
+  </div>
 
     <!-- PROBABLY NEEDS TO LOOK DIFFERENT - HAVE A DELETE AND AN UPDATE BUTTON -->
     <!-- Overlay for details component -->
