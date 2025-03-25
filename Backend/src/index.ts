@@ -75,11 +75,11 @@ router.use(Middleware.authenticateRequest)
 // Use the imported router
 app.use("/api", router);
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
- // res.send(
-    //req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out'
-  //)
+app.get("/", (request: Middleware.CustomRequest, response: Response) => {
+  response.send("Express + TypeScript Server");
+  console.log(request.cookies.token )
+  console.log(request.session)
+  console.log(request.session)
 });
 
 app.post('/login', UserController.validateLogin)

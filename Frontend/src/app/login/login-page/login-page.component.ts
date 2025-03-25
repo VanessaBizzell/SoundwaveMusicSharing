@@ -3,6 +3,8 @@ import { LoginFormInputComponent } from '../components/form-input/login-form-inp
 import { LoginFormButtonComponent } from '../components/form-button/login-form-button.component';
 import { FormDialogComponent } from "../form-dialog/form-dialog.component";
 
+import { client } from './../../client/client'
+
 @Component({
   selector: 'app-login-page',
   imports: [LoginFormInputComponent, LoginFormButtonComponent, FormDialogComponent],
@@ -49,10 +51,12 @@ export class LoginPageComponent {
     )
     .then(response => response.json())
     .then(data => {
-      
-      if(data.token?.length > 0) localStorage.setItem('token', data.token)
 
       console.log(data)
+      
+      if(data.token?.length > 0) localStorage.setItem('token', data.token)
+      //if(data.token?.length > 0) client.token = data.token
+
       this.errors = data.errors
       if(this.errors.length == 0) this.redirect = '/'
       this.isDialogVisible = true

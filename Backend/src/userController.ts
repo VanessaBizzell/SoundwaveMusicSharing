@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 
 import * as Middleware from './middleware'
+
 import userModel from './schemas/User'
 
 const requestToken = async (): Promise<Response> => {
@@ -30,7 +31,7 @@ const requestToken = async (): Promise<Response> => {
     .catch(error => console.error(error))
 }
 
-export const validateLogin = async (request: Request, response: Response, next: NextFunction) => {
+export const validateLogin = async (request: Middleware.CustomRequest, response: Response, next: NextFunction) => {
 
     let errors: Array<string> = []
     let token = ''
@@ -40,10 +41,12 @@ export const validateLogin = async (request: Request, response: Response, next: 
         if(user.password == request.body.password) {
             const tokenRequest = await requestToken()
             token = tokenRequest['access_token']
+            await user.updateOne({token: token})
+            console.log(request.cookies)
+            response.cookie('token', token)
         } else {
             errors.push("Unable to validate those credentials")
         }
-        console.log(user)
     } else {
         errors.push("Username/Email doesn't exist")
     }
