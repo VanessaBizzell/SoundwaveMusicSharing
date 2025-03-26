@@ -19,6 +19,7 @@ export class ProfileComponent {
   //might need to add another endpoint to retrieve music by the userID (getUserMusic)
   userMusic: Music[] = [];
   selectedMusicId: string | null = null;
+  MusicFormVisible: boolean = false;
   
   //inject music service
   musicService: MusicService = inject(MusicService);
@@ -48,8 +49,8 @@ export class ProfileComponent {
     }
 
     //method for displaying add music form when button is clicked
-    onShowAddMusicForm() {
-      //display add music form
+    onShowAddMusicForm(): void {
+      this.MusicFormVisible = !this.MusicFormVisible;
     }
 
     //method for displaying user's profile details/settings when button is clicked? Do we need this?
