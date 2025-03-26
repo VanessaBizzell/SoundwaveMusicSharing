@@ -47,6 +47,7 @@ const musicSchema = new Schema(
     comment: {
       type: [String],
       required: false,
+      default: [],
     },
     postedBy: {
       type: Schema.Types.ObjectId,
