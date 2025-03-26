@@ -1,11 +1,12 @@
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors"; //imports cors middleware
 import router from "./router";
 import multer from "multer";
+import upload, { saveToGridFS } from './utils/upload';
 
-const upload = multer({ dest: "uploads/" });
+// const upload = multer({ dest: "uploads/" });
 import * as Middleware from "./middleware";
 import cookieParser from "cookie-parser";
 import { createMusicPost } from "./musicController";
@@ -14,7 +15,7 @@ import { createMusicPost } from "./musicController";
 
 dotenv.config();
 
-const app: Express = express();
+const app = express();
 const port = process.env.PORT || 3001;
 
 //Enables CORS for a specific origin
@@ -40,7 +41,7 @@ app.use(cookieParser());
 app.use(session(Middleware.session));
 
 // Connect to MongoDB and initialize GridFS bucket
-let bucket: mongoose.mongo.GridFSBucket | undefined;
+let bucket: InstanceType<typeof mongoose.mongo.GridFSBucket> | undefined;
 mongoose.connection.on("connected", () => {
   if (mongoose.connection.db) {
     bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
@@ -109,10 +110,15 @@ app.get("/api/bucket-status", (req: Request, res: Response) => {
   }
 });
 
+
+
 // Routes for API endpoints
 
+// // Create a new music post with file upload
+// app.post("/upload/file", upload().single("file"), createMusicPost);
+
 // Create a new music post with file upload
-app.post("/upload/file", upload.single("file"), createMusicPost);
+app.post('/upload/file', upload.single('file'), saveToGridFS, createMusicPost);
 
 // // Upload a single file
 // app.post(
