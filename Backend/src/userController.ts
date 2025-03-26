@@ -99,7 +99,17 @@ export const signup = async (request: Request, response: Response, next: NextFun
         const newUser = await new userModel({
             username: request.body.username,
             email: request.body.email,
-            password: request.body.password
+            password: (): string => {
+                bcrypt.hash(request.body.password, saltRounds, (error: any, hash: string) => {
+                    if(error) {
+                        console.error(error)
+                        errors.push('Unable to process request')
+                    }
+                    console.log(hash)
+                    return hash
+                })
+                return ''
+            }
         })
         await newUser.save()
     }
