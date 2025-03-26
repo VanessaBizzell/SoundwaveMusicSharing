@@ -1,2 +1,2 @@
-# MusicApp
+# Soundwave
 Music social media app
