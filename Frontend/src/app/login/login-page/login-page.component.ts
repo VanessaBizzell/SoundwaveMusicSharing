@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginFormInputComponent } from '../components/form-input/login-form-input.component';
 import { LoginFormButtonComponent } from '../components/form-button/login-form-button.component';
-import { FormDialogComponent } from "../../form-dialog/form-dialog.component";
+import { FormDialogComponent } from '../../form-dialog/form-dialog.component';
 
 import { client } from './../../client/client'
 
@@ -23,6 +23,7 @@ export class LoginPageComponent {
 
   setDialogVisibility($event: boolean) {
     this.isDialogVisible = $event
+    this.errors = []
   }
 
   setUsername(username: string) {
@@ -52,6 +53,11 @@ export class LoginPageComponent {
     )
     .then(response => response.json())
     .then(data => {
+      
+      this.errors = data.errors
+      if(this.errors.length == 0) this.redirect = '/'
+      this.isDialogVisible = true
+      
       return data
   })
     .catch(error => console.error(error))
