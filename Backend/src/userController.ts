@@ -6,14 +6,12 @@ import userModel from './schemas/User'
 
 const bcrypt = require('bcrypt')
 
-const salt = '$2b$10$Ta/74O6FjjVqRx35ullvwO'
-
 const requestToken = async (): Promise<Response> => {
 
     const body: object = {
-        "client_id": "DPFEYYl4wqk8TFMsH3k9xGm8LNhN8Pk8",
-        "client_secret": "w2Nz3GtFQaE5Ox1YAhnwAND-t_qNL1fM7XUh5CCPUlp_Gd_v56e6HLnuwIzECz90",
-        "audience": "soundwave",
+        "client_id": process.env.AUTH0_CLIENT_ID,
+        "client_secret": process.env.AUTH0_CLIENT_SECRET,
+        "audience": process.env.AUTH0_AUDIENCE,
         "grant_type": "client_credentials"
     }
 
@@ -44,7 +42,7 @@ export const validateLogin = async (request: Middleware.CustomRequest, response:
 
     if(!user) user = await userModel.findOne({email: request.body.username})
     if(user) {
-        if(await bcrypt.hash(request.body.password, salt) == user.password) {
+        if(await bcrypt.hash(request.body.password, process.env.salt) == user.password) {
             const tokenRequest = await requestToken()
             token = tokenRequest['access_token']
             maxAge = tokenRequest['expires_in'] * 1000
@@ -87,7 +85,7 @@ export const signup = async (request: Request, response: Response, next: NextFun
         const newUser = await new userModel({
             username: request.body.username,
             email: request.body.email,
-            password: await bcrypt.hash(request.body.password, salt)
+            password: await bcrypt.hash(request.body.password, process.env.salt)
         }).save()
     }
 
