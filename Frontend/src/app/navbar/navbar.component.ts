@@ -21,8 +21,12 @@ export class NavbarComponent {
   isShowDropMenu: boolean = false
 
   async ngOnInit() {
-    const request = await client.fetchCurrentUser()
-    this.isLoggedIn = request.id?.length > 0
+    try {
+      const request = await client.fetchCurrentUser()
+      this.isLoggedIn = request.id?.length > 0
+    } catch (error) {
+      this.isLoggedIn = false
+    }
   }
 
   getItems(): String[] {

@@ -3,8 +3,10 @@ import { Request, Response, NextFunction } from 'express'
 import * as Middleware from './middleware'
 
 import userModel from './schemas/User'
+
 const bcrypt = require('bcrypt')
-const saltRounds = 10
+
+const salt = '$2b$10$Ta/74O6FjjVqRx35ullvwO'
 
 const requestToken = async (): Promise<Response> => {
 
@@ -42,7 +44,7 @@ export const validateLogin = async (request: Middleware.CustomRequest, response:
 
     if(!user) user = await userModel.findOne({email: request.body.username})
     if(user) {
-        if(request.body.password == user.password) {
+        if(await bcrypt.hash(request.body.password, salt) == user.password) {
             const tokenRequest = await requestToken()
             token = tokenRequest['access_token']
             maxAge = tokenRequest['expires_in'] * 1000
@@ -52,8 +54,7 @@ export const validateLogin = async (request: Middleware.CustomRequest, response:
                 maxAge: maxAge
             })   
         } else {
-            errors.push('Unable to validate credentials')
-            
+            errors.push('Unable to validate credentials')   
         }
     } else {
         errors.push("Username/Email doesn't exist")
@@ -69,8 +70,6 @@ export const validateLogin = async (request: Middleware.CustomRequest, response:
 export const signup = async (request: Request, response: Response, next: NextFunction) => {
 
     let errors: Array<string> = []
-
-    console.log(request.body)
 
     if(await userModel.findOne({
         username: request.body.username
@@ -88,7 +87,7 @@ export const signup = async (request: Request, response: Response, next: NextFun
         const newUser = await new userModel({
             username: request.body.username,
             email: request.body.email,
-            password: request.body.password
+            password: await bcrypt.hash(request.body.password, salt)
         }).save()
     }
 

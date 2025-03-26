@@ -76,23 +76,13 @@ router.use(Middleware.authenticateRequest)
 app.use("/api", router);
 
 app.get("/", (request: Middleware.CustomRequest, response: Response) => {
-  response.cookie("token", "qq")
   response.send("Express + TypeScript Server");
-  console.log("token cookie:", request.cookies.token )
-  console.log("cookies:", request.cookies)
-  //console.log(request.session)
-  //console.log(request.session)
 });
-
-app.post("/", (request: Middleware.CustomRequest, response: Response) => {
-  response.cookie("qq", "Q_q")
-})
-
-app.post("/current-user", UserController.getCurrentUser)
 
 app.post('/login', UserController.validateLogin)
 app.post('/signup', UserController.signup)
 app.post('/logout', UserController.logout)
+app.post("/current-user", UserController.getCurrentUser)
 
 // Error-handling middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

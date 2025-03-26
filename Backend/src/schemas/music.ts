@@ -45,7 +45,7 @@ const musicSchema = new Schema(
       required: false,
     },
     comment: {
-      type: [String],
+      type: String,
       required: false,
     },
     postedBy: {
