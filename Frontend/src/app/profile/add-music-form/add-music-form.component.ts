@@ -61,6 +61,38 @@ export class AddMusicFormComponent {
     }
   }
 
+  //submit music post form with file - has to handle file uploads with mulitpart/form-data
+  async submitMusic(): Promise<void> {
+    if (this.MusicPostForm.valid && this.selectedTrack) {
+      const formData = new FormData();
+  
+      // Append form fields to FormData - iterate over the form fields and append them to the FormData object
+      const musicData = this.MusicPostForm.value;
+      Object.keys(musicData).forEach((key) => {
+        formData.append(key, musicData[key]);
+      });
+  
+      // Append the selected file to FormData
+      formData.append('file', this.selectedTrack);
+  
+      // Log the FormData contents for debugging
+    console.log('FormData contents:');
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
+  
+      try {
+        // Call the service to handle the submission
+        await this.musicService.addMusic(formData);
+        console.log('Music submitted successfully!');
+      } catch (error) {
+        console.error('Error submitting music:', error);
+      }
+    } else {
+      alert('Please fill out all required fields and select a track file.');
+    }
+  }
+
   // //submit music post form with userId
   // async submitMusic(): Promise<void> {
   //   const musicData = this.MusicPostForm.value;
@@ -69,7 +101,7 @@ export class AddMusicFormComponent {
   //   await this.musicService.addMusic(userId, musicData);
   // }
 
-//  //submit music post form with no userId
+ //submit music post form with no userId
 //  async submitMusic(): Promise<void> {
 //   const musicData = this.MusicPostForm.value;
 //   console.log('Music data:', musicData);
@@ -77,34 +109,35 @@ export class AddMusicFormComponent {
 //   await this.musicService.addMusic(musicData);
 // }
 
-async submitMusic(): Promise<void> {
-  if (this.MusicPostForm.valid && this.selectedTrack) {
-    const formData = new FormData();
+//Form logic for submitting music data with file CAUSING PROBLEMS - not in format backend is expecting
+// async submitMusic(): Promise<void> {
+//   if (this.MusicPostForm.valid && this.selectedTrack) {
+//     const formData = new FormData();
 
-    // Append form fields to FormData
-    formData.append('trackName', this.MusicPostForm.get('trackName')?.value);
-    formData.append('artist', this.MusicPostForm.get('artist')?.value);
-    formData.append('coverArt', this.MusicPostForm.get('coverArt')?.value);
-    formData.append('sourcedFrom', this.MusicPostForm.get('sourcedFrom')?.value);
-    formData.append('genre', this.MusicPostForm.get('genre')?.value);
-    formData.append('availableForSale', this.MusicPostForm.get('availableForSale')?.value);
-    formData.append('price', this.MusicPostForm.get('price')?.value || '');
+//     // Append form fields to FormData
+//     formData.append('trackName', this.MusicPostForm.get('trackName')?.value);
+//     formData.append('artist', this.MusicPostForm.get('artist')?.value);
+//     formData.append('coverArt', this.MusicPostForm.get('coverArt')?.value);
+//     formData.append('sourcedFrom', this.MusicPostForm.get('sourcedFrom')?.value);
+//     formData.append('genre', this.MusicPostForm.get('genre')?.value);
+//     formData.append('availableForSale', this.MusicPostForm.get('availableForSale')?.value);
+//     formData.append('price', this.MusicPostForm.get('price')?.value || '');
 
-    // Append the selected file to FormData
-    formData.append('trackFile', this.selectedTrack);
+//     // Append the selected file to FormData
+//     formData.append('trackFile', this.selectedTrack);
 
-    console.log('Submitting music data with file:', formData);
+//     console.log('Submitting music data with file:', formData);
 
-    try {
-      // Call the service to handle the submission
-      await this.musicService.addMusic(formData);
-      console.log('Music submitted successfully!');
-    } catch (error) {
-      console.error('Error submitting music:', error);
-    }
-  } else {
-    alert('Please fill out all required fields and select a track file.');
-  }
-}
+//     try {
+//       // Call the service to handle the submission
+//       await this.musicService.addMusic(formData);
+//       console.log('Music submitted successfully!');
+//     } catch (error) {
+//       console.error('Error submitting music:', error);
+//     }
+//   } else {
+//     alert('Please fill out all required fields and select a track file.');
+//   }
+// }
 
 };

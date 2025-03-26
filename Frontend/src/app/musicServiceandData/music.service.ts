@@ -165,11 +165,15 @@ export class MusicService {
   async addMusic(musicData: FormData): Promise<void> {
     try {
       console.log('Submitting FormData:', Array.from(musicData.entries())); // Log FormData contents
-      const response = await fetch(`http://localhost:3001/upload/file`, {
+      // const response = await fetch(`${this.url2}/upload/file`, {
+        const response = await fetch(`http://localhost:3001/upload/file`, {
         method: 'POST',
         // Do not set 'Content-Type' header; it will be automatically set by the browser for FormData
         body: musicData,
+        
       });
+
+      console.log(response)
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
