@@ -3,7 +3,6 @@ import { Request, Response, NextFunction } from 'express'
 import * as Middleware from './middleware'
 
 import userModel from './schemas/User'
-
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 
@@ -41,18 +40,8 @@ export const validateLogin = async (request: Middleware.CustomRequest, response:
     let maxAge = 1000 * 60 * 60 * 24
     let user = await userModel.findOne({username: request.body.username})
 
-    let isPasswordValid = true
-
-    const qq = 'Q_q'
-
-    const salt = '$2b$10$x1zQ6QfepZaN42hvICh4u.'
-    const hash = await bcrypt.hash(qq, salt)
-
-    console.log(hash)
-
     if(!user) user = await userModel.findOne({email: request.body.username})
     if(user) {
-
         if(request.body.password == user.password) {
             const tokenRequest = await requestToken()
             token = tokenRequest['access_token']
@@ -64,8 +53,8 @@ export const validateLogin = async (request: Middleware.CustomRequest, response:
             })   
         } else {
             errors.push('Unable to validate credentials')
+            
         }
-
     } else {
         errors.push("Username/Email doesn't exist")
     }
@@ -99,19 +88,8 @@ export const signup = async (request: Request, response: Response, next: NextFun
         const newUser = await new userModel({
             username: request.body.username,
             email: request.body.email,
-            password: (): string => {
-                bcrypt.hash(request.body.password, saltRounds, (error: any, hash: string) => {
-                    if(error) {
-                        console.error(error)
-                        errors.push('Unable to process request')
-                    }
-                    console.log(hash)
-                    return hash
-                })
-                return ''
-            }
-        })
-        await newUser.save()
+            password: request.body.password
+        }).save()
     }
 
     response.status(200).json({
