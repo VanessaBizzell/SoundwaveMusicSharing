@@ -10,6 +10,8 @@ import upload, { saveToGridFS } from './utils/upload';
 import * as Middleware from "./middleware";
 import cookieParser from "cookie-parser";
 import { createMusicPost } from "./musicController";
+import * as UserController from "./userController";
+
 
 // const { auth, requiresAuth } = require('express-openid-connect');
 
@@ -38,7 +40,7 @@ app.use(express.json());
 
 var session = require("express-session");
 app.use(cookieParser());
-app.use(session(Middleware.session));
+// app.use(session(Middleware.session));
 
 // Connect to MongoDB and initialize GridFS bucket
 let bucket: InstanceType<typeof mongoose.mongo.GridFSBucket> | undefined;
