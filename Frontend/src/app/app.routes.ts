@@ -14,6 +14,7 @@ export const routes: Routes = [
     { path: 'profile', component: ProfileComponent },
     { path: 'login', component: LoginPageComponent },
     { path: 'signup', component: SignupPageComponent },
-    { path: 'logout', component: LogoutComponent }
+    { path: 'logout', component: LogoutComponent },
+    //{ path: '**', component: 404Component }
 ]
 

@@ -18,7 +18,7 @@ export class NavbarComponent {
   navbarHeight: number = 80
 
   isLoggedIn: boolean = false
-  isShowDropMenu: boolean = false
+  isShowDropMenu: boolean = true
 
   async ngOnInit() {
     try {

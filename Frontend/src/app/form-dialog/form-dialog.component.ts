@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-dialog',
@@ -17,8 +18,16 @@ export class FormDialogComponent {
 
   @Output() hide = new EventEmitter<boolean>();
 
+  constructor(private router: Router) { }
+
   onHide(): void {
-    console.log("redirect to:", this.redirect)
+    //console.log("redirect to:", this.redirect)
+    if(this.redirect.length > 0) {
+      this.router.navigate([this.redirect])
+      .then(() => {
+        window.location.reload();
+      })
+    }
     this.hide.emit(false);
   }
 
