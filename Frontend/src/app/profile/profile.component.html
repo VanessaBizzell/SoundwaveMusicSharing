@@ -20,27 +20,36 @@
   </section>
 
   <!-- Add Music Post button -->
-  <section name="add music post button" class="absolute right-4 bottom-4">
+  <section name="add music post button" class="absolute left-8 top-36">
     <button
       (click)="onShowAddMusicForm()"
-      class="bg-rose-900 text-white text-xs py-2 px-4 rounded-full shadow hover:bg-rose-700 flex mx-auto"
+      class="bg-rose-900 text-white text-s font-normal py-2 px-4 rounded-full shadow-2xl hover:bg-rose-700 flex mx-auto"
     >
-      Add Music Post
+      Post Music
     </button>
 
     <div
-    *ngIf="onShowAddMusicForm"
-    class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto"
-  >
-    <!-- Background overlay with opacity -->
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-    <!-- Modal content -->
-    <div class="relative pt-5 flex items-center justify-center max-h-screen">
-      <div class="overflow-y-auto max-h-[90vh]">
-        <app-add-music-form></app-add-music-form>
+      *ngIf="MusicFormVisible"
+      class="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto md:"
+    >
+      <!-- Background overlay with opacity -->
+      <div class="absolute inset-0 bg-black opacity-50"></div>
+      <!-- Modal content -->
+      <div class="relative py-5 flex items-center justify-center max-h-screen">
+        <div class="max-h-[90vh]">
+          <button
+            name="close music details button"
+            (click)="MusicFormVisible = false"
+            class="absolute top-8 right-8 font-extrabold text-md text-gray-700 hover:text-rose-700"
+          >
+            ×
+          </button>
+          <app-add-music-form
+            (formSubmitted)="MusicFormVisible = false"
+          ></app-add-music-form>
+        </div>
       </div>
     </div>
-  </div>
 
     <!-- PROBABLY NEEDS TO LOOK DIFFERENT - HAVE A DELETE AND AN UPDATE BUTTON -->
     <!-- Overlay for details component -->

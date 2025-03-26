@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MusicService } from '../../musicServiceandData/music.service';
@@ -32,6 +32,7 @@ import {
 export class AddMusicFormComponent {
   musicService: MusicService = inject(MusicService);
   MusicPostForm: FormGroup;
+  @Output() formSubmitted = new EventEmitter<void>();
 
   constructor(private formBuilder: FormBuilder) {
     this.MusicPostForm = this.formBuilder.group({
@@ -62,6 +63,8 @@ export class AddMusicFormComponent {
   console.log('Music data:', musicData);
   const userId = 'someUserId'; // Replace with actual user ID
   await this.musicService.addMusic(musicData);
+  this.formSubmitted.emit();
+  // this.MusicPostForm.reset();
 }
 
 
