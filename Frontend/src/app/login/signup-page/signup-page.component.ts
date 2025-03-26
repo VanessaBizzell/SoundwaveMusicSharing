@@ -23,6 +23,7 @@ export class SignupPageComponent {
 
   setDialogVisibility($event: boolean) {
     this.isDialogVisible = $event;
+    this.errors = []
   }
 
   setUsername($event: string): void {

@@ -22,7 +22,7 @@ export class NavbarComponent {
 
   async ngOnInit() {
     const request = await client.fetchCurrentUser()
-    this.isLoggedIn = request.id.length > 0
+    this.isLoggedIn = request.id?.length > 0
   }
 
   getItems(): String[] {
