@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginFormInputComponent } from '../components/form-input/login-form-input.component';
 import { LoginFormButtonComponent } from '../components/form-button/login-form-button.component';
-import { FormDialogComponent } from "../form-dialog/form-dialog.component";
+import { FormDialogComponent } from '../../form-dialog/form-dialog.component';
 
 import { client } from './../../client/client'
 
@@ -23,6 +23,7 @@ export class LoginPageComponent {
 
   setDialogVisibility($event: boolean) {
     this.isDialogVisible = $event
+    this.errors = []
   }
 
   setUsername(username: string) {
@@ -40,6 +41,7 @@ export class LoginPageComponent {
     return await fetch('http://localhost:3001/login',
       {
         method: 'POST',
+        credentials: 'include',
         headers: {
           "Content-Type": "application/JSON"
         },
@@ -51,17 +53,10 @@ export class LoginPageComponent {
     )
     .then(response => response.json())
     .then(data => {
-
-      console.log(data)
       
-      if(data.token?.length > 0) localStorage.setItem('token', data.token)
-      //if(data.token?.length > 0) client.token = data.token
-
       this.errors = data.errors
       if(this.errors.length == 0) this.redirect = '/'
       this.isDialogVisible = true
-
-      //Client.token = data.token
       
       return data
   })

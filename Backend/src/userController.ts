@@ -3,6 +3,8 @@ import { Request, Response, NextFunction } from 'express'
 import * as Middleware from './middleware'
 
 import userModel from './schemas/User'
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 
 const requestToken = async (): Promise<Response> => {
 
@@ -35,22 +37,28 @@ export const validateLogin = async (request: Middleware.CustomRequest, response:
 
     let errors: Array<string> = []
     let token = ''
+    let maxAge = 1000 * 60 * 60 * 24
     let user = await userModel.findOne({username: request.body.username})
+
     if(!user) user = await userModel.findOne({email: request.body.username})
     if(user) {
-        if(user.password == request.body.password) {
+        if(request.body.password == user.password) {
             const tokenRequest = await requestToken()
             token = tokenRequest['access_token']
+            maxAge = tokenRequest['expires_in'] * 1000
             await user.updateOne({token: token})
-            console.log(request.cookies)
-            response.cookie('token', token)
+            response.cookie("token", token, {
+                httpOnly: true,
+                maxAge: maxAge
+            })   
         } else {
-            errors.push("Unable to validate those credentials")
+            errors.push('Unable to validate credentials')
+            
         }
     } else {
         errors.push("Username/Email doesn't exist")
     }
-
+   
     response.status(200).json({
         "errors": errors,
         "token": token
@@ -81,11 +89,32 @@ export const signup = async (request: Request, response: Response, next: NextFun
             username: request.body.username,
             email: request.body.email,
             password: request.body.password
-        })
-        await newUser.save()
+        }).save()
     }
 
     response.status(200).json({
         "errors": errors
     })
+}
+
+export const getCurrentUser = async (request: Request, response: Response, next: NextFunction) => {
+
+    let token: string = ''
+    let id: string = ''
+
+    if(request.cookies.token) {
+        token = request.cookies.token
+        const user = await userModel.findOne({token: request.cookies.token})
+        if(user) id = user.id
+    }
+
+    response.status(200).json({
+        token,
+        id
+    })
+} 
+
+export const logout = (request: Request, response: Response, next: NextFunction) => {
+    response.clearCookie('token')
+    response.status(200).json({})
 }

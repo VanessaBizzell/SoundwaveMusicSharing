@@ -7,12 +7,6 @@ export interface CustomRequest extends Request {
     session?: any
 }
 
-export var session = {
-    secret: 'SECRET_GOES_HERE',
-    cookie: { secure: true },
-    token: ''
-}
-
 export const authenticateRequest = auth({
     audience: 'soundwave',
     issuerBaseURL: 'https://dev-ib3bna8dxfvytg5v.us.auth0.com',
