@@ -19,7 +19,6 @@ import {
 import * as UserController from './userController'
  
 // Define the routes
-router.post('/login', UserController.requestToken)
 router.post('/signup', UserController.signup)
 
 // router.post('/music', upload.single("file"), createMusicPost);

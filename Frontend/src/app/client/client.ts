@@ -1,45 +1,31 @@
+interface User {
+    token: string,
+    id: string
+}
+
 class Client {
 
-    static token = ''
-
-    constructor() {
-        this.token = ''
+    async fetchCurrentUser(): Promise<User> {
+        return await fetch('http://localhost:3001/current-user', {
+            method: 'POST',
+            credentials: 'include'
+        })
+        .then(response => response.json() )
+        .then(data => {
+            return data
+        })
+        .catch(error => console.error(error))
     }
 
-    get token(): string { return this.token }
-    set token(token) {
-        this.token = token
-    }
- 
     async fetchAuthenticated(url: string): Promise<Response> {
+        const fetchUser = await this.fetchCurrentUser();
         return await fetch(url, {
             headers: {
-                "authorization": `Bearer ${this.token}`
-              }
+                'authorization': `Bearer ${fetchUser.token}`
+            }
         })
     }
 
-    /*
-  async getResource(): Promise<Response>  {
-    
-    return await fetch('http://localhost:3001/api/page', {
-      headers: {
-        "authorization": `Bearer ${Client.token}`
-      }
-    })
-    .then(response => {
-      console.log(response)
-      console.log(response.status, " ", response.statusText)
-      return response.json()
-  })
-    .then(data => {
-      console.log(data)
-      return data
-  })
-    .catch(error => console.error(error));
-  }
-    */
-
 }
 
-export default Client
+export const client = new Client()

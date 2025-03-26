@@ -55,7 +55,13 @@ mongoose.connection.on("connected", () => {
   }
 });
 
+
 export { bucket };
+
+var session = require('express-session')
+
+app.use(cookieParser('KEY'))
+
 
 async function main() {
   await mongoose.connect(process.env.MONGODB_URL as string);
@@ -96,10 +102,13 @@ router.use((req, res, next) => {
 })
 */
 
-// router.use(Middleware.authenticateRequest)
+
+router.use(Middleware.authenticateRequest)
+
 
 // Use the imported router
 app.use("/api", router);
+
 
 // Endpoint to check if bucket is ready
 app.get("/api/bucket-status", (req: Request, res: Response) => {
@@ -111,45 +120,29 @@ app.get("/api/bucket-status", (req: Request, res: Response) => {
 });
 
 
-
-// Routes for API endpoints
-
-// // Create a new music post with file upload
-// app.post("/upload/file", upload().single("file"), createMusicPost);
-
 // Create a new music post with file upload
 app.post('/upload/file', upload.single('file'), saveToGridFS, createMusicPost);
 
-// // Upload a single file
-// app.post(
-//   "/upload/file",
-//   upload.single("file"),
-//   async (req: Request, res: Response) => {
-//     try {
-//       res.status(201).json({ text: "File uploaded successfully !" });
-//     } catch (error) {
-//       console.log(error);
-//       res.status(400).json({
-//         error: { text: "Unable to upload the file", error },
-//       });
-//     }
-//   }
-// );
 
-app.get("/api/page", (req: Request, res: Response) => {
-  res.status(200).json({ qq: "Q_q" });
-});
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-  // res.send(
-  //req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out'
-  //)
-});
-
-app.get("/abc", (request: Request, response: Response, next: NextFunction) => {
+app.get("/", (request: Middleware.CustomRequest, response: Response) => {
+  response.cookie("token", "qq")
+  response.send("Express + TypeScript Server");
+  console.log("token cookie:", request.cookies.token )
+  console.log("cookies:", request.cookies)
+  //console.log(request.session)
   //console.log(request.session)
 });
+
+app.post("/", (request: Middleware.CustomRequest, response: Response) => {
+  response.cookie("qq", "Q_q")
+})
+
+
+app.post("/current-user", UserController.getCurrentUser)
+
+app.post('/login', UserController.validateLogin)
+app.post('/signup', UserController.signup)
+app.post('/logout', UserController.logout)
 
 // Error-handling middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

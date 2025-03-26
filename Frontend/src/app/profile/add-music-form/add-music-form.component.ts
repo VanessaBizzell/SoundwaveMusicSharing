@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MusicService } from '../../musicServiceandData/music.service';
@@ -36,6 +36,8 @@ export class AddMusicFormComponent {
   musicService: MusicService = inject(MusicService);
   MusicPostForm: FormGroup;
   selectedTrack: File | null = null;
+  @Output() formSubmitted = new EventEmitter<void>();
+
 
   constructor(private formBuilder: FormBuilder) {
     this.MusicPostForm = this.formBuilder.group({
@@ -93,51 +95,12 @@ export class AddMusicFormComponent {
     }
   }
 
-  // //submit music post form with userId
-  // async submitMusic(): Promise<void> {
-  //   const musicData = this.MusicPostForm.value;
-  //   console.log('Music data:', musicData);
-  //   const userId = 'someUserId'; // Replace with actual user ID
-  //   await this.musicService.addMusic(userId, musicData);
-  // }
-
- //submit music post form with no userId
 //  async submitMusic(): Promise<void> {
 //   const musicData = this.MusicPostForm.value;
 //   console.log('Music data:', musicData);
 //   const userId = 'someUserId'; // Replace with actual user ID
 //   await this.musicService.addMusic(musicData);
-// }
-
-//Form logic for submitting music data with file CAUSING PROBLEMS - not in format backend is expecting
-// async submitMusic(): Promise<void> {
-//   if (this.MusicPostForm.valid && this.selectedTrack) {
-//     const formData = new FormData();
-
-//     // Append form fields to FormData
-//     formData.append('trackName', this.MusicPostForm.get('trackName')?.value);
-//     formData.append('artist', this.MusicPostForm.get('artist')?.value);
-//     formData.append('coverArt', this.MusicPostForm.get('coverArt')?.value);
-//     formData.append('sourcedFrom', this.MusicPostForm.get('sourcedFrom')?.value);
-//     formData.append('genre', this.MusicPostForm.get('genre')?.value);
-//     formData.append('availableForSale', this.MusicPostForm.get('availableForSale')?.value);
-//     formData.append('price', this.MusicPostForm.get('price')?.value || '');
-
-//     // Append the selected file to FormData
-//     formData.append('trackFile', this.selectedTrack);
-
-//     console.log('Submitting music data with file:', formData);
-
-//     try {
-//       // Call the service to handle the submission
-//       await this.musicService.addMusic(formData);
-//       console.log('Music submitted successfully!');
-//     } catch (error) {
-//       console.error('Error submitting music:', error);
-//     }
-//   } else {
-//     alert('Please fill out all required fields and select a track file.');
-//   }
-// }
+//   this.formSubmitted.emit();
+//   // this.MusicPostForm.reset();
 
 };

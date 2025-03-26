@@ -3,10 +3,8 @@ import { Request, Response, NextFunction } from "express"
 const axios = require('axios')
 const { auth } = require('express-oauth2-jwt-bearer')
 
-export var session = {
-    secret: 'SECRET_GOES_HERE',
-    cookie: { secure: true },
-    token: ''
+export interface CustomRequest extends Request {
+    session?: any
 }
 
 export const authenticateRequest = auth({
