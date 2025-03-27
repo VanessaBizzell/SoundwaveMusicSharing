@@ -6,11 +6,16 @@
       <mat-label>Track Name</mat-label>
       <input matInput formControlName="trackName">
     </mat-form-field>
-    <mat-form-field class="grow">
-      <mat-label>Track Link</mat-label>
-      <input matInput formControlName="trackLink">
-    </mat-form-field>
-    <mat-form-field class="grow">
+
+    
+    <!-- File Upload Component -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700 mb-1">Upload Track File</label>
+      <app-file-upload (fileSelected)="onFileSelected($event)"></app-file-upload>
+    </div>
+    
+    <mat-form-field>
+
       <mat-label>Cover Art Link</mat-label>
       <input matInput formControlName="coverArt">
     </mat-form-field>

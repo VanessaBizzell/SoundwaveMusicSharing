@@ -21,11 +21,15 @@
         alt="music image"
         class="w-full aspect-square sm:object-contain md:object-cover mix-blend-multiply"
       />
-      <!-- Floating play button over the image -->
+       <!-- Audio player
+       <audio controls class="absolute inset-0 m-auto w-32 h-12">
+        <source src="{{ music?.trackStreamUrl }}" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio> -->
       <audio controls class="absolute inset-0 m-auto w-32 h-12">
         <source
-          *ngIf="music?.trackLink"
-          [src]="music?.trackLink"
+          *ngIf="music?.trackStreamUrl"
+          [src]="music?.trackStreamUrl"
           type="audio/mpeg"
         />
         Your browser does not support the audio element.
@@ -33,7 +37,9 @@
     </div>
   </section>
   <section name="music details" class="">
-    <h3 class="text-xs font-normal text-[#9d0007]">{{ music?.genre | uppercase }}</h3>
+    <h3 class="text-xs font-normal text-[#9d0007]">
+      {{ music?.genre | uppercase }}
+    </h3>
     <div name="likes counter" class="absolute right-8">
       <p class="text-xs font-semibold text-[#9d0007] text-center">21</p>
       <img
@@ -45,18 +51,14 @@
     <h2 class="text-md font-semibold text-[#232330]">{{ music?.trackName }}</h2>
     <p class="text-xs font-normal">by{{ music?.artist }}</p>
   </section>
-  <section name="comments display" class="mt-4 max-h-18 overflow-y-auto ">
+  <section name="comments display" class="mt-4 max-h-18 overflow-y-auto">
     <!-- iterates over comments array and displays the last 3 comments -->
-    <div *ngFor="let comment of music?.comment | slice:0:-3 " class="mb-2">
-    <p class="text-rose-900 text-xs line line-clamp-2">
-      "{{ comment }}"
-    </p>
-  </div>
-  <div *ngFor="let comment of music?.comment | slice:-3" class="mb-2">
-    <p class="text-rose-900 text-xs line-clamp-2">
-      "{{ comment }}"
-    </p>
-  </div>
+    <div *ngFor="let comment of music?.comment | slice : 0 : -3" class="mb-2">
+      <p class="text-rose-900 text-xs line line-clamp-2">"{{ comment }}"</p>
+    </div>
+    <div *ngFor="let comment of music?.comment | slice : -3" class="mb-2">
+      <p class="text-rose-900 text-xs line-clamp-2">"{{ comment }}"</p>
+    </div>
   </section>
 
   <section name="comments form" class="mt-4">

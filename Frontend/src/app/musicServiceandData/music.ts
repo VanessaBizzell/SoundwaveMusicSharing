@@ -1,6 +1,8 @@
 export interface Music {
-    _id: string,               
+    _id?: string, 
+    trackStreamUrl?: string,  //?=optional property            
     trackName: string,
+    trackFile: File,
     trackLink: string,
     artist: string,
     album: string,
