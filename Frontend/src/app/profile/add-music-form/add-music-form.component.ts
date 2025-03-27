@@ -93,6 +93,10 @@ export class AddMusicFormComponent {
     } else {
       alert('Please fill out all required fields and select a track file.');
     }
+      this.formSubmitted.emit();
+      this.MusicPostForm.reset();
+      this.selectedTrack = null;
+
   }
 
 //  async submitMusic(): Promise<void> {
