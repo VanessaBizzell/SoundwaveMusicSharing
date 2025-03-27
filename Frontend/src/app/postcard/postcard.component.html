@@ -20,11 +20,29 @@
         class="w-full aspect-square sm:object-contain md:object-cover mix-blend-multiply"
       />
 
-      <!-- Audio player -->
+      Audio player
       <audio controls class="absolute inset-0 m-auto w-32 h-12">
-        <source src="{{ music.trackLink }}" type="audio/mpeg" />
+        <source src="{{ music.trackStreamUrl }}" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
+
+      <!-- <audio controls class="absolute inset-0 m-auto w-32 h-12">
+        <source [src]="music.trackLink" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio> -->
+
+      <!-- <audio controls class="absolute inset-0 m-auto w-32 h-12">
+        <source
+          *ngIf="music.trackLink"
+          [src]="music.trackLink"
+          type="audio/mpeg"
+        />
+        Your browser does not support the audio element.
+      </audio> -->
+
+
+
+
     </div>
   </section>
 
@@ -36,9 +54,9 @@
     >
       {{ music.trackName }}
     </h2>
-    <h3 class="text-xs text-[#9d0007] uppercase">{{ music.artist }}</h3>
+    <h3 class="text-xs text-[#9d0007] uppercase line-clamp-1">{{ music.artist }}</h3>
     <section name="comments display" class="">
-      <div class="flex justify-between pt-2">
+      <div class="flex justify-between pt-2 pb-4">
         <label for="comment" class="text-xs font-semibold text-[#232330]"
           >Latest comment:</label
         >

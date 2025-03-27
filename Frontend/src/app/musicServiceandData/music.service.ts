@@ -28,6 +28,16 @@ export class MusicService {
       if (!Array.isArray(data.musicPosts)) {
         throw new Error('Data retrieved is not an array!');
       }
+
+          // Transform trackLink to streaming URL for each music post
+    data.musicPosts.forEach((post: any) => {
+      if (post.trackLink) {
+        post.trackStreamUrl = `${this.url2}/api/stream/${post.trackLink}`;
+      } else {
+        console.warn('Missing trackLink for post:', post);
+      }
+    });
+
       return data.musicPosts;
     } catch (error) {
       console.error('An error occurred while fetching all music posts:', error);
@@ -46,12 +56,23 @@ export class MusicService {
       if (!Array.isArray(data.userMusicPosts)) {
         throw new Error('Data retrieved is not an array!');
       }
+
+       // Transform trackLink to streaming URL for each music post
+    data.userMusicPosts.forEach((post: any) => {
+      if (post.trackLink) {
+        post.trackStreamUrl = `${this.url2}/api/stream/${post.trackLink}`;
+      } else {
+        console.warn('Missing trackLink for post:', post);
+      }
+    });
+
       return data.userMusicPosts as Music[];
     } catch (error) {
       console.error(
         `An error occurred while fetching this user's music posts  ${userId}:`,
         error
       );
+
       return [];
     }
   }
@@ -74,7 +95,7 @@ export class MusicService {
       console.log('Original trackLink:', data.musicPost.trackLink);
 
       // Transform trackLink to streaming URL
-      data.musicPost.trackStreamUrl = `${this.url2}/api/stream/${data.musicPost.trackLink}`; // Note the correction here
+      data.musicPost.trackStreamUrl = `${this.url2}/api/stream/${data.musicPost.trackLink}`; 
 
       // Log transformed trackLink
       console.log('Transformed trackLink:', data.musicPost.trackStreamUrl); // Log the new property
