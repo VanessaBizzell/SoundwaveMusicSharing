@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "strict": true,
     "noImplicitAny": false,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": false,
     "skipLibCheck": true,
     "outDir": "./dist",
     "typeRoots": ["./node_modules/@types"]
