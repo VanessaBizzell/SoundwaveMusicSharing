@@ -18,11 +18,15 @@ export class NavbarComponent {
   navbarHeight: number = 80
 
   isLoggedIn: boolean = false
-  isShowDropMenu: boolean = false
+  isShowDropMenu: boolean = true
 
   async ngOnInit() {
-    const request = await client.fetchCurrentUser()
-    this.isLoggedIn = request.id?.length > 0
+    try {
+      const request = await client.fetchCurrentUser()
+      this.isLoggedIn = request.id?.length > 0
+    } catch (error) {
+      this.isLoggedIn = false
+    }
   }
 
   getItems(): String[] {

@@ -1,10 +1,10 @@
 <!-- DESKTOP NAV -->
 <nav
-  class="flex max-sm:justify-start sm:justify-end md:justify-between items-center px-8 bg-[#ffe001] text-[#232330] font-semibold"
+  class="flex justify-between items-center px-8 bg-[#ffe001] text-[#232330] font-semibold"
   [ngStyle]="{ height: navbarHeight + 'px' }"
 >
 <div>
-<button class="hidden md:block pt-4 " (click)="isShowDropMenu = !isShowDropMenu">
+<button class="block pt-4 max-sm:cursor-pointer" (click)="isShowDropMenu = !isShowDropMenu">
     <img
       src="../../assets/images/soundwaveLogo.svg"
       alt="soundwave music sharing logo"
@@ -13,7 +13,7 @@
   </button>
 </div>
 
-  <div>
+  <div class="mr-12">
   <li *ngFor="let item of getItems()" class="max-sm:hidden inline mx-4">
     <a [routerLink]="[item.toLowerCase()]">{{ item }}</a>
   </li>
@@ -24,7 +24,7 @@
 
 <!-- MOBILE NAV -->
 <nav
-  class="sm:hidden inline-block bg-black/90 p-8 text-white w-[80vw] absolute"
+  class="sm:hidden inline-block bg-black/90 p-8 text-white w-[80vw] absolute z-10"
   [ngStyle]="{ height: 'calc(100vh - ' + this.navbarHeight + 'px)' }"
   *ngIf="isShowDropMenu"
 >
