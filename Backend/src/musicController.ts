@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import createError from 'http-errors';
-import MusicPost from './schemas/music';
+import MusicPost from './schemas/Music';
 import User from './schemas/User';
 import { bucket } from './index';
 import mongoose from 'mongoose';
