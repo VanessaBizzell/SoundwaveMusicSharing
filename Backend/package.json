@@ -13,7 +13,9 @@
     "dev": "nodemon src/index.ts"
   },
   "dependencies": {
+    "@types/mongodb": "^4.0.6",
     "@types/mongoose": "^5.11.96",
+    "@types/multer": "^1.4.12",
     "axios": "^1.8.3",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
@@ -23,12 +25,18 @@
     "express-oauth2-jwt-bearer": "^1.6.0",
     "express-openid-connect": "^0.5.0",
     "express-session": "^1.18.1",
+    "gridfs-stream": "^1.1.1",
     "http-errors": "^2.0.0",
-    "mongoose": "^8.12.1"
+    "mongodb": "^6.15.0",
+    "mongoose": "^8.13.0",
+    "multer": "^1.4.5-lts.1",
+    "multer-gridfs-storage": "^3.3.0"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.13.13",
     "concurrently": "^9.1.2",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2"
