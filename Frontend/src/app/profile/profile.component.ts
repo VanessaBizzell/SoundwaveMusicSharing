@@ -8,6 +8,8 @@ import { PostcardDetailsComponent } from '../postcardDetails/postcardDetails.com
 import { MusicService } from '../musicServiceandData/music.service';
 import { Music } from '../musicServiceandData/music';
 
+import { client } from '../client/client';
+
 @Component({
   selector: 'app-profile',
   imports: [CommonModule, RouterModule, AddMusicFormComponent, PostcardComponent, PostcardDetailsComponent],
@@ -24,10 +26,13 @@ export class ProfileComponent {
   //inject music service
   musicService: MusicService = inject(MusicService);
 
-  constructor() {
+  async ngOnInit() {
      //call the getUserMusic method from the music service
+
+    const user = await client.fetchCurrentUser()
+
     this.musicService
-    .getUserMusic('userId') // replace 'userId' with the actual user ID - how do we get the user ID?
+    .getUserMusic(user?.id) // replace 'userId' with the actual user ID - how do we get the user ID?
     .then((userMusic) => {
       if (Array.isArray(userMusic)) {
         this.userMusic = userMusic;

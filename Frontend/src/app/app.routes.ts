@@ -17,4 +17,3 @@ export const routes: Routes = [
     { path: 'logout', component: LogoutComponent },
     //{ path: '**', component: 404Component }
 ]
-

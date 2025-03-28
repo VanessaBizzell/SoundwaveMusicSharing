@@ -57,8 +57,8 @@ export class SignupPageComponent {
   }
 
   signup = async (): Promise<Response> => {
-    // return await fetch('http://localhost:3001/signup', {
-    return await fetch('https://soundwave-lewe.onrender.com/signup', {
+    return await fetch('http://localhost:3001/signup', {
+    // return await fetch('https://soundwave-lewe.onrender.com/signup', {
       method: 'POST',
       headers: {
         "Content-type": "application/json"

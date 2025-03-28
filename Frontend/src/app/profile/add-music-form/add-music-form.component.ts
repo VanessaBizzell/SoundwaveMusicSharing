@@ -98,13 +98,5 @@ export class AddMusicFormComponent {
       this.selectedTrack = null;
 
   }
-
-//  async submitMusic(): Promise<void> {
-//   const musicData = this.MusicPostForm.value;
-//   console.log('Music data:', musicData);
-//   const userId = 'someUserId'; // Replace with actual user ID
-//   await this.musicService.addMusic(musicData);
-//   this.formSubmitted.emit();
-//   // this.MusicPostForm.reset();
-
+  
 };
