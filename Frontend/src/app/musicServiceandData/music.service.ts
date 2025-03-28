@@ -51,7 +51,7 @@ export class MusicService {
 
   async getUserMusic(userId: string): Promise<Music[]> {
     try {
-      const response = await fetch(`${this.url}/${userId}`);
+      const response = await client.fetchAuthenticated(`${this.url}/user/${userId}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -157,27 +157,6 @@ export class MusicService {
   //   }
   // }
 
-  // //function to add music to the API (via a POST request) NO USER ID
-  // async addMusic(musicData:any): Promise<void> {
-  //   try {
-  //     const response = await fetch(`${this.url}/`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         // "authorization": `Bearer ${localStorage?.getItem('token')}`
-  //       },
-  //       body: JSON.stringify(musicData)
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! status: ${response.status}`);
-  //     }
-  //     const data = await response.json();
-  //     console.log('Music added:', data);
-  //   }
-  //   catch (error) {
-  //     console.error('An error occurred while adding music:', error);
-  //   }
-  // }
 
   //function to add music to the API (via a POST request)USES FORM DATA INCL FILE UPLOAD
   async addMusic(musicData: FormData): Promise<void> {

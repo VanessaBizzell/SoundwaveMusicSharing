@@ -161,151 +161,11 @@ const streamAudioFile = async (req: Request, res: Response, next: NextFunction) 
 
 
 
-// // Create a new music post with file upload
-// const createMusicPost = async (req: Request, res: Response, next: NextFunction) => {
-//     try {
-//         // Log the incoming file and body for debugging
-//         console.log("createMusicPost endpoint hit");
-//         console.log("File:", req.file);
-//         console.log("Body:", req.body);
-
-//         // req.file contains the uploaded file info after the upload.single("file") middleware runs
-//         if (!req.file) {
-//             res.status(400).json({ message: 'No track file uploaded' });
-//             return;
-//         }
-
-//         const {
-//             trackName,
-//             artist,
-//             album,
-//             recordedDate,
-//             coverArt,
-//             sourcedFrom,
-//             genre,
-//             availableForSale,
-//             price,
-//             comment,
-//             userID
-//         } = req.body;
-
-//         // Use the file ID as the trackLink
-//         const trackLink = req.file.filename ? req.file.filename.toString() : null;
-       
-
-//         const newMusicPost = await MusicPost.create({
-//             trackName,
-//             trackLink, // This will now be the GridFS file ID
-//             artist,
-//             album,
-//             recordedDate,
-//             coverArt,
-//             sourcedFrom,
-//             genre,
-//             availableForSale,
-//             price,
-//             comment: comment || [], // Initialize empty array for comments if not provided
-//             postedBy: userID
-//         });
-
-//         const user = await User.findById(userID);
-//         if (user) {
-//             user.musicPosts = user.musicPosts || [];
-//             user.musicPosts.push(newMusicPost._id);
-//             await user.save();
-//         }
-
-//         res.status(201).json({ message: "Music Posted!", post: newMusicPost });
-//     } catch (error) {
-//         if (error instanceof Error) {
-//             next(createError(400, error.message));
-//         } else {
-//             next(createError(400, 'Music post could not be saved'));
-//         }
-//     }
-// };
 
 
 
-// // Stream an audio file from GridFS
-// const streamAudioFile = async (req: Request, res: Response, next: NextFunction) => {
-//     try {
-//         const { fileId } = req.params;
 
-//         if (!bucket) {
-//             return res.status(500).json({ error: { text: "GridFSBucket is not initialized" } });
-//         }
 
-//         // Check if file exists
-//         const file = await bucket.find({ _id: new mongoose.Types.ObjectId(fileId) }).toArray();
-//         if (file.length === 0) {
-//             return res.status(404).json({ error: { text: "File not found" } });
-//         }
-
-//         // Set the headers
-//         res.set("Content-Type", file[0].metadata?.contentType || "application/octet-stream");
-//         res.set("Content-Disposition", `inline; filename=${file[0].filename}`);
-
-//         // Create a stream to read from the bucket
-//         const downloadStream = bucket.openDownloadStream(new mongoose.Types.ObjectId(fileId));
-
-//         // Pipe the stream to the response
-//         downloadStream.pipe(res);
-//     } catch (error) {
-//         console.log(error);
-//         res.status(400).json({ error: { text: `Unable to stream file`, error } });
-//     }
-// };
-
-// // Create a new music post
-// const createMusicPost = async (req: Request, res: Response, next: NextFunction) => {
-//     try {
-//         const {
-//             trackName,
-//             trackLink,
-//             artist,
-//             album,
-//             recordedDate,
-//             coverArt,
-//             sourcedFrom,
-//             genre,
-//             availableForSale,
-//             price,
-//             comment,
-//             userID
-//         } = req.body;
-
-//         const newMusicPost = await MusicPost.create({
-//             trackName,
-//             trackLink,
-//             artist,
-//             album,
-//             recordedDate,
-//             coverArt,
-//             sourcedFrom,
-//             genre,
-//             availableForSale,
-//             price,
-//             comment: comment || [], // Initialize empty array for comments if not provided
-//             postedBy: userID
-//         });
-
-//         const user = await User.findById(userID);
-//         if (user) {
-//             user.musicPosts = user.musicPosts || [];
-//             user.musicPosts.push(newMusicPost._id);
-//             await user.save();
-//         }
-
-//         res.status(201).json({ message: "Music Posted!", post: newMusicPost });
-//     } catch (error) {
-//         if (error instanceof Error) {
-//             next(createError(400, error.message));
-//         } else {
-//             next(createError(400, 'Music post could not be saved'));
-//         }
-//     }
-// };
 
 
 
@@ -343,6 +203,19 @@ const getMusicPostByID = async (req: Request, res: Response, next: NextFunction)
     }
 };
 
+const getUserMusic = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const musicPost = await MusicPost.findById(req.params.userId);
+        if (!musicPost) {
+            res.status(404).json({ message: "User's music not found" });
+            return;
+        }
+        res.status(200).json({ musicPost });
+    } catch (error) {
+        next(createError(400, "User's music could not be retrieved"));
+    }
+};
+
 const submitComment = async (req: Request, res: Response, next: NextFunction) => {
     try { 
         const { comment } = req.body;
@@ -365,4 +238,4 @@ const submitComment = async (req: Request, res: Response, next: NextFunction) =>
     }
 };
 
-export { getMusicPosts, getMusicPostByID, submitComment, createMusicPost, streamAudioFile };
+export { getMusicPosts, getMusicPostByID, submitComment, createMusicPost, streamAudioFile, getUserMusic };
