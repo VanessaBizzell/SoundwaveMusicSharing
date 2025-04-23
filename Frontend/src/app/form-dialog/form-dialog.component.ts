@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-form-dialog',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './form-dialog.component.html',
-  styleUrl: './form-dialog.component.css'
+  styleUrls: ['./form-dialog.component.css'],
 })
 export class FormDialogComponent {
 

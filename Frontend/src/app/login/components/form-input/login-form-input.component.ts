@@ -3,9 +3,10 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login-form-input',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './login-form-input.component.html',
-  styleUrl: './login-form-input.component.css'
+  styleUrls: ['./login-form-input.component.css'],
 })
 
 export class LoginFormInputComponent implements OnInit {

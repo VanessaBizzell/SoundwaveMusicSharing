@@ -18,7 +18,7 @@ import {
   standalone: true,
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
   templateUrl: './postcardDetails.component.html',
-  styleUrl: './postcardDetails.component.css',
+  styleUrls: ['./postcardDetails.component.css'],
 })
 
 // do we want to add username or are comments anonymous?

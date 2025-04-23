@@ -8,9 +8,10 @@ import { PostcardDetailsComponent } from '../postcardDetails/postcardDetails.com
 
 @Component({
   selector: 'app-feed',
+  standalone: true,
   imports: [RouterModule, CommonModule, PostcardComponent, PostcardDetailsComponent],
   templateUrl: './feed.component.html',
-  styleUrl: './feed.component.css',
+  styleUrls: ['./feed.component.css'],
 })
 export class FeedComponent {
   //music array from music interface which is where the music data properties are defined

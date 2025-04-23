@@ -12,9 +12,10 @@ import { client } from '../client/client';
 
 @Component({
   selector: 'app-profile',
+  standalone: true,
   imports: [CommonModule, RouterModule, AddMusicFormComponent, PostcardComponent, PostcardDetailsComponent],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent {
   //user's music array - do we need a seperate array for user's music? 
