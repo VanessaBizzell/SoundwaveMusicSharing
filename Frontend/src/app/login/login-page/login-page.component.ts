@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { LoginFormInputComponent } from '../components/form-input/login-form-input.component';
 import { LoginFormButtonComponent } from '../components/form-button/login-form-button.component';
 import { FormDialogComponent } from '../../form-dialog/form-dialog.component';
@@ -9,7 +10,7 @@ import { client } from './../../client/client'
   selector: 'app-login-page',
   imports: [LoginFormInputComponent, LoginFormButtonComponent, FormDialogComponent],
   templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.css'
+  styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent {
 
@@ -26,6 +27,9 @@ export class LoginPageComponent {
     ? 'http://localhost:3001'
     : 'https://soundwave-lewe.onrender.com';
 
+    // Inject the PLATFORM_ID to check if the app is running on the server or client
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   setDialogVisibility($event: boolean) {
     this.isDialogVisible = $event
     this.errors = []
@@ -39,11 +43,11 @@ export class LoginPageComponent {
     this.password = password;
   }
 
-  async login(event: Event): Promise<Response> {
-
+  async login(event: Event): Promise<Response | void> {
     event.preventDefault();
     
-
+    // Check if the app is running in the browser before making the fetch request
+    if (isPlatformBrowser(this.platformId)) {
     return await fetch (`${this.baseUrl}/login`, 
     //('http://localhost:3001/login',
     // return await fetch('https://soundwave-lewe.onrender.com/login',
@@ -70,5 +74,5 @@ export class LoginPageComponent {
   })
     .catch(error => console.error(error))
   }
-
+  }
 }
