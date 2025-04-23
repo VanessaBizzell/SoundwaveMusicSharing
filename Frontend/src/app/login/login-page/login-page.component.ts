@@ -21,6 +21,11 @@ export class LoginPageComponent {
 
   isDialogVisible: boolean = false
 
+    // Dynamically set the base URL based on the environment
+    private baseUrl: string = window.location.hostname === 'localhost'
+    ? 'http://localhost:3001'
+    : 'https://soundwave-lewe.onrender.com';
+
   setDialogVisibility($event: boolean) {
     this.isDialogVisible = $event
     this.errors = []
@@ -39,7 +44,8 @@ export class LoginPageComponent {
     event.preventDefault();
     
 
-    return await fetch('http://localhost:3001/login',
+    return await fetch (`${this.baseUrl}/login`, 
+    //('http://localhost:3001/login',
     // return await fetch('https://soundwave-lewe.onrender.com/login',
       {
         method: 'POST',

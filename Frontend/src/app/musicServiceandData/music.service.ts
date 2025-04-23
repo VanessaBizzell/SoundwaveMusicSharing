@@ -10,9 +10,17 @@ export class MusicService {
   // to use musicDB.json API (remember to start json server first: json-server --watch musicDB.json)
   // url = 'http://localhost:3000/music';
 
-  // to use musicAPI locally (remember to start backend server first: npm run dev)
-  url = 'http://localhost:3001/api/music';
-  url2 = 'http://localhost:3001';
+    // Dynamically set the base URL based on the environment
+    private baseUrl: string = window.location.hostname === 'localhost'
+    ? 'http://localhost:3001'
+    : 'https://soundwave-lewe.onrender.com';
+
+    url = `${this.baseUrl}/api/music`;
+    url2 = `${this.baseUrl}`;
+
+  // // to use musicAPI locally (remember to start backend server first: npm run dev)
+  // url = 'http://localhost:3001/api/music';
+  // url2 = 'http://localhost:3001';
 
   // //deployment
   // url = 'https://soundwave-lewe.onrender.com';
