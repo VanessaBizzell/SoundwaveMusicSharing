@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { FormDialogComponent } from '../form-dialog/form-dialog.component';
 
 @Component({
@@ -15,12 +16,25 @@ export class LogoutComponent implements OnInit {
       ? 'http://localhost:3001'
       : 'https://soundwave-lewe.onrender.com';
 
+      constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   async ngOnInit() {
-    await fetch (`${this.baseUrl}/logout`,
-    //('http://localhost:3001/logout', 
-    {
-      method: 'POST',
-      credentials: 'include',
-    }).catch((error) => console.error(error));
+    if (isPlatformBrowser(this.platformId)) {
+      // Only execute this code in the browser
+      await fetch(`${this.baseUrl}/logout`, {
+        method: 'POST',
+        credentials: 'include',
+      }).catch((error) => console.error(error));
+    }
   }
 }
+
+//   async ngOnInit() {
+//     await fetch (`${this.baseUrl}/logout`,
+//     //('http://localhost:3001/logout', 
+//     {
+//       method: 'POST',
+//       credentials: 'include',
+//     }).catch((error) => console.error(error));
+//   }
+// }
