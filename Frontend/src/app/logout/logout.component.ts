@@ -19,8 +19,11 @@ export class LogoutComponent implements OnInit {
       constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   async ngOnInit() {
+    // Check if the app is running in the browser before making the fetch request
+    // This is important because fetch is not available on the server side
+    // and we want to avoid making unnecessary requests
+    // to the server when rendering on the server side
     if (isPlatformBrowser(this.platformId)) {
-      // Only execute this code in the browser
       await fetch(`${this.baseUrl}/logout`, {
         method: 'POST',
         credentials: 'include',

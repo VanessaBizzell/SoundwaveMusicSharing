@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { LoginFormInputComponent } from '../components/form-input/login-form-input.component';
 import { LoginFormButtonComponent } from '../components/form-button/login-form-button.component';
 import { FormDialogComponent } from '../../form-dialog/form-dialog.component';
@@ -29,6 +30,8 @@ export class SignupPageComponent {
     window.location.hostname === 'localhost'
       ? 'http://localhost:3001'
       : 'https://soundwave-lewe.onrender.com';
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   setDialogVisibility($event: boolean) {
     this.isDialogVisible = $event;
@@ -68,7 +71,9 @@ export class SignupPageComponent {
     }
   };
 
-  signup = async (): Promise<Response> => {
+  signup = async (): Promise<Response | void> => {
+    // Check if the app is running in the browser before making the fetch request
+    if (isPlatformBrowser(this.platformId)) {
     return await fetch (`${this.baseUrl}/signup`,
     //('http://localhost:3001/signup', {
       // return await fetch('https://soundwave-lewe.onrender.com/signup', {
@@ -94,4 +99,5 @@ export class SignupPageComponent {
       })
       .catch((error) => console.error(error));
   };
+}
 }
