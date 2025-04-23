@@ -3,9 +3,10 @@ import { FormDialogComponent } from '../form-dialog/form-dialog.component';
 
 @Component({
   selector: 'app-logout',
+  standalone: true,
   imports: [FormDialogComponent],
   templateUrl: './logout.component.html',
-  styleUrl: './logout.component.css'
+  styleUrls: ['./logout.component.css'],
 })
 
 export class LogoutComponent implements OnInit {

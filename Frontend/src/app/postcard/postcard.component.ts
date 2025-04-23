@@ -18,7 +18,7 @@ import {
   standalone: true,
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
   templateUrl: './postcard.component.html',
-  styleUrl: './postcard.component.css',
+  styleUrls: ['./postcard.component.css'],
 })
 
 export class PostcardComponent{

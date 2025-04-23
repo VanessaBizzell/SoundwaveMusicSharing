@@ -15,5 +15,6 @@ export const routes: Routes = [
     { path: 'login', component: LoginPageComponent },
     { path: 'signup', component: SignupPageComponent },
     { path: 'logout', component: LogoutComponent },
-    //{ path: '**', component: 404Component }
+    { path: '**', redirectTo: '' } // Redirect to home
+    // { path: '**', component: 404Component }
 ]
