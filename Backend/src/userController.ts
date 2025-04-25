@@ -42,7 +42,8 @@ export const validateLogin = async (request: Middleware.CustomRequest, response:
 
     if(!user) user = await userModel.findOne({email: request.body.username})
     if(user) {
-        if(await bcrypt.hash(request.body.password, process.env.salt) == user.password) {
+        //compares the password entered with the hashed password in the database
+        if(await bcrypt.compare(request.body.password, user.password)) {
             const tokenRequest = await requestToken()
             token = tokenRequest['access_token']
             maxAge = tokenRequest['expires_in'] * 1000
