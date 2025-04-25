@@ -47,7 +47,10 @@ export const validateLogin = async (request: Middleware.CustomRequest, response:
             const tokenRequest = await requestToken()
             token = tokenRequest['access_token']
             maxAge = tokenRequest['expires_in'] * 1000
+            console.log('Generated Token:', token)
             await user.updateOne({token: token})
+            console.log('Updated User with token:', user)
+      
             response.cookie("token", token, {
                 httpOnly: true,
                 maxAge: maxAge
@@ -141,22 +144,50 @@ export const signup = async (request: Request, response: Response, next: NextFun
 //     })
 // }
 
+
 export const getCurrentUser = async (request: Request, response: Response, next: NextFunction) => {
+    let token: string = '';
+    let id: string = '';
 
-    let token: string = ''
-    let id: string = ''
+    console.log('Cookies:', request.cookies); // Log cookies
 
-    if(request.cookies.token) {
-        token = request.cookies.token
-        const user = await userModel.findOne({token: request.cookies.token})
-        if(user) id = user.id
+    if (request.cookies.token) {
+        token = request.cookies.token;
+        console.log('Token from cookie:', token); // Log token from cookie
+
+        const user = await userModel.findOne({ token: request.cookies.token });
+        console.log('User found:', user); // Log user retrieved from database
+
+        if (user) {
+            id = user.id;
+    } else {
+        console.error('Nouser found with the provided token');
+    }
+    } else {
+        console.error('No token found in cookies');
     }
 
     response.status(200).json({
         token,
-        id
-    })
-} 
+        id,
+    });
+};
+// export const getCurrentUser = async (request: Request, response: Response, next: NextFunction) => {
+
+//     let token: string = ''
+//     let id: string = ''
+
+//     if(request.cookies.token) {
+//         token = request.cookies.token
+//         const user = await userModel.findOne({token: request.cookies.token})
+//         if(user) id = user.id
+//     }
+
+//     response.status(200).json({
+//         token,
+//         id
+//     })
+// } 
 
 export const logout = (request: Request, response: Response, next: NextFunction) => {
     response.clearCookie('token')
