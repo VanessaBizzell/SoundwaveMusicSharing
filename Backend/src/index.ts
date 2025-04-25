@@ -40,21 +40,23 @@ app.use(cors(corsOptions));
 // //enable CORS with the above options
 // app.use(cors(corsOptions));
 
-// // //Enable All CORS Requests
-// // app.use(
-// //   cors({
-// //     origin: ["http://localhost:4200", "https://soundwave-music-sharing.vercel.app"],
-// //     // optionSuccessStatus: 200, //to avoid issues with legacy browsers,
-// //     credentials: true,
-// //   })
-// // );
 
-// // Middleware to parse JSON bodies
-// app.use(express.json());
+// //Enable All CORS Requests
+// app.use(
+//   cors({
+//     origin: ["http://localhost:4200", "https://soundwave-music-sharing.vercel.app"],
+//     // optionSuccessStatus: 200, //to avoid issues with legacy browsers,
+//     credentials: true,
+//   })
+// );
 
-// var session = require("express-session");
-// app.use(cookieParser());
-// // app.use(session(Middleware.session));
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+var session = require("express-session");
+app.use(cookieParser());
+// app.use(session(Middleware.session));
+
 
 // Connect to MongoDB and initialize GridFS bucket
 let bucket: InstanceType<typeof mongoose.mongo.GridFSBucket> | undefined;
