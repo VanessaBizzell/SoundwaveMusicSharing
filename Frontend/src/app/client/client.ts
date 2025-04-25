@@ -27,6 +27,7 @@ class Client {
 
     async fetchAuthenticated(url: string): Promise<Response> {
         const fetchUser = await this.fetchCurrentUser();
+        console.log('Token:', fetchUser.token);
         return await fetch(url, {
             headers: {
                 'authorization': `Bearer ${fetchUser.token}`
