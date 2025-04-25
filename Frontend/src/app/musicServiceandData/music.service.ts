@@ -13,7 +13,7 @@ export class MusicService {
     // Dynamically set the base URL based on the environment
     private baseUrl: string = window.location.hostname === 'localhost'
     ? 'http://localhost:3001'
-    : 'https://soundwave-lewe.onrender.com';
+    : 'https://soundwavemusicsharing.onrender.com';
 
     url = `${this.baseUrl}/api/music`;
     url2 = `${this.baseUrl}`;
@@ -171,7 +171,7 @@ export class MusicService {
     try {
       console.log('Submitting FormData:', Array.from(musicData.entries())); // Log FormData contents
       // const response = await fetch(`${this.url2}/upload/file`, {
-        const response = await fetch(`http://localhost:3001/upload/file`, {
+        const response = await fetch(`${this.url2}/upload/file`, {
         method: 'POST',
         // Do not set 'Content-Type' header; it will be automatically set by the browser for FormData
         body: musicData,

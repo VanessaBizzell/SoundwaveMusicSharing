@@ -14,7 +14,7 @@ export class LogoutComponent implements OnInit {
   private baseUrl: string =
     window.location.hostname === 'localhost'
       ? 'http://localhost:3001'
-      : 'https://soundwave-lewe.onrender.com';
+      : 'https://soundwavemusicsharing.onrender.com';
 
       constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
