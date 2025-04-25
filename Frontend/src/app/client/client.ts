@@ -9,8 +9,8 @@ class Client {
     
     constructor() {
         this.backendUrl = window.location.hostname === 'localhost'
-        ? 'https://soundwavemusicsharing.onrender.com'
-        : 'http://localhost:3001';
+        ? 'https://localhost:3001'
+        : 'https://soundwavemusicsharing.onrender.com';
 }
     
     async fetchCurrentUser(): Promise<User> {
