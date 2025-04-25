@@ -25,7 +25,7 @@ export class LoginPageComponent {
     // Dynamically set the base URL based on the environment
     private baseUrl: string = window.location.hostname === 'localhost'
     ? 'http://localhost:3001'
-    : 'https://soundwave-lewe.onrender.com';
+    : 'https://soundwavemusicsharing.onrender.com';
 
     // Inject the PLATFORM_ID to check if the app is running on the server or client
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}

@@ -5,8 +5,16 @@ interface User {
 
 class Client {
 
+    private backendUrl: string;
+    
+    constructor() {
+        this.backendUrl = window.location.hostname === 'localhost'
+        ? 'https://soundwavemusicsharing.onrender.com'
+        : 'http://localhost:3001';
+}
+    
     async fetchCurrentUser(): Promise<User> {
-        return await fetch('http://localhost:3001/current-user', {
+        return await fetch(`${this.backendUrl}/current-user`, {
             method: 'POST',
             credentials: 'include'
         })
