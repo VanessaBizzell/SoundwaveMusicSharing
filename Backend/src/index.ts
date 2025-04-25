@@ -40,6 +40,7 @@ app.use(cors(corsOptions));
 // //enable CORS with the above options
 // app.use(cors(corsOptions));
 
+
 // //Enable All CORS Requests
 // app.use(
 //   cors({
@@ -55,6 +56,7 @@ app.use(express.json());
 var session = require("express-session");
 app.use(cookieParser());
 // app.use(session(Middleware.session));
+
 
 // Connect to MongoDB and initialize GridFS bucket
 let bucket: InstanceType<typeof mongoose.mongo.GridFSBucket> | undefined;
