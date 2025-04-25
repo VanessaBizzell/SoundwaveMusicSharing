@@ -20,13 +20,25 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
 
-//Enables CORS for a specific origin
+// Fix CORS configuration
 const corsOptions = {
   origin: ["http://localhost:4200", "https://soundwave-music-sharing.vercel.app"],
-  optionSuccessStatus: 200, //to avoid issues with legacy browsers,
+  optionsSuccessStatus: 200, // corrected spelling (added 's')
+  credentials: true, // important for auth cookies/headers
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"]
 };
-//enable CORS with the above options
+
+// Apply the fixed CORS options
 app.use(cors(corsOptions));
+
+// //Enables CORS for a specific origin
+// const corsOptions = {
+//   origin: ["http://localhost:4200", "https://soundwave-music-sharing.vercel.app"],
+//   optionSuccessStatus: 200, //to avoid issues with legacy browsers,
+// };
+// //enable CORS with the above options
+// app.use(cors(corsOptions));
 
 // //Enable All CORS Requests
 // app.use(
