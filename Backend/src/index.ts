@@ -22,18 +22,20 @@ const port = process.env.PORT || 3001;
 
 //Enables CORS for a specific origin
 const corsOptions = {
-  origin: "http://localhost:4200",
+  origin: ["http://localhost:4200", "https://soundwave-music-sharing.vercel.app"],
   optionSuccessStatus: 200, //to avoid issues with legacy browsers,
 };
+//enable CORS with the above options
+app.use(cors(corsOptions));
 
-//Enable All CORS Requests
-app.use(
-  cors({
-    origin: "http://localhost:4200",
-    // optionSuccessStatus: 200, //to avoid issues with legacy browsers,
-    credentials: true,
-  })
-);
+// //Enable All CORS Requests
+// app.use(
+//   cors({
+//     origin: ["http://localhost:4200", "https://soundwave-music-sharing.vercel.app"],
+//     // optionSuccessStatus: 200, //to avoid issues with legacy browsers,
+//     credentials: true,
+//   })
+// );
 
 // Middleware to parse JSON bodies
 app.use(express.json());
