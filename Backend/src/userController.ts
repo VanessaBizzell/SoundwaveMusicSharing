@@ -67,33 +67,79 @@ export const validateLogin = async (request: Middleware.CustomRequest, response:
 }
 
 export const signup = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+        let errors: Array<string> = []
 
-    let errors: Array<string> = []
+        if(await userModel.findOne({
+            username: request.body.username
+        }) !== null) {
+            errors.push('Username already exists')
+        }
 
-    if(await userModel.findOne({
-        username: request.body.username
-    }) !== null) {
-        errors.push('Username already exists')
+        if(await userModel.findOne({
+            email: request.body.email
+        }) !== null) {
+            errors.push('Email is already registered')
+        }
+
+        if(errors.length === 0) {
+            // Define saltRounds as a number
+            const saltRounds = 10;
+            
+            // Make sure password exists before hashing
+            if (!request.body.password) {
+                errors.push('Password is required');
+            } else {
+                const hashedPassword = await bcrypt.hash(request.body.password, saltRounds);
+                
+                const newUser = await new userModel({
+                    username: request.body.username,
+                    email: request.body.email,
+                    password: hashedPassword
+                }).save()
+            }
+        }
+
+        response.status(200).json({
+            "errors": errors
+        })
+    } catch (error) {
+        console.error('Signup error:', error);
+        response.status(500).json({ 
+            error: 'Signup failed', 
+            details: error instanceof Error ? error.message : 'Unknown error' 
+        });
     }
-
-    if(await userModel.findOne({
-        email: request.body.email
-    }) !== null) {
-        errors.push('Email is already registered')
-    }
-
-    if(errors.length === 0) {
-        const newUser = await new userModel({
-            username: request.body.username,
-            email: request.body.email,
-            password: await bcrypt.hash(request.body.password, process.env.salt)
-        }).save()
-    }
-
-    response.status(200).json({
-        "errors": errors
-    })
 }
+
+// export const signup = async (request: Request, response: Response, next: NextFunction) => {
+
+//     let errors: Array<string> = []
+
+//     if(await userModel.findOne({
+//         username: request.body.username
+//     }) !== null) {
+//         errors.push('Username already exists')
+//     }
+
+//     if(await userModel.findOne({
+//         email: request.body.email
+//     }) !== null) {
+//         errors.push('Email is already registered')
+//     }
+
+//     if(errors.length === 0) {
+//         const newUser = await new userModel({
+//             username: request.body.username,
+//             email: request.body.email,
+//             password: await bcrypt.hash(request.body.password, process.env.salt)
+//         }).save()
+//     }
+
+//     response.status(200).json({
+//         "errors": errors
+//     })
+// }
 
 export const getCurrentUser = async (request: Request, response: Response, next: NextFunction) => {
 
