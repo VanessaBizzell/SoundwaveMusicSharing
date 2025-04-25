@@ -20,29 +20,41 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
 
-//Enables CORS for a specific origin
+// Fix CORS configuration
 const corsOptions = {
   origin: ["http://localhost:4200", "https://soundwave-music-sharing.vercel.app"],
-  optionSuccessStatus: 200, //to avoid issues with legacy browsers,
+  optionsSuccessStatus: 200, // corrected spelling (added 's')
+  credentials: true, // important for auth cookies/headers
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"]
 };
-//enable CORS with the above options
+
+// Apply the fixed CORS options
 app.use(cors(corsOptions));
 
-// //Enable All CORS Requests
-// app.use(
-//   cors({
-//     origin: ["http://localhost:4200", "https://soundwave-music-sharing.vercel.app"],
-//     // optionSuccessStatus: 200, //to avoid issues with legacy browsers,
-//     credentials: true,
-//   })
-// );
+// //Enables CORS for a specific origin
+// const corsOptions = {
+//   origin: ["http://localhost:4200", "https://soundwave-music-sharing.vercel.app"],
+//   optionSuccessStatus: 200, //to avoid issues with legacy browsers,
+// };
+// //enable CORS with the above options
+// app.use(cors(corsOptions));
 
-// Middleware to parse JSON bodies
-app.use(express.json());
+// // //Enable All CORS Requests
+// // app.use(
+// //   cors({
+// //     origin: ["http://localhost:4200", "https://soundwave-music-sharing.vercel.app"],
+// //     // optionSuccessStatus: 200, //to avoid issues with legacy browsers,
+// //     credentials: true,
+// //   })
+// // );
 
-var session = require("express-session");
-app.use(cookieParser());
-// app.use(session(Middleware.session));
+// // Middleware to parse JSON bodies
+// app.use(express.json());
+
+// var session = require("express-session");
+// app.use(cookieParser());
+// // app.use(session(Middleware.session));
 
 // Connect to MongoDB and initialize GridFS bucket
 let bucket: InstanceType<typeof mongoose.mongo.GridFSBucket> | undefined;
